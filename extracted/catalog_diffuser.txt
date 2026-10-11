@@ -1,0 +1,1160 @@
+                           AL-ANDALOSIA                FOR AIR OUTLETS
+
+
+CIRCULAR CEILING DIFFUSER & JET DIFFUSER:-
+Circular ceiling diffuser and jet diffuser are always considered as a heavy duty air distribution
+devices having a wide range of applications in heating , air conditioning and ventilation
+systems. Circular ceiling diffuser provide an unusually uniform horizontal airflow patterns,
+while jet diffuser provide an efficient spot projection for air projection for air direction and
+orientation.
+
+With uniformly assembled oncentric rings, this does not only produce optimum performance,
+but also assure uniformity of appearance when different sizes are used in the same area.
+Circular ceiling diffuser and jet diffuser are always suitable for most of the HVAC applications,
+but they are especially well suited to factories , warehouses, convention halls, coliseums,
+shopping malls and other applications where ceiling are high and conditions are variable.
+
+TYPE CCD:
+This type is suitable for flush installation in ceiling; they can be used for supply or extract
+air.the design consists of a conical core followed by continuously concentric rings to adjust the
+air flow pattern. This design feature will assure little turbulance in the air stream and allow for
+the distribution of the smudge pattern . it also provides excellent air distribution efficiency.
+MATERIAL &FINISH:-
+The diffuser is fabricated from aluminum. Diffusers are available in white polyester powder
+coating finish or any other RAL standard colour upon customer request.
+
+
+
+
+                                                 2
+                           AL-ANDALOSIA               FOR AIR OUTLETS
+
+
+DEFINITIONS:-
+
+
+   •    THROW:               is the horizontal distance between the center of the diffuser and the
+                             point at which the terminal velocity of the air stream occurs.
+                             (tabulated values of throw in the table represent the minimum and
+                             the maximum throw in feet).
+   • MINIMUM THROW: is the distance between the center of the diffuser and the
+       point at which the terminal velocity is 200 (corresponding to a residual velocity of 75
+       FPM) .
+   • MAXIMUM THROW : is the distance between the center of the diffuser and the
+       point at                               Which the terminal velocity is 100 FPM
+       (corresponding to a
+                                  residual velocity of 35 FPM). An average value        of throw
+   can be taken for general applications such as resturants, offices, apartments etc. and results
+   in a residual velocityof 55 FPM .
+
+        CFM:                   :   the air flow rate in cubic feet per minute .
+
+   • NECK VELOCITY : is the air stream velocity measured in feet per minute (FPM).
+
+   • TOTAL PRESSURE: is the sum of static pressure and velocity pressure gives in
+      inches
+                      water guage.
+   • NC level(Db):   is the noise criteria based on 10 Db room attenuation and
+      measured
+                      at 10 FT away from diffuser face ( deduce 3 Db for 20 FT
+   distance
+                      and 7 Db for 30 FT distance).
+
+   • The sound caused by an air outlets is directly proportional to the velocity of air passing
+     through it(see table 1).
+
+                     NECK VELOCITY(FPM)              SOUND LEVEL- NC
+                              300-600                    Less than 20
+                              700-600                    Less than 30
+                              900-700                    Less than 35
+                             1100-900                    Less than 40
+                             1600-1100                   Less than 40
+                                             Table 1
+This table gives the approximate noise level (NC-Value) of a diffuser as a function of the
+diffuser neck velocity.
+
+                                                3
+                                     AL-ANDALOSIA                 FOR AIR OUTLETS
+
+RECOMMENDED NOISE CRITERIA FOR ROOMS
+
+                   TYPE OF AREA                          NC                   TYPE OF AREA                     NC
+                                                      LEVEL(Db)                                             LEVEL(Db)
+AUDITORIUMS                                                       SPORT ACTIVITYIES INDOOR
+Concert and opera Halls. Studios for sound                        Coliseums                                 30-40
+Reproduction                                            20-25     Bowling alleys, gumnasiums                35-45
+Legitimate theaters.Multi- purpose Halls                25-30     Swimming pools                            40-55
+Movie Theaters. Lecture halls. Planetoruim                        TRANPORTATION
+TV audience stadios                                     30-35     Ticket Sales Offices                      30-40
+Lobbies.                                                35-45     Lounges, waiting rooms                    35-50
+CHURCHES & SCHOOLS                                                 HOTELS
+Sanctuaries                                             20-30     Individual rooms or suits , bell rooms,   30-40
+Libraries , school and classrooms                       30-40     banquet rooms .
+Laboratories                                            35-45     Halls & corridors lobbies                 35-45
+Recreation Halls, corridors and Halls                   35-50     Grages, kitchens and laundries            40-50
+Kitchens                                                40-50     MANUFACTERING AREAS
+HOSPITAL AND CLINICS                                               Foreman's office                         40-50
+Private rooms                                           25-35     Assembly lines , light Machinery          55-75
+Operating rooms. Wards                                  30-40     Foundries, heavy Machinery                55-75
+Halls, Corridors, laboratories, lobbies and waiting     35-45
+rooms                                                   40-50     OFFICES
+Washrooms and toilets                                             Board room                                20-30
+RESTURANTS & LOUNGES                                    35-45     Conference Room                           25-35
+Restaurants                                             35-50     Tabulation and computation                40-60
+Cocktail lounges                                        35-50     BUBLIC BUILDINGS
+Night clubs                                             40-50     Bublic libraries , Meseums                30-40
+Cafeterias                                                        Post offices, general banking areas,      35-45
+SRORES DETAIL                                           35-45     lobbies
+Clothing Stores , department stories(upper floors)      40-50
+Department Stories (main floor)
+supermarkets
+
+
+
+
+               Table 2 Recommended range of noise criteria from ASHREA GUIDE
+
+
+Table 3 Gives the listed sizes available with the amount of CFM range for each size.
+                           Listed size               CFM range
+                             6" dia.                    60-315
+                             8" dia.                   105-560
+                            10" dia.                   165-870
+                            12" dia.                  225-1255
+                            14" dia.                  320-1710
+                            16" dia.                  420-2240
+                            18" dia.                  530-2830
+                            20" dia.                  660-3500
+                            24" dia.                  940-4950
+
+
+
+
+                                                           4
+                          AL-ANDALOSIA              FOR AIR OUTLETS
+SELECTION PROCEDURE
+In general the selection of diffuser starts from a given quantity of air to be handled by the
+diffuser.
+Limitations and restrictions on sound level and pressure drop are other factors that one has to
+consider.
+    1. knowing the ceiling height , table 4 , will read the maximum permissible CFM that could
+       be handled by the diffuser and hence the total CFM can be divided over the most
+       reasonable number of diffusers which would best fit the application.
+       Remember that round diffuser has uniform pattern and it is always best to center it in a
+       square
+       area .
+                                                  Total CFM
+                   No. of diffusers = ‫ــــــــــــــــــــــــــــــــــــــــــــــــــــــــ‬
+                                          Max. permissible CFM
+
+                        CEILING MAXIMUM      MAXIMUM
+                        HEIGHT TEMP.         CFM PER
+                        (FT)    DIFFERENTIAL DIFFUSER
+                            8        20º F      800
+                           10        26º F      2000
+                           12        30º F      3000
+                           14        30º F      5000
+                           16        30º F      6400
+                                     Table 4
+
+   2. determine from table the maximum allowable neck velocity which keeps the
+      application as silent as required . recommended Sound levels could be read from
+      table
+
+   Remember that:
+                               CFM = AK x Average velocity.
+
+   3. Refer to the selection table ( Basic performance Data) on next page to determine the
+      size of the diffuser which would best fit your application. The table also reads area
+      factor AK, velocity pressure , total pressure , and throw.
+
+
+
+
+                                               5
+                                 AL-ANDALOSIA                            FOR AIR OUTLETS
+
+SUPPLY AIR ROUND CEILING DIFFUSER
+PERFORMANCE DATA
+                          Neck Velocity       300     400        500      600     700     800     1000    1200    1400    1600
+Neck      Neck    Area    (FPM)
+Size      Area    facto
+(inches   (FT²)   r
+)                 (FT²)   Velocity Pressure   0.007   0.01       0.016    0.023   0.031   0.041   0.064   0.091   0.123   0.161
+                          (inches W.G)                1
+                          Air flowrate(CFM)   60      80         100      120     135     155     195     235     275     315
+6"        0.196   0.13    Total pressure      0.025   0.04       0.061    0.082   0.106   0.132   0.201   0.282   0.380   0.480
+                          drop                        1
+                          Throw (FT)          3-5     3-6        3-6      4-6     4-6     4-6     5-7     5-7     6-8     7-10
+                          NC                  <20     <20        <20      <20     <20     25      30      35      39      45
+                          Air flowrate(CFM)   105     140        175      210     245     280     350     420     490     560
+8"        0.349   0.22    Total pressure      0.021   0.03       0.052    0.071   0.100   0.122   0.183   0.271   0.370   0.480
+                          drop                        2
+                          Throw (FT)          4-6     4-6        5-7      6-8     6-8     6-8     7-10    7-11    8-13    9-14
+                          NC                  <20     <20        <20      20      25      29      33      38      42      46
+                          Air flowrate(CFM)   165     220        275      325     380     435     545     655     765     870
+10"       0.545   0.25    Total pressure      0.040   0.06       0.092    0.122   0.181   0.242   0.361   0.500   0.710   0.950
+                          drop                        1
+                          Throw (FT)          4-6     6-9        7-10     7-10    7-11    8-13    9-14    10-16   12-18   15-
+                                                                                                                          22
+                          NC                  <20     <20        <20      21      26      30      34      39      43      47
+                          Air flowrate(CFM)   225     315        395      470     550     630     785     940     1100    1255
+12"       0.785   0.38    Total pressure      0.026   0.04       0.072    0.101   0.152   0.201   0.313   0.490   0.670   0.870
+                          drop                        1
+                          Throw (FT)          6-8     7-10       7-11     7-11    8-13    9-14    10-16   14-21   15-23   19-
+                                                                                                                          27
+                          NC                  <20     <20        <20      32      28      32      36      41      45      48
+                          Air flowrate(CFM)   320     430        535      640     750     855     1070    1285    1500    1710
+          1.07    0.50    Total pressure      .034    0.05       0.080    0.112   0.156   0.201   0.313   0.460   0.600   0.80
+14"                       drop                        1
+                          Throw (FT)          6-8     8-13       9-15     10-16   11-17   12-18   15-23   19-2    19-27   21-
+                                                                                                                          31
+                          NC                  <20     <20        <20      24      29      33      37      42      46      49
+                          Air flowrate(CFM)   420     560        700      840     980     1120    1400    1680    1960    2240
+16"       1.40    0.59    Total pressure      0.043   0.07       0.106    0.140   0.202   0.262   0.413   0.593   0.800   0.980
+                          drop                        5
+                          Throw (FT)          7-11    9-14       9-15     11-17   12-18   15-23   16-25   19-27   21-31   25-
+                                                                                                                          36
+                          NC                  <20     <20        20       25      30      34      38      43      47      50
+                          Air flowrate(CFM)   530     710        885      1060    1240    1415    1770    2125    2480    2830
+18"       1.77    0.75    Total pressure      0.033   0.05       0.082    0.113   0.166   0.220   0.350   0.530   0.710   0.950
+                          drop                        2
+                          Throw (FT)          8-13    9-14       10-16    12-18   14-12   17-24   19-27   21-31   22-33   26-
+                                                                                                                          38
+                          NC                  <20     <20        21       26      31      35      39      44      48      51
+                          Air flowrate(CFM)   660     850        1100     1300    1530    1750    2150    2650    3050    3500
+          2.18    0.96    Total pressure      0.040   0.06       0.092    0.131   0.182   0.251   0.450   0.640   0.820   0.930
+20"                       drop                        5
+                          Throw (FT)          8-14    11-        14-20    17-21   19-25   22-28   29-34   34-40   41-47   43-
+                                                      16                                                                  50
+                          NC                  <20     <20        21       27      32      36      40      45      49      52
+                          Air flowrate(CFM)   940     1250       1570     1850    2200    2500    3130    3850    4320    4950
+24"       3.14    1.23    Total pressure      0.045   0.07       0.105    0.135   0.195   0.265   0.460   0.690   0.790   0.960
+                          drop                        0
+                          Throw (FT)          10-15   14-        17-23    20-26   24-30   27-34   35-41   43-50   46-52   51-
+                                                      20                                                                  58
+                          NC                  <20     <20        22       28      33      37      41      46      50      53
+
+
+                                                             6
+                                AL-ANDALOSIA                      FOR AIR OUTLETS
+
+
+
+
+RETURN AIR ROUND CEILING DIFFUSER
+
+PERFORMANCE DATA
+
+                      Neck Velocity      300     400    500      600     700     800     1000    1200    1400    1600
+ Neck       Neck         (FPM)
+ Size       Area
+ (inches)   (FT²)    Velocity Pressure   0.007   0.01   0.016    0.023   0.031   0.041   0.064   0.091   0.123   0.161
+                       (inches W.G)              1
+                    Air flowrate(CFM)    60      80     100      120     135     155     195     235     275     315
+ 6"         0.196   Total pressure       0.029   0.04   0.076    0.108   0.146   0.18    0.294   0.421   0.569   0.749
+                    drop                         8
+                    NC                   <20     <20    <20      <20     21      26      32      37      41      46
+                    Air flowrate(CFM)    105     140    175      210     245     280     350     420     490     560
+ 8"         0.349   Total pressure       0.020   0.03   0.053    0.077   0.100   0.123   0.207   0.293   0.394   0.519
+                    drop                         4
+                    NC                   <20     <20    <20      21      26      30      34      39      43      47
+                    Air flowrate(CFM)    165     220    275      325     380     435     545     655     765     870
+ 10"        0.545   Total pressure       0101    0.03   0.050    0.071   0.096   0.120   0.196   0.281   0.379   0.477
+                    drop                 9       3
+                    NC                   <20     <20    <20      22      27      31      36      41      45      48
+                    Air flowrate(CFM)    225     315    395      470     550     630     785     940     1100    1255
+ 12"        0.785   Total pressure       0.018   0.02   0.045    0.064   0.086   0.112   0.176   0.249   0.339   0.443
+                    drop                         9
+                    NC                   <20     <20    <20      23      29      33      37      42      46      49
+                    Air flowrate(CFM)    320     430    535      640     750     855     1070    1285    1500    1710
+            1.07    Total pressure       0.017   0.02   0.042    0.061   0.083   0.108   0.170   0.242   0.328   0.430
+ 14"                drop                         8
+                    NC                   <20     <20    <20      25      30      34      38      43      47      50
+                    Air flowrate(CFM)    420     560    700      840     980     1120    1400    1680    1960    2240
+ 16"        1.40    Total pressure       0.016   0.02   0.041    0.059   0.079   0.103   0.162   0.231   0.314   0.411
+                    drop                         5
+                    NC                   <20     <20    21       26      31      35      39      44      48      51
+                    Air flowrate(CFM)    530     710    885      1060    1240    1415    1770    2125    2480    2830
+ 18"        1.77    Total pressure       0.015   0.02   0.040    0.057   0.077   0.099   0.156   0.224   0.303   0.397
+                    drop                         5
+                    NC                   <20     <20    22       27      32      36      40      45      49      52
+                    Air flowrate(CFM)    660     850    1100     1300    1530    1750    2150    2650    3050    3500
+            2.18    Total pressure       0.014   0.02   0.036    0.052   0.071   0.091   0.143   0.205   0.277   0.363
+ 20"                drop                         4
+                    NC                   <20     <20    21       28      33      37      41      46      50      53
+                    Air flowrate(CFM)    940     1250   1570     1850    2200    2500    3130    3850    4320    4950
+ 24"        3.14    Total pressure       0.013   0.02   0.031    0.046   0.064   0.082   0.130   0.185   0.246   0.326
+                    drop                         2
+                    NC                   <20     <20    23       29      34      38      42      47      51      55
+
+
+
+
+                                                             7
+                         AL-ANDALOSIA                    FOR AIR OUTLETS
+
+
+CIRCULAR CEILING DIFFUSER
+
+                                 Selection for CCD- supply air
+
+  size    Vmax    Vmin   A eff     C       C1       C2     LWA max   LWA min   LWNC max   LWNC min
+         m³/hr   m³/hr    m²        mm    mm        mm      dB (A)   dB (A)      NC         NC
+   6"     290      70    .009      146    234       298      40       < 20       31        <20
+  8"     430      110    .016      197    285       349      40       <20        33        <20
+  10"    650      180    .026      248    336       400      40       <20        34        <20
+  12"    830      290    .038      299    387       451      40       <20        35        <20
+  14"    1080     395    .054      349    437       501      40       <20        35        <20
+  16"    1295     505    .073      400    488       552      40       <20        36        <20
+  18"    1585     650    .096      451    539       603      40       <20        37        <20
+  20"    1800     790    .115      502    590       654      40       <20        37        <20
+
+The table gives a guide for selection diffuser sizes.
+To determine the max. Volume rate Vmax it has been assumed that the power level should
+always equal 40 db (A), if higher sound level are permitted the max. Volume flow rate can be
+increased.
+For the recommended min. volume flow rate Vmin the effective discharge velocity Veff must not
+be less than 2m/s.
+
+How to determine the volume flow rate
+
+
+
+
+                 V= Veff X 3600 x Aeff
+
+
+
+
+                                                     Vm³/hr: volume flow rate
+                                                     Lwa dB (A):A-weighted sound power level
+                                                     Lwanc : NC rating of sound power level
+                                                        m²: Effective area of diffuser
+                                                                                            Aeff
+                                                     Veff m/s: Effective velocity
+
+                                                8
+                          AL-ANDALOSIA                    FOR AIR OUTLETS
+Square & rectangular flush ceiling diffusers
+OUTSANDING FEATURES:
+
+All extruded aluminum construction.
+1-2-3-4 way throws patterns.
+Inner section easily removable and locks in
+place
+without the use of tools.
+Available in square, rectangular or round
+necks.
+Standard finish – Anodized or electro-static
+        painted.
+                               Model 4 SCD              SCD 2Model
+                       Four way square Diffuser                                 Two way corner throw
+                       square Neck with opposed                                   Square Diffuser
+                              Blade damper.                                  - square Neck with opposed
+                              Model 4 RCD                                            Blade damper.
+                         Four way rectangular
+                           Diffuser – rectangular
+                             neck with opposed
+                                Blade damper.
+
+                           Model 4 SCD            Model 2 SCD
+                         Four way square Diffuser                            Two way square Diffuser
+                              with opposed Blade                             square Neck with opposed
+                                          damper                            Blade damper.
+                         With round neck.
+                                                                                      Model 4 RCD
+                                                                                Two way rectangular
+                                                                                 Diffuser – rectangular
+                                                                                  neck with opposed
+                                                                                     Blade damper.
+
+                       Model 3 SCD                                          Model 1 SCD
+                      Three way square Diffuser                              One way square Diffuser
+                       square Neck with opposed                              square Neck with opposed
+                          Blade damper.                                              Blade damper.
+                          Model 3 RCD
+                        Three way rectangular                                         Model 1 RCD
+                          Diffuser – rectangular                                One way rectangular
+                           neck with opposed                                     Diffuser – rectangular
+                           Blade damper.                                          neck with opposed
+                                                                                      Blade damper.
+
+
+
+
+                                                    9
+                          AL-ANDALOSIA               FOR AIR OUTLETS
+
+
+CFM – TD Relations
+
+
+
+
+                         PERFORMANCE NOTES & SYMBOLS
+
+ CFM       : Volume of air in cubic feet per minute.
+ FPM       : Velocity of air in feet per minute.
+ AK        : Effective outlet area in sq. ft.
+ Pt.        : total pressure in inches of water. Equals the sum of static pressure plus velocity
+             pressure.
+
+ Throw : is the distance measured horizontally in feet that the air stream travels from outlet b
+          at a given terminal velocity . the throw is based on maximum terminal velocity of
+          50 fpm and minimum terminal velocity of 100 fpm.
+NC :      Noise Criteria are based on sound power level . to determine NC values in the room
+         due to diffuser , subtract the room attenuation from the NC rating which are gives in
+         the performance tables.
+
+
+
+
+                                               10
+                          AL-ANDALOSIA                FOR AIR OUTLETS
+
+
+PERFORMANCE DATA
+
+                                      MODEL 4SCD FOUR-WAY THROW
+                                           SQUARE DIFFUSER
+
+
+NECKSIZE    Neck VELOCIY             200    300     400     500     600      700      800      900
+   AK            FPM
+           TOTAL PRESSURE            .019   .039    .067    .10     .14      .19      .24      .30
+  6"x6"      TOTAL CFM                50      75     100     125     150      175      200      225
+           CFM each side – a          13      19      25      32      38       44       50      57
+AK= 0.13   Throw each side – a       2-3     3-5     4- 7    5- 9   6- 11    7- 13    8- 15    9- 17
+ 9"x9"        TOTAL CFM              112     168     224     280     336      392      448      504
+           CFM each side – a          28      42      56      70      84       98      112      126
+AK= 0.28   Throw each side – a       2-3     3-5     4- 8   5- 10   6- 12    7- 14    9- 17    9- 18
+12"x12"       TOTAL CFM              200     300     400     500     600      700      800      900
+           CFM each side – a          50      75     100     125     150      175      200      225
+ AK= 0.5       Throw each side – a   2-4     4-7     5-9    6- 11   7- 14    8- 16    10- 19   11- 21
+ 15"x15"      TOTAL CFM              312     468     624     780     936     1092     1248     1404
+           CFM each side – a          78     117     156     159     235      273      312      351
+AK= 0.79   Throw each side – a       3-5     4-8    5- 10   7- 13   8- 16    10- 19     11     12- 24
+18"x18"       TOTAL CFM              450     675     900    1125    1350     1575     1800     2025
+           CFM each side – a         113     169     225     281     338      394      450      507
+AK= 0.13   Throw each side – a       3-5     4-8    5-10    7- 13   9- 17    10- 20   12- 24   13- 26
+21"x21"       TOTAL CFM              612     918    1224    1530    1836     2142     2448      275
+           CFM each side – a         153     229     306     382     459      535      612      689
+AK= 1.54   Throw each side – a       3-5     4-8    6- 11   7- 13   9- 18    11- 21   13- 25   14- 28
+24"x24"       TOTAL CFM              800    1200    1600    2000    2400     2800     3200     3600
+           CFM each side – a         200     300     400     500     600      700      800      900
+ AK= 2     Throw each side – a       3-6     5-9    6- 12   7- 14   10- 19   11- 22   13- 26   15- 30
+
+
+
+
+                                               11
+                        AL-ANDALOSIA                    FOR AIR OUTLETS
+
+
+PERFORMANCE DATA
+
+                                           MODEL 4RCD WAY THROW
+                                            RECTANGULAR DIFFUSER
+
+ NECKSIZE    Neck VELOCIY         200    300         400     500     600      700      800       900
+    AK            FPM
+            TOTAL PRESSURE        .019   .039        .067    .10     .14       .19      .24      .30
+   6"x9"      TOTAL CFM           75     113         150     190     225       260      300       338
+             CFM each side – a    25     38           50      65      75        85      100       113
+ AK= 0.19   CFM each side – b     13     19           25      30      38        45       50        56
+            Throw each side – a   2- 4   3- 6         4- 8   5- 10   6- 11    7- 13    8- 15     9- 17
+            Throw each side – b   1- 2   2- 3         2- 4    3- 5    3- 6   4- 7     4- 8      5- 9
+  6"x12"      TOTAL CFM           100    150         200     250     300       350      400       450
+             CFM each side – a    37     56           75      93     112       131      150       169
+ AK= 0.25   CFM each side – b     13     19           25      32      38        44       50        56
+            Throw each side – a   2- 4   4- 7         5- 9   6- 11   7- 13    8- 15    9- 17    10- 19
+            Throw each side – b   2- 3   2- 3         2- 4    3- 5    3- 6     4- 7     4- 8      5- 9
+  6"x15"      TOTAL CFM           125    188         250     312     375       438      500       563
+             CFM each side – a    50     75          100     124     150       175      200       226
+ AK= 0.32   CFM each side – b     13     19           25      32      38        44       50        56
+            Throw each side – a   3- 5   4- 7         5- 9   6- 11   7- 13    8- 15    9- 18    10- 20
+            Throw each side – b   1- 2   2- 3         2- 4    3- 5    3- 5     3- 6     4- 7      4- 8
+  6"x18"      TOTAL CFM           150    225         300     375     450       525      600       675
+             CFM each side – a    62     94          125     156     188       218      250       280
+ AK= 0.38   CFM each side – b     13     19           25      32      38        44       50        58
+            Throw each side – a   3- 5   4- 7         5- 9   6- 12   7- 14    8- 16    9- 18    11- 21
+            Throw each side – b   1- 2   2- 3         2- 4    2- 4    3- 5     3- 6     4- 7      4- 8
+  6"x21"      TOTAL CFM           175    263         350     438     525       612      700       788
+             CFM each side – a    75     112         150     187     224       262      300       335
+ AK= 0.44   CFM each side – b     13     19           25      32      38        44       50        59
+            Throw each side – a   3- 5   4- 7        5- 10   6- 12   7- 14    9- 17    10- 19   11- 21
+            Throw each side – b   1- 2   2- 3         2- 3    2- 4    3- 5     3- 6     3- 6      4- 7
+  6"x24"      TOTAL CFM           200    300         400     500     600       700      800       900
+             CFM each side – a    87     131         174     218     261       305      348       392
+  AK= 0.5   CFM each side – b     13     19           26      32      39        45       52        58
+            Throw each side – a   3- 5   4- 8        5- 10   6- 12   8- 15    9- 17    10- 19   11- 22
+            Throw each side – b   1- 2   2- 3         2- 3    2- 4    3- 5     3- 5     3- 6      4- 7
+  9"x12"      TOTAL CFM           150    225         300     375     450       525      600       675
+             CFM each side – a    47     70           94     118     141       165      118       209
+ AK= 0.38   CFM each side – b     28     42           56      70      84        98      112       129
+            Throw each side – a   2- 4   3- 6         5- 9   6- 11   7- 13    8- 15    9- 17     9- 18
+            Throw each side – b   2- 3   3- 5         4- 8    5- 9   6- 11    6- 12    7- 14     8- 16
+  9"x15"      TOTAL CFM           188    282         375     470     563       657      750       844
+             CFM each side – a    66     99          132     165     198       230      263       295
+ AK= 0.47   CFM each side – b     28     42           56      70      84        99      112        27
+            Throw each side – a   3- 5   4- 7        5- 10   6- 12   7- 14    8- 16    10- 19   11- 21
+            Throw each side – b   2- 4   3- 6         4- 8    5- 9   6- 11    7- 13    8- 15     9- 17
+  9"x18"      TOTAL CFM           225    338         450     562     675       788      900      1013
+             CFM each side – a    85     127         169     211     234       296      338       380
+ AK= 0.57   CFM each side – b     28     42           56      70      84        98      112       127
+            Throw each side – a   3- 5   4- 8        5- 10   6- 12   7- 14    9- 17    10- 20   11- 22
+            Throw each side – b   2- 4   3- 6         4- 7    5- 9   6- 11    7- 13    7- 14     8- 16
+
+
+
+
+                                                12
+                             AL-ANDALOSIA                    FOR AIR OUTLETS
+
+
+PERFORMANCE DATA
+                                   MODEL 4RCD CONT.
+NECKSIZE     Neck VELOCIY         200       300      400       500      600      700      800      900
+   AK             FPM
+           TOTAL PRESSURE         .019      .039     .067       .10     .14      .19      .24      .30
+ 9"x21"       TOTAL CFM           262       393       524       655     786      917     1050     1179
+            CFM each side – a     104       155       200       258     309      360      413      466
+AK= 0.66    CFM each side – b      27        42        56        70      84       98      112      124
+            Throw each side – a    3- 5      4- 8    5- 10     7- 13   8- 16    9- 18    10- 20   12- 23
+            Throw each side – b    2- 4      3- 5     4- 7      5- 9   4- 11    7- 13    7- 14    8- 16
+ 9"x24"       TOTAL CFM           300       450       600       750     900     1050     1200     1350
+             CFM each side – a    125       187       249       311     374      436      498      560
+AK= 0.76     CFM each side – b     25        38        51        64      76       89      102      115
+            Throw each side – a    3- 5      4- 8    6- 11     7- 13   8- 16    10- 19   11- 21   12- 24
+            Throw each side – b    2- 3      3- 5     4- 7      4- 8   5- 10    6- 11    7- 13    7- 14
+ 12"x15"      TOTAL CFM           250       375       500       625     750      875     1000     1125
+             CFM each side – a     75       113       150       188     225      263      300      338
+AK= 0.63     CFM each side – b     50        75       100       125     150      175      200      225
+            Throw each side – a    3- 5      4- 8    5- 10     7- 13   8- 15    9- 17    10- 20   11- 22
+            Throw each side – b    2- 4      4- 7     5- 9     6- 11   7- 13    8- 15    9- 17    10- 19
+ 12"x18"      TOTAL CFM           300       450       600       750     900     1050     1200     1350
+             CFM each side – a    100       150       200       250     300      350      400      452
+AK= 0.76     CFM each side – b     50        75       100       125     150      175      200      223
+            Throw each side – a    3- 6      4- 8    6- 11     7- 14   5- 16    10- 19   11- 22   13- 25
+            Throw each side – b    3- 5      4- 7     5- 9     6- 11   7- 13    8- 15    9- 18    10- 20
+ 12"x21"      TOTAL CFM           350       525       700       875    1050     1225     1400     1575
+             CFM each side – a    124       188       250       313     375      438      500      559
+AK= 0.88     CFM each side – b     51        75       100       125     150      175      200      229
+            Throw each side – a    3- 6      5- 9    6- 12     8- 15   9- 18    11- 21   12- 24   13- 26
+            Throw each side – b    3- 5      4- 7     5- 9     6- 11   7- 13    8- 16    9- 18    10- 20
+ 12"x24"      TOTAL CFM           400       600       800      1000    1200     1400     1600     1800
+             CFM each side – a    150       225       300       375     450      525      600      675
+ AK= 1.0     CFM each side – b     50        75       100       125     150      175      200      225
+            Throw each side – a    4- 7     5- 10    7- 13     8- 16   10- 19   11- 22   13- 25   14- 28
+            Throw each side – b    3- 5      4- 7     5- 9     6- 11   7- 13    8- 16    9- 18    10- 20
+ 15"x18"      TOTAL CFM           375       563       750       938    1125     1313     1500     1688
+             CFM each side – a    111       165       219       274     329      384      438      498
+AK= 0.95     CFM each side – b     77       117       156       195     234      273      312      346
+            Throw each side – a    3- 6      4- 8    6- 11     7- 14   8- 16    10- 19   11- 22   13- 25
+            Throw each side – b    3- 5      4- 7    5- 10     7- 13   8- 15    9- 17    10- 20   11- 22
+ 15"x21"      TOTAL CFM           438       657       876      1095    1313     1533     1750     1969
+             CFM each side – a    140       211       282       353     422      494      563      630
+ AK= 1.1     CFM each side – b     79       118       156       195     235      273      312      355
+            Throw each side – a    3- 6      5- 9    6- 12     8- 15   9- 18    11- 21   12- 24   14- 27
+            Throw each side – b    3- 5      4- 8    5- 10     7- 13   8- 15    9- 18    10- 20   12- 23
+ 15"x24"      TOTAL CFM           500       750      1000      1250    1500     1750     2000     2250
+             CFM each side – a    173       259       345       431     518      604      690      776
+AK= 1.26     CFM each side – b     77       116       155       194     232      271      310      349
+            Throw each side – a    4- 7     5- 10    7- 13     8- 16   10- 19   11- 22   13- 26   15- 29
+            Throw each side – b    3- 5      4- 8    5- 10     7- 13   8- 15    9- 18    10- 20   12- 23
+ 18"x21"      TOTAL CFM           525       786      1048      1310    1572     1834     2096     2363
+            CFM each side – a     150       224       299       374     448      523      598      674
+AK= 1.32    CFM each side – b     113       169       225       281     338      394      450      508
+            Throw each side – a    3- 6      4- 8    6- 11     7- 13   8- 16    10- 19   11- 21   12- 24
+            Throw each side – b    3- 5      4- 7    5- 10     6- 12   7- 14    9- 17    10- 19   11- 21
+ 18"x24"      TOTAL CFM           600       900      1200      1500    1800     2100     2400     2700
+             CFM each side – a    183       275       366       458     549      641      732      824
+ AK= 1.5     CFM each side – b    117       175       234       292     351      409      468      526
+            Throw each side – a    3- 6      5- 9    6- 12     8- 15   9- 17    10- 20   12- 23   13- 26
+            Throw each side – b    3- 5      4- 8    5- 10     7- 13   8- 16    9- 18    10- 20   12- 23
+
+                                                    13
+                            AL-ANDALOSIA                     FOR AIR OUTLETS
+
+
+
+PERFORMANCE DATA
+
+                                           MODEL 3SCD THREE- WAY THROW
+                                                 SQUARE DIFFUSER
+
+NECKSIZE    Neck VELOCIY            200     300          400     500      600      700      800      900
+   AK            FPM
+           TOTAL PRESSURE           .019    .039         .067    .10      .14      .19      .24      .30
+  6"x6"       TOTAL CFM              50       75          100     125      150      175      200      225
+           CFM each side – a         19       28          38       47       56       66       75      85
+AK= 0.13   Throw each side – a       13       19          25       32       38       44       50      56
+                                    2- 3     3- 5         4- 7    4- 8    5- 10    6- 11    7- 13    8- 15
+                                    2- 3     2- 4         3- 5    3- 6     4- 8     5- 9    5- 10    6- 11
+  9"x9"      TOTAL CFM              112      168          224     280      336      392      448      504
+           CFM each side – a         42       63           84     105      126      147      168      189
+AK= 0.28   Throw each side – a       28       43           56      70       85       98      112      126
+                                    2- 4     3- 6         4- 8   5- 10    6- 11    7- 13    8- 15    9- 17
+                                    2- 3     3- 5         4- 7    4- 8    5- 10    6- 12    7- 13    8- 15
+ 12"x12"      TOTAL CFM             200      300          400     500      600      700      800      900
+            CFM each side – a        75      113          150     188      225      263      300      338
+ AK= 0.5      Throw each side – a    50       75          100     125      150      175      200      225
+                                    3- 5     4- 7         5- 9   6- 12    7- 14    8- 16    9- 18    10- 20
+                                    2- 4     3- 6         4- 8   5- 10    6- 12    7- 14    8- 16    9- 18
+ 15"x15"     TOTAL CFM              312      468          624     780      936     1092     1248     1404
+           CFM each side – a        117      175          235     293      350      410      469      527
+AK= 0.79   Throw each side – a      78       118          150     195      235      272      312      351
+                                    3- 6     4- 8        6- 11   7- 13    8- 16    10- 19   11- 21   13- 25
+                                    3- 5     4- 7         5- 9   6- 11    7- 14    8- 16    10- 19   11- 21
+ 18"x18"     TOTAL CFM              450      675          900    1125     1350     1575     1800     2025
+           CFM each side – a        169      253          338     422      506      591      675      760
+AK= 0.13   Throw each side – a      113      169          225     281      338      394      450      506
+                                    4- 7     5- 9        7- 13   8- 16    10- 19   11- 22   13- 25   14- 28
+                                    3- 5     4- 8        5- 10   6- 12    8- 15    9- 17    10- 20   11- 22
+ 21"x21"     TOTAL CFM              612      918         1224    1530     1836     2142     2448     2754
+           CFM each side – a        230      345          459     574      689      804      919     1033
+AK= 1.54   Throw each side – a      153      230          306     382      459      535      612      689
+                                    4- 7    5- 10        7- 13   9- 17    10- 20   12- 23   13- 26   15- 29
+                                    3- 6     4- 8        6- 11   7- 14    8- 16    10- 19   11- 22   13- 25
+ 24"x24"     TOTAL CFM              800     1200         1600    2000     2400     2800     3200     3600
+           CFM each side – a        300      450          600     750      900     1050     1200     1350
+ AK= 2     Throw each side – a      200      300          400     500      600      700      800      900
+                                    4- 8    6- 11        8- 15   10- 19   11- 22   13- 26   15-30    17- 33
+                                    3- 6     5- 9        6- 12   8- 15    9- 18    11- 21   12-24    14- 27
+
+
+
+
+                                                    14
+                        AL-ANDALOSIA                       FOR AIR OUTLETS
+
+
+PERFORMANCE DATA
+
+                                     MODEL 3RCD THREE WAY THROW
+                                        RECTANGULAR DIFFUSER
+
+ NECKSIZE    Neck VELOCIY         200      300          400     500      600      700       800       900
+    AK            FPM
+            TOTAL PRESSURE        .019     .039         .067    .10      .14       .19       .24      .30
+   6"x9"      TOTAL CFM            75      113          150     190      225       263       300       338
+             CFM each side – a     28       43           56      70       85        98       112       125
+ AK= 0.19   CFM each side – b      24       35           47      60       70        83        94       107
+            Throw each side – a   2- 3      2- 4         3- 5    3- 6    4- 8      5- 9     5- 10     6- 11
+            Throw each side – b   1- 2      2- 3         2- 4    3- 5    3- 6    4- 7      4- 8      5- 10
+  6"x12"      TOTAL CFM           100      150          200     250      300       350       400       450
+             CFM each side – a     50       75          100     125      150       175       200       225
+ AK= 0.25   CFM each side – b      25       38           50      63       75        88       100       113
+            Throw each side – a   2- 3      2- 4         3- 6    4- 7    4- 8     5- 10     6- 11     7- 13
+            Throw each side – b   1- 2      2- 3         2- 4    3- 5    3- 6      4- 7      4- 8      5- 9
+  6"x15"      TOTAL CFM           125      188          250     313      375       438       500       563
+             CFM each side – a     79      118          156     195      235       273       312       352
+ AK= 0.32   CFM each side – b      24       35           47      59       70        83        94       106
+            Throw each side – a     2- 4    3- 5         4- 7    5- 9   5- 10     6- 12     7- 14     8- 15
+            Throw each side – b   1- 2      2- 3         2- 4    3- 5    6- 3      4- 7      14- 8     5- 9
+  6"x18"      TOTAL CFM           150      225          300     375      450       552       600       675
+             CFM each side – a    113      169          225     281      338       394       450       506
+ AK= 0.38   CFM each side – b      19       28           38      47       56        66        75        85
+            Throw each side – a   2- 4      3- 6         4- 8   5- 10   6- 12     7- 14     8- 16     9- 18
+            Throw each side – b   1- 2      2- 3         2- 4    2- 4    3- 5      3- 6      4- 7      4- 8
+  6"x21"      TOTAL CFM           175      263          350     438      525       612       700       788
+             CFM each side – a    154      230          306     382      459       535       612       694
+ AK= 0.44   CFM each side – b      11       17           22      28       33        39        44        47
+            Throw each side – a   3- 6      5- 9        7- 13   7- 14   9- 17     10- 20    12- 23   13- 26
+            Throw each side – b   1- 2      1- 2         2- 3    2- 4    2- 4      3- 5      3- 6      3- 6
+  6"x24"      TOTAL CFM           200      300          400     500      600       700       800       900
+             CFM each side – a    50        75          100     125      150       175       200       225
+  AK= 0.5   CFM each side – b     150      225          300     375      450       525       600       675
+            Throw each side – a   2- 3      2- 4         3- 5    3- 6    4- 7      4- 8      5- 9     5- 10
+            Throw each side – b   1- 2     5- 10        7- 13   8- 16   10- 20    12- 23    13- 26   15- 29
+  9"x12"      TOTAL CFM           150      225          300     375      450       525       600       675
+             CFM each side – a     50       75          100     125      150       175       200       225
+ AK= 0.38   CFM each side – b      50       75          100     125      150       175       200       225
+            Throw each side – a   2- 4      3- 6         4- 8   5- 10   6- 12     7- 14     8- 16     9- 18
+            Throw each side – b   2- 4      3- 6         4- 8   5- 10    12- 6    7- 14     8- 16     9- 18
+  9"x15"      TOTAL CFM           188      282          375     469      563       657       750       844
+             CFM each side – a     79      118          156     195      235       273       312       355
+ AK= 0.47   CFM each side – b      55       82          110     137      164       192       219       245
+            Throw each side – a   3- 6      5- 9        6- 11   7- 14   9- 17     10- 19    11- 22   13- 25
+            Throw each side – b   2- 4      3- 6         4- 8   5- 10   6- 12     7- 14     13- 16    9- 17
+  9"x18"      TOTAL CFM           225      338          450     562      675       788       900      1013
+             CFM each side – a    113      169          225     281      338       394       450       507
+ AK= 0.57   CFM each side – b      56       85          113     140      169       197       225       253
+            Throw each side – a   3- 6      5- 9        6- 12   8- 15   9- 18     11- 21    12- 24   14- 27
+            Throw each side – b   2- 4      3- 5         4- 7    4- 8   5- 10     6- 12     7- 13     8- 15
+
+
+
+
+                                                   15
+                             AL-ANDALOSIA                    FOR AIR OUTLETS
+PERFORMANCE DATA
+                                   MODEL 3RCD CONT.
+NECKSIZE     Neck VELOCIY         200       300      400        500      600      700      800      900
+   AK             FPM
+           TOTAL PRESSURE         .019      .039     .067       .10      .14      .19      .24      .30
+ 9"x21"       TOTAL CFM           262       393       524       655      786      917     1048     1179
+            CFM each side – a     152       230       306       382      459      535      612      684
+AK= 0.66    CFM each side – b      55        82       109       137      163      191      218      248
+            Throw each side – a    4- 7     6- 11    7- 14     9- 18    11- 21   13- 25   14- 28   16- 31
+            Throw each side – b    2- 3      3- 5     3- 6      4- 7     5- 9    5- 10    6- 11    7- 13
+ 9"x24"       TOTAL CFM           300       450       600       750      900     1050     1200     1350
+             CFM each side – a    100       150       200       250      300      350      400      450
+AK= 0.76     CFM each side – b    100       150       200       250      300      350      400      450
+            Throw each side – a    2- 4      3- 6     4- 8     5- 10    6- 12    7- 14    8- 16    9- 18
+            Throw each side – b    2- 4      3- 6     4- 8     5- 10    6- 12    7- 14    8- 16    9- 18
+ 12"x15"      TOTAL CFM           250       375       500       625      750      875     1000     1125
+             CFM each side – a     78       118       156       195      235      273      312      349
+AK= 0.63     CFM each side – b     86       129       172       215      258      301      344      388
+            Throw each side – a    3- 5      4- 7    5- 10     6- 12    8- 15    9- 17    10- 19   11- 21
+            Throw each side – b    3- 6      4- 8    6- 11     7- 13    8- 16    10- 19   11- 21   12- 24
+ 12"x18"      TOTAL CFM           300       450       600       750      900     1050     1200     1350
+             CFM each side – a    114       169       225       281      338      394      450      513
+AK= 0.76     CFM each side – b     93       140       188       235      281      328      375      419
+            Throw each side – a    3- 6      5- 9    6- 12     7- 14    9- 17    10- 20   12- 23   13- 26
+            Throw each side – b    3- 5      4- 7    5- 10     6- 12    7- 14    9- 17    10- 19   11- 21
+ 12"x21"      TOTAL CFM           350       525       700       875     1050     1225     1400     1575
+             CFM each side – a    154       230       306       382      459      535      612      693
+AK= 0.88     CFM each side – b     98       148       197       242      296      345      394      441
+            Throw each side – a    4- 7     5- 10    7- 14     9- 17    10- 20   12- 23   14- 27   15- 30
+            Throw each side – b    2- 4      3- 6     4- 8     5- 10    6- 12    7- 14    8- 16    9- 18
+ 12"x24"      TOTAL CFM           400       600       800      1000     1200     1400     1600     1800
+             CFM each side – a    150       225       300       375      450      525      600      675
+ AK= 1.0     CFM each side – b    125       188       250       313      375      438      500      563
+            Throw each side – a    4- 8     6- 11    8- 15     10- 19   12- 23   13- 26   15- 30   17- 34
+            Throw each side – b    4- 7      5- 9    7- 13     8- 16    10- 19   11- 22   13- 25   14- 27
+ 15"x18"      TOTAL CFM           375       563       750       938     1125     1313     1500     1688
+             CFM each side – a    113       169       225       281      338      394      450      506
+AK= 0.95     CFM each side – b    131       197       263       328      394      460      525      591
+            Throw each side – a    3- 5      4- 8    6- 11     7- 13    8- 16    9- 18    11- 21   12- 23
+            Throw each side – b    3- 6      5- 9    6- 12     8- 15    9- 18    11- 21   12- 24   14- 27
+ 15"x21"      TOTAL CFM           438       657       876      1095     1314     1533     1750     1969
+             CFM each side – a    154       230       306       382      459      535      612      689
+ AK= 1.1     CFM each side – b    142       214       285       357      428      499      569      640
+            Throw each side – a    4- 7     5- 10    7- 13     8- 16    10- 19   11- 21   12- 24   14- 27
+            Throw each side – b    3- 6      5- 9    6- 12     8- 15    9- 17    10- 20   12- 23   13- 26
+ 15"x24"      TOTAL CFM           500       750      1000      1250     1500     1750     2000     2250
+             CFM each side – a    200       300       400       500      600      700      800      900
+AK= 1.26     CFM each side – b    150       225       300       375      450      525      600      675
+            Throw each side – a    4- 7     6- 11    7- 14     9- 18    11- 21   12- 24   14- 28   16- 31
+            Throw each side – b    3- 6      4- 8    6- 11     7- 13    8- 16    9- 18    11- 21   12- 24
+ 18"x21"      TOTAL CFM           525       786      1048      1310     1572     1834     2096     2363
+            CFM each side – a     153       230       306       382      459      535      612      686
+AK= 1.32    CFM each side – b     186       278       371       464      557      650      742      839
+            Throw each side – a    3- 6      4- 8    6- 11     7- 14    8- 16    10- 19   11- 22   12- 24
+            Throw each side – b    4- 7     5- 10    7- 13     9- 17    10- 20   12- 23   13- 26   15- 30
+ 18"x24"      TOTAL CFM           600       900      1200      1500     1800     2100     2400     2700
+             CFM each side – a    250       375       500       625      750      875     1000     1125
+ AK= 1.5     CFM each side – b    175       263       350       438      525      613      670      788
+            Throw each side – a    4- 8     6- 12    8- 16     10- 20   12- 23   14- 27   16- 31   18- 35
+            Throw each side – b    3- 6      5- 9    6- 11     7- 14    9- 17    10- 19   11- 21   13- 25
+
+
+                                                    16
+                           AL-ANDALOSIA                        FOR AIR OUTLETS
+
+
+PERFORMANCE DATA
+
+                                    MODEL 2SCD TWO-WAY THROW
+                                          SQUARE DIF FUSER
+
+
+NECKSIZE    Neck VELOCIY            200     300          400      500      600      700      800      900
+   AK            FPM
+           TOTAL PRESSURE           .019    .039     .067         .10      .14      .19      .24      .30
+  6"x6"       TOTAL CFM              50       75      100          125      150      175      200      225
+           CFM each side – a         25       38       50           63       75       88      100      113
+AK= 0.13   Throw each side – a       2- 4    3- 6     4- 7         5- 9    6- 11    7- 13    8- 15    8- 16
+ 9"x9"        TOTAL CFM             112      168      224          280      336      392      448      504
+            CFM each side – a        56       84      112          140      168      196      224      252
+AK= 0.28   Throw each side – a       2- 4    4- 7     5- 9        6- 12    7- 14    8- 16    9- 18    11- 21
+12"x12"       TOTAL CFM             200      300      400          500      600      700      800      900
+            CFM each side – a        56      150      200          250      300      350      400      450
+ AK= 0.5      Throw each side – a    3- 5    4- 9    6- 11        7- 14    9- 17    10- 19   11- 22   13- 25
+ 15"x15"      TOTAL CFM             312      468      624          780      936     1092     1248     1404
+            CFM each side – a       156      234      312          390      468      546      624      702
+AK= 0.79   Throw each side – a       4- 7   5- 10    13-7         8- 16    11- 19   11- 22   13- 25   14- 28
+18"x18"       TOTAL CFM             450      675      900         1125     1350     1575     1800     2025
+            CFM each side – a       225      338      450          563      675      788      900     1013
+AK= 0.13   Throw each side – a       4- 8   6- 11    7- 14        9- 18    11- 21   13- 25   14- 28   16- 31
+21"x21"       TOTAL CFM             612      918     1224         1530     1836     2142     2448     2754
+            CFM each side – a       306      459      612          765      918     1071     1225     1377
+AK= 1.54   Throw each side – a       5- 9   6- 12    8- 16        10- 20   13- 25   15- 29   17- 33   19- 37
+24"x24"       TOTAL CFM             800     1200     1600         2000     2400     2800     3200     3600
+            CFM each side – a       400      600      800         1000     1200     1400     1600     1800
+ AK= 2     Throw each side – a      5- 10   7-14     10- 19       12- 23   14- 28   17- 33   19- 37   21- 42
+
+
+
+
+                                                    17
+                          AL-ANDALOSIA                    FOR AIR OUTLETS
+
+
+PERFORMANCE DATA
+
+                                     MODEL 2RCD TWO-WAY THROW
+                                        RECTANGULAR DIFFUSER
+
+
+ NECKSIZE      Neck VELOCIY         200    300         400     500      600      700      800      900
+    AK              FPM
+             TOTAL PRESSURE         .019   .039        .067    .10      .14      .19      .24      .30
+   6"x9"        TOTAL CFM           75     113         150     190     225       260      300      338
+               CFM each side – a    38      57          75      95     113       130      150      169
+  AK= 0.19    Throw each side – a   3- 5   4- 7        5- 9    6- 11   7- 13    8- 15    9- 17    10- 20
+   6"x12"       TOTAL CFM           100    150         200     250     300       350      400      450
+               CFM each side – a    50      75         100     125     150       175      200      225
+  AK= 0.25    Throw each side – a   3- 5   4- 8        5- 10   6- 12   8- 15     9- 18   10- 20   11- 22
+
+   6"x15"       TOTAL CFM           125    188         250     312      375      438      500      563
+               CFM each side – a    63      94         125     156      188      219      250      282
+  AK= 0.32    Throw each side – a   3- 5   4- 7        5- 9    6- 12   79- 14    9- 17   10- 19   11- 22
+   6"x18"       TOTAL CFM           150    225         300     375     450       525      600      675
+               CFM each side – a    75     113         150     188     225       263      300      338
+  AK= 0.38    Throw each side – a   3- 5   4- 8        5- 10   7- 13   8- 15     9- 18   10- 20   12- 23
+   6"x21"       TOTAL CFM           175    263         350     438     525       612      700      788
+               CFM each side – a    88     132         175     219     263       306      350      394
+  AK= 0.44    Throw each side – a   3- 6   4- 8        6- 11   7- 14   8- 16    10- 19   11- 22   16- 25
+   6"x24"       TOTAL CFM           200    300         400     500     600       700      800      900
+               CFM each side – a    100    150         200     250     300       350      400      450
+  AK= 0.5     Throw each side – a   3- 6   5- 9        6- 12   8- 15   9- 18    10- 20   12- 23   13- 26
+   9"x12"       TOTAL CFM           150    225         300     375     450       525      600     675
+               CFM each side – a    75     113         150     188     225       263      300     338
+  AK= 0.38    Throw each side – a   3- 5   4- 8        5- 10   7- 13   8- 15     9- 18   10- 20   7- 23
+   9"x15"       TOTAL CFM           188    282         375     470     563       657      750      844
+               CFM each side – a    94     141         188     235     283       328      375      422
+  AK= 0.47    Throw each side – a   3- 6   4- 8        6- 11   7- 13   8- 16    18- 19   11- 21   12- 24
+   9"x18"       TOTAL CFM           225    338         450     562     675       788      900     1013
+               CFM each side – a    113    169         225     281     338       394      450      507
+  AK= 0.57    Throw each side – a   3- 6   4- 8        6- 11   7- 14   8- 16    10- 19   11- 22   12- 24
+
+
+
+
+                                                  18
+                             AL-ANDALOSIA                    FOR AIR OUTLETS
+
+
+PERFORMANCE DATA
+                                   MODEL 2RCD CONT.
+NECKSIZE     Neck VELOCIY         200       300      400        500      600      700      800      900
+   AK             FPM
+           TOTAL PRESSURE         .019      .039     .067       .10      .14      .19      .24      .30
+ 9"x21"       TOTAL CFM           262       393      524       655      786       917     1048     1179
+            CFM each side – a     131       196      262       328      393       459      524      590
+AK= 0.66    Throw each side – a    3- 6      5- 6    6- 12     8- 15    9- 18    10- 20   12- 23   13- 26
+
+ 9"x24"       TOTAL CFM           300       450      600       750       900     1050     1200     1350
+            CFM each side – a     150       225      300       375       450      525      600      675
+AK= 0.76    Throw each side – a   4- 7      5- 10    7- 13     8- 16    10- 19   11- 22   13- 25   14- 28
+
+ 12"x15"      TOTAL CFM           250       375      500       625      750       875     1000     1125
+            CFM each side – a     125       188      250       313      375       438      500      563
+AK= 0.63    Throw each side – a   3- 6      5- 9     6- 12     8- 15    9- 18    10- 20   12- 23   13- 26
+
+ 12"x18"      TOTAL CFM           300       450      600       750       900     1050     1200     1350
+            CFM each side – a     150       225      300       375       450      525      600      675
+AK= 0.76    Throw each side – a   3- 6      5- 9     6- 12     8- 16    10- 19   11- 22   13- 25   14- 28
+
+ 12"x21"      TOTAL CFM           350       525      700       875      1050     1225     1400     1575
+            CFM each side – a     175       263      350       438       525      613      700      788
+AK= 0.88    Throw each side – a   4- 7      5- 10    7- 13     8- 16    10- 20   12- 23   13- 26   15- 30
+
+ 12"x24"      TOTAL CFM           400       600      800       1000     1200     1400     1600     1800
+            CFM each side – a     200       300      400        500      600      700      800      900
+ AK= 1.0    Throw each side – a   4- 7      6- 11    7- 14     9- 18    11- 21   13- 25   17- 28   16- 32
+
+ 15"x18"      TOTAL CFM           375       563      750       938      1125     1313     1500     1688
+            CFM each side – a     188       282      375       469       563      657      750      844
+AK= 0.95    Throw each side – a   3- 6      5- 10    7- 13     8- 16    10- 19   12- 23   13- 26   15- 29
+
+ 15"x21"      TOTAL CFM           438       657      876       1095     1313     1533     1750     1969
+            CFM each side – a     219       329      438        548      657      767      875      985
+ AK= 1.1    Throw each side – a   4- 7      6- 11    8- 15     10- 19   12- 23   13- 26   15- 30   17- 33
+
+ 15"x24"      TOTAL CFM           500       750      1000      1250     1500     1750     2000     2250
+            CFM each side – a     250       375       500       625      750      875     1000     1125
+AK= 1.26    Throw each side – a   4- 8      6- 12    8- 16     10- 20   12- 24   14- 28   16- 32   18- 36
+
+ 18"x21"      TOTAL CFM           525       786      1048      1310     1572     1834     2096     2363
+            CFM each side – a     263       393       524       655      786      917     1048     1182
+AK= 1.32    Throw each side – a   4- 8      6- 12    8- 15     10- 19   12- 23   14- 27   15- 30   17- 34
+
+ 18"x24"      TOTAL CFM           600       900      1200      1500     1800     2100     2400     2700
+            CFM each side – a     300       450       600       750      900     1050     1200     1350
+ AK= 1.5    Throw each side – a   4- 8      6- 12    8- 16     10- 20   12- 24   14- 28   16- 32   18- 36
+
+
+
+
+                                                    19
+                           AL-ANDALOSIA                         FOR AIR OUTLETS
+
+
+ERFORMANCE DATA
+
+                                            MODEL 2SCD TWO-WAY THROW
+                                                  SQUARE DIFFUSER
+
+NECKSIZE    Neck VELOCIY            200      300          400      500      600      700      800      900
+   AK            FPM
+           TOTAL PRESSURE           .019     .039     .067         .10      .14      .19      .24      .30
+  6"x6"       TOTAL CFM              50        75      100          125      150      175      200      225
+           CFM each side – a         25        38       50           63       75       88      100      113
+AK= 0.13   Throw each side – a       2- 4     3- 6     4- 7         5- 9    6- 11    7- 13    8- 15    8- 16
+ 9"x9"        TOTAL CFM             112       168      224          280      336      392      448      504
+            CFM each side – a        56        84      112          140      168      196      224      252
+AK= 0.28   Throw each side – a       2- 4     4- 7     5- 9        6- 12    7- 14    8- 16    9- 18    11- 21
+12"x12"       TOTAL CFM             200       300      400          500      600      700      800      900
+            CFM each side – a        56       150      200          250      300      350      400      450
+ AK= 0.5      Throw each side – a    3- 5     4- 9    6- 11        7- 14    9- 17    10- 19   11- 22   13- 25
+ 15"x15"      TOTAL CFM             312       468      624          780      936     1092     1248     1404
+            CFM each side – a       156       234      312          390      468      546      624      702
+AK= 0.79   Throw each side – a       4- 7    5- 10    13-7         8- 16    11- 19   11- 22   13- 25   14- 28
+18"x18"       TOTAL CFM             450       675      900         1125     1350     1575     1800     2025
+            CFM each side – a       225       338      450          563      675      788      900     1013
+AK= 0.13   Throw each side – a       4- 8    6- 11    7- 14        9- 18    11- 21   13- 25   14- 28   16- 31
+21"x21"       TOTAL CFM             612       918     1224         1530     1836     2142     2448     2754
+            CFM each side – a       306       459      612          765      918     1071     1225     1377
+AK= 1.54   Throw each side – a       5- 9    6- 12    8- 16        10- 20   13- 25   15- 29   17- 33   19- 37
+24"x24"       TOTAL CFM             800      1200     1600         2000     2400     2800     3200     3600
+            CFM each side – a       400       600      800         1000     1200     1400     1600     1800
+ AK= 2     Throw each side – a      5- 10    7-14     10- 19       12- 23   14- 28   17- 33   19- 37   21- 42
+
+
+
+
+                                                     20
+                         AL-ANDALOSIA                         FOR AIR OUTLETS
+
+
+ERFORMANCE DATA
+
+                                      MODEL 1SCD ONE-WAY THROW
+                                            SQUARE DIFFUSER
+
+NECKSIZE    Neck VELOCIY       200      300           400        500      600      700      800      900
+   AK            FPM
+           TOTAL PRESSURE     .019      .039      .067           .10      .14      .19      .24      .30
+  6"x6"      TOTAL CFM         50        75           100        125      150      175       200      225
+               Throw           3- 5      4- 7         5- 10      7- 13    8- 15    9- 18    10- 20   12- 23
+AK= 0.13
+ 9"x9"       TOTAL CFM         112       168          224        280      336       392      448      504
+               Throw           3- 6      4- 8         6- 12      8- 15    9- 18    11- 21   12- 23   13- 26
+AK= 0.28
+12"x12"      TOTAL CFM         200      300           400        500       600      700      800      900
+               Throw           4- 7     6- 11         7- 14      9- 18    10- 20   12- 24   14- 28   16- 31
+ AK= 0.5
+ 15"x15"     TOTAL CFM         312      468           624        780       936     1092     1248     1404
+               Throw           4- 7     5- 10         8-15       9- 18    11- 22   13- 26   15- 29   17- 33
+AK= 0.79
+18"x18"      TOTAL CFM         450      675        900           1125     1350     1575     1800     2025
+               Throw           5- 10    7- 14     10-19          12- 23   14- 28   17- 33   19- 37   21- 42
+AK= 0.13
+21"x21"      TOTAL CFM         612      918       1224           1530     1836     2142     2448     2754
+               Throw           6- 11    9- 17     11-22          14- 27   17- 33   19- 38   21- 42   24- 48
+AK= 1.54
+24"x24"      TOTAL CFM         800      1200      1600           2000     2400     2800     3200     3600
+               Throw           6- 12    10- 19    13- 25         16- 31   19- 37   22- 34   25- 49   28- 55
+ AK= 2
+
+
+
+
+                                                 21
+                          AL-ANDALOSIA                  FOR AIR OUTLETS
+
+
+ERFORMANCE DATA
+
+                                      MODEL 1RCD ONE-WAY THROW
+                                            SQUARE DIFFUSER
+
+
+NECKSIZE     Neck VELOCIY      200       300          400     500      600      700      800      900
+   AK             FPM
+            TOTAL PRESSURE    .019       .039         .067    .10      .14      .19      .24      .30
+  6"x9"       TOTAL CFM        75        113          150     190      225       260      300      338
+                Throw          3- 6      5- 9         6- 12   8- 15    9- 17    10- 20   12- 23   12- 26
+ AK= 0.19
+  6"x12"      TOTAL CFM        100       150          200     250       300      350      400      450
+                Throw          4- 7      5- 10        7- 13   8- 16    10- 19   11- 22   13- 25   15- 29
+ AK= 0.25
+  6"x15"      TOTAL CFM        125       188          250     312       375      438      500      563
+                Throw          4- 7      5- 10        7- 13   9- 17    10- 20   12- 23   13- 26   15- 30
+ AK= 0.32
+  6"x18"      TOTAL CFM        150       225          300     375       450      525      600      675
+                Throw          4- 7      5- 10        7- 14   9- 17    10- 20   12- 24   14- 27   15- 30
+ AK= 0.38
+  6"x21"      TOTAL CFM        175       263          350     438       525      612      700      788
+                Throw          4- 8      6- 11        8- 15   9- 18    11- 22   13- 25   15- 29   17- 33
+ AK= 0.44
+  6"x24"      TOTAL CFM        200       300          400      500      600      700      800      900
+                Throw          4- 8      6- 12        8- 16   10- 19   12- 23   14- 27   16- 31   18- 35
+ AK= 0.5
+ 9"x12"       TOTAL CFM        150       225          300     375       450      525      600      675
+                Throw          4- 7      5- 10        7- 14   9- 17    10- 20   12- 24   14- 27   15- 30
+ AK= 0.38
+  9"x15"      TOTAL CFM        188       282          375     470       563      656      750      844
+                Throw          4- 7      5- 10        7- 14   9- 17    10- 20   13- 25   14- 28   16- 31
+ AK= 0.47
+  9"x18"      TOTAL CFM        225       338          450      562      675      788      900     1013
+                Throw          4- 8      6- 11        8- 15   10- 19   11- 22   13- 25   15- 29   17- 33
+ AK= 0.57
+  9"x21"      TOTAL CFM        262       393          524      655      786      917     1048     1179
+                Throw          4- 8      6- 11        8- 15   10- 19   12- 23   14- 27   15- 30   17- 34
+AK= 0.66
+
+
+
+
+                                                 22
+                          AL-ANDALOSIA                  FOR AIR OUTLETS
+
+
+
+ERFORMANCE DATA
+                                MODEL 1RCD CONT.
+
+NECKSIZE     Neck VELOCIY      200       300          400      500      600      700      800      900
+   AK             FPM
+            TOTAL PRESSURE    .019       .039         .067     .10      .14      .19      .24      .30
+  6"x9"       TOTAL CFM        300       450          600       750      900     1050     1200     1350
+                Throw          4- 8      6- 12        8- 16    10- 20   12- 24   14- 28   16- 32   18- 36
+ AK= 0.19
+  6"x12"      TOTAL CFM        250       375          500       625      750      875     1000     1125
+                Throw          4- 8      6- 12        8- 16    10- 20   12- 24   14- 27   16- 31   18- 35
+ AK= 0.25
+  6"x15"      TOTAL CFM        300       450          600       750      900     1050     1200     1350
+                Throw          4- 8      6- 12        9- 17    11- 21   13- 25   15- 30   17- 34   19- 38
+ AK= 0.32
+  6"x18"      TOTAL CFM        350       525          700       875     1050     1225     1400     1575
+                Throw          4- 8      7- 13        9- 18    11- 22   14- 27   16- 32   19- 37   21- 41
+ AK= 0.38
+  6"x21"      TOTAL CFM        400       600           800     1000     1200     1400     1600     1800
+                Throw          5- 9      7- 14        10- 19   12- 23   14- 28   17- 33   19- 38   21- 42
+ AK= 0.44
+  6"x24"      TOTAL CFM        375       563          750       938     1125     1313     1500     1688
+                Throw          5- 9      7- 14        9- 18    12- 23   14- 27   16- 32   18- 36   21- 41
+ AK= 0.5
+ 9"x12"       TOTAL CFM        438       657          875      1095     1313     1533     1750     1969
+                Throw          5- 9      7- 14        9- 18    12- 23   14- 27   16- 32   18- 37   20- 42
+ AK= 0.38
+  9"x15"      TOTAL CFM        500       750          1000     1250     1500      750     2000     2250
+                Throw          5- 10     8- 15        10- 19   12- 24   15- 29   17- 34   20- 39   22- 44
+ AK= 0.47
+  9"x18"      TOTAL CFM        525       786          1048     1310     1572     1834     2096     2363
+                Throw          5- 10     8- 15        10- 20   13- 25   15- 30   18- 35   20- 40   23- 45
+ AK= 0.57
+  9"x21"      TOTAL CFM        600       900          1200     1500     1800     2100     2400     2700
+                Throw          6- 11     8- 16        11- 22   14- 27   16- 32   19- 37   22- 34   24- 48
+AK= 0.66
+
+
+
+
+                                                 23
+                            AL-ANDALOSIA                  FOR AIR OUTLETS
+
+
+ERFORMANCE DATA
+
+                                      MODEL 4CCD ROUND NECK SIZES
+                                             SQUARE DIFFUSER
+
+  Neck size     Fits on       Neck Velocity      200     300     400     500     600     700      800      900
+              square neck         FPM
+  (inches)
+    5 dia.                  Total pressure WG.   .003    .007    .012    .018    .026    .036    .047     .059
+                              TOTAL CFM          28      41      55      68      82      95       109      123
+                             CFM each side        7      10      14      17      20      24       27       31
+  AK=.159        9X9
+                             Throw each side     1- 2    2- 3    2- 3    2- 4    3- 5    3- 5     2- 7     4- 7
+   6 dia.                   Total pressure WG.   .004    .009    .015    .024    .034    .045     .06     .075
+                              TOTAL CFM          40      59      78      98      118     137      157      177
+                             CFM each side       10      15      19      25       30      34      39       45
+  AK=.211        9X9         Throw each side     1- 2    1- 2    2- 3    2- 4    2- 4    3- 5     3- 5     4- 6
+
+   8 dia.                   Total pressure WG.   .007    .016    .028    .043    .062    .083     .11      .14
+                              TOTAL CFM           70      105     140     175     210     245     280      315
+                              CFM each side       10       26     35       44      53      61     70       79
+  AK=.238        9X9         Throw each side      1- 2    2- 3    2- 4    3- 5    3- 6    4- 7    4- 8     5- 9
+
+   10 dia.                  Total pressure WG.   .006    .013    .023    .035    .05     .067    .086      .11
+                              TOTAL CFM           109     164     218     273    327      382    436      491
+                              CFM each side       28       41     55       68     82       96    109      123
+  AK=.45        12X12        Throw each side      2- 4    3- 5    3- 6    4- 8   5- 9    6- 11   6- 12    7- 14
+
+   12 dia.                  Total pressure WG.   .005    .012.   .02     .031    .043    .058    .075     .094
+                              TOTAL CFM          157     236     314     393     471     550     628      707
+                             CFM each side       40       59     79       98     118     138     157      177
+  AK=.683       15X15
+                             Throw each side     2- 4    3- 5    4- 7    4- 8    5- 10   6- 11   7- 13    7- 14
+
+   14 dia.                  Total pressure WG.   .009    .019    .032    .049    .069    .093     .12      .15
+                              TOTAL CFM          214     321     428     535     642     749     856      963
+  AK=.696       15X15        CFM each side       54       80     107     134     160     187     214      241
+                             Throw each side     2- 4    3- 5    4- 7    5- 9    5- 10   6- 12   7- 14    8- 15
+   16 dia.                  Total pressure WG.   .008    .017    .029    .045    .063    .084     .11     .134
+                              TOTAL CFM          279     416     558     697     832     976     1116     1256
+  AK=.977                    CFM each side       70      104     140     174     208     244      279      314
+                18X18        Throw each side     3- 5    4- 8    4- 8    7- 13   8- 15   9- 17   10- 20   11- 22
+
+   8 dia.                   Total pressure WG.   .003    .006    .011    .017    .024    .033    .042     .054
+                              TOTAL CFM           70      105     140     175     210     245    280      315
+                              CFM each side       18       26     35       44      53      61     70       79
+  AK=.347       21X21        Throw each side      2- 3    2- 4    3- 5    3- 6    4- 7    4- 8    5- 9    5- 10
+
+
+
+
+                                                  24
+                           AL-ANDALOSIA                    FOR AIR OUTLETS
+
+
+
+
+ERFORMANCE DATA
+
+                       MODEL 4CCD ROUND NECK SIZES CONT.
+
+ Neck size     Fits on       Neck Velocity      200     300     400     500     600      700      800      900
+  (inches)   square neck          FPM
+  10 dia.                  Total pressure WG.   .003    .007    .014    .021    .03     .039     .051     .064
+                             TOTAL CFM          109     164     218     273     327     382      436      491
+                            CFM each side       28       41     55       68      82      96      109      123
+ AK=.496       21X21
+                            Throw each side     2-4     3-5     4- 7    4- 8    5- 10   6- 11    7- 13    8- 15
+  12 dia.                  Total pressure WG.   .004    .009    .016    .024    .034    .046     .059     .074
+                             TOTAL CFM          157     236     314     393     471     550      628      707
+                            CFM each side       40       59     79       98     118     138      157      177
+ AK=.699       21X21        Throw each side     2- 4    3- 5    4-7     4- 8    5- 10   6- 12    7- 13    8- 15
+
+  14 dia.                  Total pressure WG.   .005    .01     .018    .028    .033    .053     .069     .086
+                             TOTAL CFM           214    321      428     535     642     749     856      963
+                             CFM each side       54      80      107     134     160     187     214      241
+ AK=.952       21X21        Throw each side      2- 4   3- 6     4- 7    5-9    6- 11   7- 13    7- 14    8- 16
+
+  16 dia.                  Total pressure WG.   .005    .012    .020    .031    .044    .059      .076     .095
+                             TOTAL CFM           279     416     558     697     832     976     1116     1256
+                             CFM each side       70      104     140     174     208     244      279      314
+ AK=1.13       21X21        Throw each side      3- 5    4- 8   5- 10    7-13   8- 15   9- 17    10- 20   11- 22
+
+  18 dia.                  Total pressure WG.   .007    .015    .025    .038    .054    .072     .092      .11
+                             TOTAL CFM          354     531     708     885     1062    1239     1416     1593
+ AK=1.29       21X21        CFM each side       89      133     177     221     265      310      354      399
+                            Throw each side     3-6     4- 8    6- 11   7-13    8- 16   10- 19   11- 21   12- 24
+
+  20 dia.                  Total pressure WG.   .009    .02     .034    .052    .073    .098      .13      .16
+                             TOTAL CFM          436     654     872     1090    1308    1526     1744     1962
+ AK=1.35       21X21        CFM each side       109     164     218     272     327      382      436      491
+                            Throw each side     3-6     5-9     6-12    8-15    9-17    10- 20   12- 23   13- 26
+
+
+
+
+                                                   25
+

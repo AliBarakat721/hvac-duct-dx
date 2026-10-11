@@ -1,0 +1,490 @@
+                                                                              CHAPTER 48
+
+                                    NOISE AND VIBRATION CONTROL
+DATA RELIABILITY ................................................................ 48.1         Equipment Vibration .............................................................. 48.43
+ACOUSTICAL DESIGN OF HVAC SYSTEMS ........................ 48.1                                Vibration Criteria ................................................................. 48.43
+Receiver Considerations .......................................................... 48.2        Specification of Vibration Isolators........................................ 48.45
+Basic Acoustical Design Techniques........................................ 48.8                Vibration- and Noise-Sensitive Facilities ............................... 48.49
+Source Sound Levels ................................................................ 48.8      Internal Versus External Isolation.......................................... 48.49
+Path Noise Estimation and Control........................................ 48.18                Isolating Vibration and Noise in
+Receiver Room Sound Correction.......................................... 48.30                   Piping Systems.................................................................... 48.50
+Sound Control for Outdoor Equipment.................................. 48.33                    Seismic Protection.................................................................. 48.52
+Fume Hood Duct Design ....................................................... 48.34            Vibration Investigations.......................................................... 48.52
+Mechanical Equipment Room Sound Isolation...................... 48.35                          COMMISSIONING ................................................................ 48.52
+HVAC Noise-Reduction Design Procedures .......................... 48.38                        TROUBLESHOOTING........................................................... 48.52
+Vibration Isolation and Control ............................................. 48.41            Determining Problem Source ................................................. 48.53
+Vibration Measurement .......................................................... 48.42         Determining Problem Type..................................................... 48.53
+
+
+
+
+H     VAC equipment for a building is one of the major sources of
+       interior noise, and its effect on the acoustical environment is
+important. Also, noise from equipment located outdoors often prop-
+                                                                                               may occur, especially in low frequency ranges and particularly in the
+                                                                                               63 Hz octave band, where experience suggests that even correctly per-
+                                                                                               formed estimates may disagree with actual measured levels by 5 dB,
+agates to the community. Therefore, mechanical equipment must be                               so conservative design practices should be followed.
+selected, and equipment spaces designed, with an emphasis on both
+the intended uses of the equipment and the goal of providing accept-
+able sound levels in occupied spaces of the building and in the sur-
+                                                                                                  2.       ACOUSTICAL DESIGN OF HVAC
+rounding community. Operation of HVAC equipment can also                                                          SYSTEMS
+induce mechanical vibration that propagates into occupied spaces
+                                                                                                  For most HVAC systems, sound sources are associated with the
+through structureborne paths such as piping, ductwork, and mounts.
+                                                                                               building’s mechanical and electrical equipment. As shown in Figure
+Vibration can cause direct discomfort and also create secondary
+                                                                                               1, there are many possible paths for airborne and structureborne
+radiation of noise from vibrating walls, floors, piping, etc.
+                                                                                               sound and vibration transmission between a sound source and re-
+   In this chapter, sound and noise are used interchangeably, al-                              ceiver. Noise control involves (1) selecting a quiet source, (2) opti-
+though only unwanted sound is considered to be noise.                                          mizing room sound absorption, and (3) designing propagation paths
+   System analysis for noise control uses the source-path-receiver                             for minimal noise transmission.
+concept. The source of the sound is the noise-generating mechanism.                               Different sources produce sounds that have different frequency
+The sound travels from the source via a path, which can be through                             distributions, called spectral characteristics. For example, as
+the air (airborne) or through the structure (structureborne), or a com-                        shown in Figure 2, fan noise generally contributes to sound levels in
+bination of both paths, until it reaches the receiver (building occu-                          the 16 to 250 Hz octave bands (curve A). [Frequencies that designate
+pant or outdoor neighbor).
+   Components of the mechanical system (e.g., fans, dampers, dif-
+fusers, duct junctions) all may produce sound by the nature of the
+airflow through and around them. As a result, almost all HVAC com-
+ponents must be considered. Because sound travels effectively in the
+same or opposite direction of airflow, downstream and upstream
+paths are often equally important.
+   This chapter provides basic sound and vibration principles and
+data needed by HVAC system designers. Many of the equations
+associated with sound and vibration control for HVAC may be found
+in Chapter 8 of the 2013 ASHRAE Handbook—Fundamentals.
+Additional technical discussions along with detailed HVAC compo-
+nent and system design examples can be found in the references.
+
+                 1.      DATA RELIABILITY
+    Data in this chapter come from both consulting experience and
+research studies. Use caution when applying the data, especially for
+situations that extrapolate from the framework of the original
+research. Test data tolerances and cumulative system effects lead to a
+typical uncertainty of ±2 dB. However, significantly greater variations
+
+The preparation of this chapter is assigned to TC 2.6, Sound and Vibration                      Fig. 1 Typical Paths of Noise and Vibration Propagation in
+Control.                                                                                                             HVAC Systems
+
+                                                                                        48.1
+48.2                                                           2015 ASHRAE Handbook—HVAC Applications (SI)
+
+                                                                the octave bands are often called octave midband (or center) fre-
+                                                                quencies.] Variable-air-volume (VAV) valve noise usually contrib-
+                                                                utes to sound levels in the 63 to 1000 Hz octave bands (curve B).
+                                                                Diffuser noise usually contributes to the overall HVAC noise in the
+                                                                250 to 8000 Hz octave bands (curve C). The overall sound pressure
+                                                                level associated with all of these sound sources combined is shown
+                                                                as curve D.
+                                                                   Figure 3 (Schaffer 2005) shows the frequency ranges and de-
+                                                                scriptive terminology of the most likely sources of HVAC sound-
+                                                                related complaints. Figure 4 (Schaffer 2005) shows the frequencies
+                                                                at which different types of mechanical equipment generally control
+                                                                the sound spectra in a room. Occupant complaints may occur, how-
+                                                                ever, despite a well-designed sound spectrum in the room. Criteria
+                                                                specified in this chapter do not necessarily correspond with all indi-
+                                                                viduals’ acceptability criteria.
+
+                                                                          2.1    RECEIVER CONSIDERATIONS
+                                                                Indoor Sound Criteria
+                                                                    Whether an occupant considers the background noise acceptable
+                                                                generally depends on two factors. First is the perceived loudness of
+                                                                the noise relative to that of normal activities; if it is clearly notice-
+         Fig. 2   HVAC Sound Spectrum Components for            able, it is likely to be distracting and cause complaint. Second is the
+                        Occupied Spaces                         sound quality of the background noise; if the noise is perceived as
+                                                                a rumble, throb, roar, hiss, or tone, this may result in complaints of
+                                                                annoyance and stress. The frequency spectrum is then said to be
+                                                                unbalanced.
+                                                                    The acoustical design must ensure that HVAC noise is of suffi-
+                                                                ciently low level and unobtrusive quality so as not to interfere with
+                                                                occupancy use requirements. If background noise reduces speech
+                                                                intelligibility, for example, complaints of lost productivity can result.
+                                                                Accordingly, methods of rating HVAC-related noise ideally assess
+                                                                both perceived loudness and sound quality (Wang et al. 2013).
+                                                                    Design Guidelines for HVAC-Related Background Sound in
+                                                                Rooms. Table 1 presents recommended goals for indoor back-
+                                                                ground noise levels in various types of unoccupied rooms served by
+                                                                HVAC systems. Perceived loudness and task interference are fac-
+                                                                tored into the numerical part of the rating. The sound quality design
+                                                                target is assumed to be a neutral-sounding spectrum, although some
+                                                                spectral imbalance is probably tolerable within limits for most users.
+                                                                The criteria used are described in the next section.
+                                                                    An acceptable noise level depends on the specific use of the
+                                                                space, so each number rating typically represents a range of ±5 dB
+         Fig. 3 Frequency Ranges of Likely Sources of
+                                                                for the design target. For example, private offices and conference
+                  Sound-Related Complaints
+                          (Schaffer 2005)
+                                                                rooms are listed as NC/RC 30. This means that unless there are
+                                                                extenuating circumstances, the background noise level should be
+                                                                less than NC/RC 35, but in some locations (e.g., executive offices or
+                                                                specialty conference rooms), a noise criterion of as low as NC/RC
+                                                                25 might be warranted. On the other hand, there is not necessarily a
+                                                                benefit to achieving the lower number in regular offices, as some
+                                                                background noise maintains a minimum level of acoustic privacy
+                                                                between adjacent offices.
+                                                                    The NC/RC designations relate to reference curves with octave
+                                                                band sound pressure levels that are (1) selected based on appropri-
+                                                                ate loudness in the speech interference range (500 to 2000 Hz) and
+                                                                (2) show contours for high and low frequencies that are balanced at
+                                                                the same loudness level. Acoustical evaluation based on octave
+                                                                bands and target balanced contours is recommended, because over-
+                                                                all dBA ratings do not reflect undesirable contributions of excessive
+                                                                low-frequency noise. The dBA and dBC levels are listed only as
+                                                                approximate references in the case of simplistic measurements,
+                                                                where dBA indicates relative loudness and dBC indicates preva-
+                                                                lence of low-frequency noise. Exact specifications should be estab-
+Fig. 4    Frequencies at Which Different Types of Mechanical    lished by acoustical experts considering occupant sensitivity.
+          Equipment Generally Control Sound Spectra                 Criteria Descriptions. This section presents ways to rate or
+                          (Schaffer 2005)                       measure the sound to determine acceptability. The information
+Noise and Vibration Control                                                                                                                                                       48.3
+
+                                     Table 1 Design Guidelines for HVAC-Related Background Sound in Rooms
+                                                                                                 Octave Band Analysisa         Approximate Overall Sound Pressure Levela
+Room Types                                                                                              NC/RCb                          dBAc                         dBCc
+Rooms with Intrusion from          Traffic noise                                                           N/A                            45                           70
+ Outdoor Noise Sourcesd            Aircraft flyovers                                                       N/A                            45                           70
+Residences, Apartments,            Living areas                                                             30                            35                           60
+ Condominiums                      Bathrooms, kitchens, utility rooms                                       35                            40                           60
+Hotels/Motels                      Individual rooms or suites                                               30                            35                           60
+                                   Meeting/banquet rooms                                                    30                            35                           60
+                                   Corridors and lobbies                                                    40                            45                           65
+                                   Service/support areas                                                    40                            45                           65
+Office Buildings                   Executive and private offices                                            30                            35                           60
+                                   Conference rooms                                                         30                            35                           60
+                                   Teleconference rooms                                                     25                            30                           55
+                                   Open-plan offices                                                        40                            45                           65
+                                   Corridors and lobbies                                                    40                            45                           65
+Courtrooms                         Unamplified speech                                                       30                            35                           60
+                                   Amplified speech                                                         35                            40                           60
+Performing Arts Spaces             Drama theaters, concert and recital halls                                20                            25                           50
+                                   Music teaching studios                                                   25                            30                           55
+                                   Music practice rooms                                                     30                            35                           60
+Hospitals and Clinics              Patient rooms                                                            30                            35                           60
+                                   Wards                                                                    35                            40                           60
+                                   Operating and procedure rooms                                            35                            40                           60
+                                   Corridors and lobbies                                                    40                            45                           65
+Laboratories                       Testing/research with minimal speech                                     50                            55                           75
+                                    communication
+                                   Extensive phone use and speech communication                             45                            50                           70
+                                   Group teaching                                                           35                            40                           60
+Churches, Mosques,                 General assembly with critical music programse                           25                            30                           55
+ Synagogues
+Schoolsf                           Classrooms                                                               30                            35                           60
+                                   Large lecture rooms with speech amplification                            30                            35                           60
+                                   Large lecture rooms without speech amplification                         25                            30                           55
+Libraries                                                                                                   30                            35                           60
+Indoor Stadiums,                   Gymnasiums and natatoriumsg                                              45                            50                           70
+  Gymnasiums                       Large-seating-capacity spaces with speech                                50                            55                           75
+                                    amplificationg
+N/A = Not applicable
+aValues and ranges are based on judgment and experience, and represent general limits of             eAn experienced acoustical consultant should be retained for guidance on acous-
+ acceptability for typical building occupancies.                                                      tically critical spaces (below RC 30) and for all performing arts spaces.
+bNC: this metric plots octave band sound levels against a family of reference curves, with the       fSome educators and others believe that HVAC-related sound criteria for schools,
+ number rating equal to the highest tangent line value.                                               as listed in previous editions of this table, are too high and impede learning for
+ RC: when sound quality in the space is important, the RC metric provides a diagnostic tool           affected groups of all ages. See ANSI/ASA Standard S12.60 for classroom
+ to quantify both the speech interference level and spectral imbalance.                               acoustics and a justification for lower sound criteria in schools. The HVAC com-
+cdBA and dBC: these are overall sound pressure level measurements with A- and C-weight-               ponent of total noise meets the background noise requirement of that standard if
+ ing, and serve as good references for a fast, single-number measurement. They are also               HVAC-related background sound is approximately NC/RC 25. Within this cate-
+ appropriate for specification in cases where no octave band sound data are available for             gory, designs for K-8 schools should be quieter than those for high schools and
+ design.                                                                                              colleges.
+dIntrusive noise is addressed here for use in evaluating possible non-HVAC noise that is             gRC or NC criteria for these spaces need only be selected for the desired speech
+ likely to contribute to background noise levels.                                                     and hearing conditions.
+
+
+should help the design engineer select the most appropriate back-                                   Ideally, HVAC-related background noise should have the follow-
+ground noise rating method for a specific project. Current methods                               ing characteristics:
+described here and in other references include the traditional A-
+                                                                                                 • Balanced contributions from all parts of the sound spectrum with
+weighted sound pressure level (dBA) and tangent Noise Criteria
+                                                                                                   no predominant frequency bands of noise
+(NC), the Room Criterion (RC) and more recent RC Mark II, the
+Balanced Noise Criterion (NCB), and the Room Noise Criteria                                      • No audible tones such as hum or whine
+(RNC). Each method was developed based on data for specific                                      • No fluctuations in level such as throbbing or pulsing
+applications; hence, not all are equally suitable for rating HVAC-                                  dBA and dBC: A- and C-Weighted Sound Level. The A-weighted
+related noise in the variety of applications encountered. The pre-                               sound level (described in Chapter 8 of the 2013 ASHRAE Hand-
+ferred sound rating methods generally comprise two distinct parts:                               book—Fundamentals) has been used for more than 60 years as a sin-
+a family of criterion curves (specifying sound levels by octave                                  gle-number measure of the relative loudness of noise, especially for
+bands), and a procedure for rating the calculated or measured sound                              outdoor environmental noise standards. The rating is expressed as a
+data relative to the criterion curves with regard to sound quality.                              number followed by dBA (e.g., 40 dBA).
+48.4                                                                    2015 ASHRAE Handbook—HVAC Applications (SI)
+
+   A-weighted sound levels can be measured with simple sound             chosen, sound levels at frequencies below 63 Hz must be evaluated
+level meters. The ratings correlate fairly well with human judg-         by other means.
+ments of relative loudness but take no account of spectral balance or        In HVAC systems that do not produce excessive low-frequency
+sound quality. Thus, two different spectra can result in the same        noise and strong discernable pure tones, the NC rating correlates rel-
+numeric value, but have quite different subjective qualities.            atively well with occupant satisfaction if sound quality is not a sig-
+   Along with dBA, there is also a C-weighted sound level,               nificant concern. NC rating is often used because of its simplicity.
+denoted as dBC, which is more sensitive to low-frequency sound               RC/RC Mark II: Room Criteria Method. ASHRAE previously
+contributions to the overall sound level than is dBA. When the           recommended the Room Criterion (RC) curves (beginning in
+quantity dBC – dBA is large (e.g., greater than 25 dB), significant      Chapter 43 in the 1995 ASHRAE Handbook—HVAC Systems and
+low-frequency sound is present. It is recommended that when              Equipment; Blazier 1981a, 1981b) as an enhanced method for rating
+specifying background sound levels in dBA, the dBC is also               HVAC system related noise. The revised RC Mark II method is now
+included in the specification and does not exceed the dBA reading        preferred.
+by more than 20 dB.
+                                                                             The RC method is a family of criterion curves and a rating pro-
+    NC: Noise Criteria Method. The NC method for rating noise            cedure. The shape of these curves represents a well-balanced,
+(described in Chapter 8 of the 2013 ASHRAE Handbook—Funda-               bland-sounding spectrum, including two additional octave bands
+mentals) has been used for more than 50 years. It is a single-number     (16 and 31.5 Hz) to deal with excessive low-frequency noise. This
+rating that is somewhat sensitive to the relative loudness and speech    rating procedure assesses background noise in spaces on the basis of
+interference properties of a given noise spectrum. The method con-       its effect on speech, and on subjective sound quality. The rating
+sists of a family of criterion curves, shown in Figure 5, extending      value is expressed as RC followed by a number that represents the
+from 63 to 8000 Hz, and a tangency rating procedure. The crite-          level of noise in the speech interference region of the spectrum, and
+rion curves define the limits of octave band spectra that must not be    a letter to indicate the quality [e.g., RC 35(N), where N denotes the
+exceeded to meet occupant acceptance in certain spaces. The rating       desirable neutral rating]. The RC method includes evaluation of the
+is expressed as NC followed by a number (e.g., NC 40). The octave        potential for noise-induced vibration from excessive airborne sound
+midband frequency of the point at which the spectrum is tangent to       levels at and below 63 Hz.
+the highest NC curve should also be reported [e.g. NC 40 (125 Hz)].          Based on experience and ASHRAE-sponsored research (Broner
+The NC values are formally defined only in 5 dB increments, with         1994), the RC method was revised to the RC Mark II method (Bla-
+intermediate values determined by discretionary interpolation.           zier 1997). Like its predecessor, the RC Mark II method is intended
+    Widely used and understood, the NC method is sensitive to level      for use as a diagnostic tool for analyzing noise problems in the
+but has the disadvantage that the tangency method used to determine      field. The RC Mark II method is complicated, but computerized
+the rating does not require that the noise spectrum precisely follow     spreadsheets and HVAC system analysis programs are available to
+the balanced shape of the NC curves. Thus, sounds with different         perform the calculations and graphical analysis.
+frequency content can have the same numeric rating, but rank dif-            The RC Mark II method has three parts: (1) a family of criterion
+ferently on the basis of sound quality. With the advent of VAV sys-      curves (Figure 6), (2) a procedure for determining the RC numerical
+tems, low-frequency content (i.e., below the 63 Hz octave band) is       rating and the noise spectral balance (quality), and (3) a procedure
+prevalent, and the NC rating method fails to properly address this       for estimating occupant satisfaction when the spectrum does not
+issue (Ebbing and Blazier 1992). Consequently, if the NC method is       have the shape of an RC curve (quality assessment index) (Blazier
+                                                                         1995). The rating is expressed as RC followed by a number and a let-
+                                                                         ter [e.g., RC 35(N)]. The number is the arithmetic average rounded
+                                                                         to the nearest integer of sound pressure levels in the 500, 1000, and
+                                                                         2000 Hz octave bands (the main speech frequency region) and is
+                                                                         known as the preferred speech interference level (PSIL). The let-
+                                                                         ter is a qualitative descriptor that identifies the sound’s perceived
+                                                                         character: (N) for neutral, (LF) for low-frequency rumble, (MF) for
+                                                                         midfrequency roar, and (HF) for high-frequency hiss. There are also
+                                                                         two subcategories of the low-frequency descriptor: (LFB), denoting
+                                                                         a moderate but perceptible degree of sound-induced ceiling/wall
+                                                                         vibration, and (LFA), denoting a noticeable degree of sound-induced
+                                                                         vibration.
+                                                                             Each reference curve in Figure 6 identifies the shape of a neutral,
+                                                                         bland-sounding spectrum, indexed to a curve number corresponding
+                                                                         to the sound level in the 1000 Hz octave band. The shape of these
+                                                                         curves is based on Blazier (1981a, 1981b), modified at 16 Hz fol-
+                                                                         lowing recommendations of the research in Broner (1994). Regions
+                                                                         A and B denote levels at which sound can induce vibration in light
+                                                                         wall and ceiling construction, which can potentially cause rattles in
+                                                                         light fixtures, furniture, etc. Curve T is the octave band threshold of
+                                                                         hearing as defined by ANSI Standard S12.2.
+                                                                         Procedure for Determining the RC Mark II Rating for a System.
+                                                                            Step 1. Obtain the arithmetic average of the sound levels in the
+                                                                         principal speech frequency range represented by the levels in the
+                                                                         500, 1000, and 2000 Hz octave bands (PSIL). [This is not to be con-
+                                                                         fused with the ANSI-defined “speech-interference level” (SIL), a
+                                                                         four-band average obtained by including the 4000 Hz octave band
+                  Fig. 5 Noise Criteria Curves                           as used with the NCB method.] The RC reference curve is chosen to
+Noise and Vibration Control                                                                                                                      48.5
+
+                                                                                     Table 2   Example 1 Calculation of RC Mark II Rating
+                                                                                                                     Frequency, Hz
+                                                                                                     16   31    63   125 250 500 1000 2000 4000
+                                                                               Spectrum levels       64    65   64    57   47    40    35   30    23
+                                                                               Average of 500 to
+                                                                                                                                       35
+                                                                                2000 Hz levels
+                                                                               RC contour            60   60    55    50   45    40    35   30    25
+                                                                               Levels: RC contour     4    5     9    7     2     0    0     0   –2
+                                                                                                          LF               MF               HF
+                                                                               Spectral deviations        6.6              4.0              –0.6
+                                                                               QAI                                         7.2
+                                                                               RC Mark II rating                       RC 35(LF)
+
+                                                                                  1000, and 2000 Hz octave bands is 35 dB, so the RC 35 curve is
+                                                                                  selected as the reference for spectrum quality evaluation.
+                                                                                      The spectral deviation factors in the LF, MF, and HF regions are
+                                                                                  6.6, 4.0, and –0.6 respectively, giving a QAI of 7.2. The maximum
+                                                                                  positive deviation factor occurs in the LF region and QAI exceeds 5;
+                                                                                  therefore, the rating of the spectrum is RC 35(LF). An average room
+                                                                                  occupant should perceive this spectrum as rumbly in character.
+                                                                               Estimating Occupant Satisfaction Using QAI.
+                                                                                  The QAI estimates the probable reaction of an occupant when
+                                                                               system design does not produce optimum sound quality. The basis
+                                                                               for estimating occupant satisfaction is that changes in sound level of
+                                                                               less than 5 dB do not cause subjects to change their ranking of
+                                                                               sounds of similar spectral content. However, level changes greater
+                                                                               than 5 dB do significantly affect subjective judgments. A QAI of
+                                                                               5 dB or less corresponds to a generally acceptable condition, pro-
+                                                                               vided that the perceived level of the sound is in a range consistent
+                                                                               with the given type of space occupancy as recommended in Table 2.
+                                                                               (An exception to this rule is when sound pressure levels in the 16 or
+                                                                               31 Hz octave bands exceed 65 dB. In such cases, there is potential
+                                                                               for acoustically induced vibration in typical low-mass office con-
+                                                                               struction. Levels above 75 dB in these bands indicate a significant
+             Fig. 6   Room Criterion Curves, Mark II                           problem with induced vibration.)
+                                                                                  A QAI that exceeds 5 dB but is less than or equal to 10 dB rep-
+be that which has the same value at 1000 Hz as the calculated aver-            resents a marginal situation, in which acceptance by an occupant is
+age value.                                                                     questionable. However, a QAI greater than 10 dB will likely be
+   Step 2. Calculate the quality assessment index (QAI) (Blazier               objectionable to the average occupant. Table 3 lists sound quality
+1995), which measures the deviation of the spectrum under evalua-              descriptors and QAI values and relates them to probable occupant
+tion from the shape of the RC reference curve. Calculate the energy-           reaction to the noise.
+averaged spectral deviations from the RC reference curve in each of               The numerical part of the RC rating may sometimes be less than
+three frequency groups: low (LF; 16 to 63 Hz), medium (MF; 125 to              the specified maximum for the space use, but with a sound quality
+500 Hz), and high (HF; 1000 to 4000 Hz). (A simple arithmetic                  descriptor other than the desirable (N). For example, a maximum of
+average of these deviations is often adequate for most engineering             RC 40(N) is specified, but the actual noise environment turns out to
+purposes.) Equation (1) gives the procedure for the LF region;                 be RC 35(MF). There is insufficient knowledge in this area to de-
+repeat for the MF and HF regions by substituting the corresponding             cide which spectrum is preferable.
+values at each frequency.                                                         Even at moderate levels, if the dominant portion of the back-
+                                                                               ground noise occurs at a very low frequency, some people can expe-
+        LF = 10 log[(100.1L16 + 100.1L31.5 + 100.1L63)/3]            (1)    rience a sense of oppressiveness or depression in the environment
+                                                                               (Persson-Wayne et al. 1997). Such a complaint may result after
+   The L terms are the differences between the spectrum being                 exposure to that environment for several hours, and thus may not be
+evaluated and the RC reference curve in each frequency band. In this           noticeable during a short exposure period.
+way, three specific spectral deviation factors, expressed in dB with              NCB: Balanced Noise Criteria Method. The NCB method (ANSI
+either positive or negative values, are associated with the spectrum           Standard S12.2; Beranek 1989) is used to specify or evaluate room
+being rated. QAI is the range in dB between the highest and lowest             noise, including that from occupant activities. The NCB criterion
+values of the spectral deviation factors.                                      curves (Figure 7) are intended as an improvement over the NC
+   If QAI  5 dB, the spectrum is assigned a neutral (N) rating. If            curves by including the two low-frequency octave bands (16 and
+QAI exceeds 5 dB, the sound quality descriptor of the RC rating is             31.5 Hz), and by lowering permissible noise levels at high frequen-
+the letter designation of the frequency region of the deviation factor         cies (4000 and 8000 Hz). Rating is based on the speech interference
+having the highest positive value.                                             level (SIL = the average of the four sound pressure levels at octave
+                                                                               midband frequencies of 500, 1000, 2000, and 4000 Hz) with addi-
+Example 1. The spectrum plotted in Figure 6 indicated by large dots is pro-    tional tests for rumble and hiss compliance. The rating is expressed
+   cessed in Table 2. The arithmetic average of the sound levels in the 500,   as NCB followed by a number (e.g., NCB 40).
+48.6                                                                    2015 ASHRAE Handbook—HVAC Applications (SI)
+
+            Table 3   Definition of Sound-Quality Descriptor and Quality-Assessment Index (QAI), to Aid in Interpreting
+                                           RC Mark II Ratings of HVAC-Related Sound
+                                 Description of Subjective                                           Probable Occupant Evaluation, Assuming Level
+Sound-Quality Descriptor         Perception                        Magnitude of QAI                      of Specified Criterion is Not Exceeded
+(N) Neutral (Bland)              Balanced sound spectrum, no       QAI  5 dB, L16 , L31  65                         Acceptable
+                                 single frequency range dominant   QAI  5 dB, L16 , L31  65                          Marginal
+(LF) Rumble                      Low-frequency range dominant      5 dB  QAI  10 dB                                  Marginal
+                                 (16 to 63 Hz)                     QAI  10 dB                                       Objectionable
+(LFVB) Rumble, with moderately   Low-frequency range dominant      QAI  5 dB, 65  L16 , L31  75                     Marginal
+perceptible room surface         (16 to 63 Hz)                     5 dB  QAI  10 dB                                  Marginal
+vibration                                                          QAI  10 dB                                       Objectionable
+(LFVA) Rumble, with clearly      Low-frequency range dominant      QAI  5 dB, L16 , L31  75                          Marginal
+perceptible room surface         (16 to 63 Hz)                     5 dB  QAI  10 dB                                  Marginal
+vibration                                                          QAI  10 dB                                       Objectionable
+(MF) Roar                        Mid-frequency range dominant      5 dB  QAI  10 dB                                  Marginal
+                                 (125 to 500 Hz)                   QAI  10 dB                                       Objectionable
+(HF) Hiss                        High-frequency range dominant     5 dB  QAI  10 dB                                  Marginal
+                                 (1000 to 4000 Hz)                 QAI  10 dB                                       Objectionable
+
+                                                                          mentioned here for reference only and, at present, ASHRAE has no
+                                                                          formal position on the use of this method.
+                                                                              Table 4 summarizes the essential differences, advantages, and
+                                                                          disadvantages of rating methods used to characterize HVAC-related
+                                                                          background noise. Unfortunately, at this time there is no acceptable
+                                                                          and simple process to characterize the effects of audible tones and
+                                                                          level fluctuations, so none of these rating methods address these
+                                                                          issues.
+                                                                              Noise Criteria for Plumbing Systems. Acceptable noise levels
+                                                                          from plumbing fixtures and piping have not been widely identified
+                                                                          in the literature, except in ANSI/ASA Standard S12.60. Continuous
+                                                                          noise from plumbing fixtures and piping systems with circulating
+                                                                          fluids should meet the same noise criteria as HVAC systems. How-
+                                                                          ever, many sounds from plumbing fixtures and piping are of short
+                                                                          duration or are transient, and typically have a somewhat higher
+                                                                          threshold of acceptance. Examples of these sources include water
+                                                                          flow noise associated with typical restroom fixtures; noise from
+                                                                          waste lines connected to restroom, kitchen, and/or laundry drains;
+                                                                          and noise from jetted bathtubs.
+                                                                              Table 5 presents suggested maximum A-weighted sound pres-
+                                                                          sure levels for various transient plumbing noise sources in buildings
+                                                                          with multiple occupancies. These criteria are minimum standards
+                                                                          and are intended to apply to plumbing systems serving adjacent and
+                                                                          nearby units in multifamily housing projects (apartments and con-
+                                                                          dominiums), hospitals, educational facilities, and office buildings.
+                                                                          Plumbing noise levels in luxury condominiums or private homes
+                                                                          should be 5 to 10 dB lower than levels shown in Table 5.
+                                                                              Achieving the recommended plumbing noise criteria in the fin-
+                                                                          ished space usually requires special attention to pipe installation
+                                                                          details, selection of suitable piping materials, design flow veloci-
+                                                                          ties, and selection of appropriate fixtures.
+                                                                              Determining Compliance. When taking field measurements to
+              Fig. 7 NCB Noise Criterion Curves                           determine whether a space complies with the guidelines presented
+                                                                          in Table 1, follow ANSI/ASA Standard S12.72 and note these pre-
+                                                                          cautions:
+    The NCB method is better than the NC method in determining            • Measure the noise with an integrating sound level meter with a
+whether a noise spectrum has an unbalanced shape sufficient to              real-time frequency analyzer meeting type 1 or 2 specifications,
+demand corrective action, and it addresses the issue of low-                as defined in ANSI Standards S1.4 and S1.11. The meter should
+frequency noise. Rating is, however, more complicated than the              have been calibrated by an accredited calibration laboratory, with
+familiar NC tangency method. The NCB method can still be used as            some assurance that the calibration accuracy has been main-
+a tangency method; if so used, the point of tangency, which sets the        tained.
+rating, must be cited.                                                    • Set the meter to display and save the equivalent energy sound
+    RNC: Room Noise Criteria Method. This rating method has been            pressure level Leq with the desired frequency filtering (e.g., octave
+recently introduced and is described in detail in the American              bands, A-weighted, etc.). Each measurement should be a mini-
+National Standards Institute (ANSI) Standard S12.2-2008. It is              mum of 15 s long.
+Noise and Vibration Control                                                                                                                  48.7
+
+                                               Table 4 Comparison of Sound Rating Methods
+                                                                            Considers Speech        Evaluates Sound     Components Presently
+Method           Overview                                                  Interference Effects         Quality         Rated by Each Method
+                                                                                                                            Cooling towers
+                 No quality assessment
+dBA                                                                                 Yes                    No               Water chillers
+                 Frequently used for outdoor noise ordinances
+                                                                                                                           Condensing units
+                 Can rate components
+                                                                                                                             Air terminals
+NC               Limited quality assessment                                         Yes                Somewhat
+                                                                                                                              Diffusers
+                 Does not evaluate low-frequency rumble
+                 Used to evaluate systems
+                 Should not be used to evaluate components                                                                   Not used for
+RC Mark II                                                                          Yes                   Yes
+                 Evaluates sound quality                                                                                   component rating
+                 Provides improved diagnostics capability
+                 Can rate components
+NCB                                                                                 Yes                Somewhat                 See NC
+                 Some quality assessment
+                 Some quality assessment                                                                                     Not used for
+RNC                                                                                 Yes                Somewhat
+                 Attempts to quantify fluctuations                                                                         component rating
+
+                 Table 5     Plumbing Noise Levels                           Unless these six points are clearly stipulated, the specified sound
+Receiving (listening) room                       Lmax (slow response)
+                                                                         criteria may be unenforceable.
+                                                                             When applying the levels specified in Table 1 as a basis for de-
+Residential bedroom/living room/dining room               35             sign, sound from non-HVAC sources, such as traffic and office
+Hospital patient room/classroom                           40             equipment, may establish the lower limit for sound levels in a space.
+Private office/conference room                            40
+Residential bathroom/kitchen                              45             Outdoor Sound Criteria
+Open office/lobby/corridor                                50                 Acceptable outdoor sound levels are generally specified by local
+                                                                         noise ordinances or other government codes, which almost always
+• Place the measurement microphone in potential listening loca-          use the A-weighted noise level (dBA) as their metric. The usual
+  tions at least 1 m from room boundaries and noise sources and at       metric is either Lmax (maximum noise level over a period) or Leq
+  least 0.5 m from furniture. More than one location may be mea-         (average noise level over a period). The time constant (FAST or
+  sured, and the microphone may be moved during measurement;             SLOW) used for Lmax or Lp depends on the code.
+  movement should not exceed 0.15 m/s.                                       Some communities have no ordinance and depend on state reg-
+• Note the operational conditions of the HVAC system at the time of      ulations that often use the day/night noise level descriptor LDN ,
+  the test. Turn off all non-HVAC system noises during the test. If      which is a combination of the daytime (7:00 AM to 10:00 PM) and
+  possible, measure in a normally furnished, unoccupied room.            nighttime (10:00 PM to 7:00 AM) average noise levels (Leq) with a
+• The test may be repeated with the entire HVAC system turned off,       10 dB penalty for nighttime. Other descriptors also exist; specific
+  to determine whether the room’s ambient noise level from non-          requirements should be identified at the outset of each project. In
+  HVAC sources is contributing to the results.                           some cases, regulatory agencies may also impose project-specific
+• Record the sound level meter make, model, and serial number;           noise conditions on the basis of community reaction and for main-
+  measured sound pressure levels for each microphone location;           taining an appropriate acoustic environment at the project vicinity.
+  HVAC system’s operating conditions; and microphone location(s).            Measurement or estimation of community noise is based on a
+                                                                         location, often at the receiver’s property line, from a height of
+   When these levels are used as a basis for compliance verification,
+                                                                         approximately 1.2 m that represents ear height for a typical person
+the following additional information must be provided:
+                                                                         seated at ground level to any height to address upper-floor eleva-
+• What sound metrics are to be measured (specify Leq or Lmax lev-        tions, but can be anywhere within the property line, and often near
+  els, etc., in each octave frequency band)                              the façade of the closest dwelling unit. Alternatively, the measure-
+• Where and how the sound levels are to be measured (specify the         ment may be made at the property line of the noise source.
+  space average over a defined area or specific points for a specified       In the absence of a local noise ordinance, county or state laws or
+  minimum time duration, etc.)                                           codes or those of a similar community should be used. Even if activ-
+• What type(s) of instruments are to be used to make the sound           ity noise levels do not exceed those specified by an ordinance, com-
+  measurements (specify ANSI or IEC Type 1 or Type 2 sound level         munity acceptance is not ensured. Very low ambient levels or a
+  meters with octave band filters, etc.)                                 noise source with an often-repeated, time-varying characteristic or
+• How sound measurements instruments are to be calibrated or             strong tonal content may increase the likelihood of complaints.
+  checked (specify that instruments are to be checked with an            Without local ordinances, noise levels between 45 and 55 dBA may
+  acoustical calibrator both before and after taking sound level mea-    be considered in residential zones and 55 to 65 dBA in commercial
+  surements, etc.)                                                       zones. These are for outdoor use areas and, with standard building
+• How sound level measurements are to be adjusted for the presence       constructions, they also typically result in acceptable interior noise
+  of other sound sources (specify that background sound level mea-       levels. Often, daytime noise levels (the period of daytime to be
+  surements be performed without other sound sources under con-          defined) are 10 dB higher than nighttime levels.
+  sideration operating; if background sound levels are within 10 dB          Although most ordinances are given as A-weighted pressure
+  of operational sound levels, then corrections should be per-           level, attenuation by distance, barriers, buildings, and atmosphere
+  formed; etc.)                                                          are all frequency dependent. Thus, A-weighted levels do not give an
+• How results of sound measurements are to be interpreted (specify       accurate estimation of noise levels at distances from the source. If
+  whether octave band sound levels, NC, RC, dBA, dBC or other            A-weighted sound levels of sources must be determined by means
+  values are to be reported)                                             other than measurement, then octave band or one-third octave band
+

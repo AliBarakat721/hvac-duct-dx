@@ -1,0 +1,905 @@
+56.16                                                                     2015 ASHRAE Handbook—HVAC Applications (SI)
+
+CSA Approved                                                               IEEE
+    The Canadian Standards Association (CSA) is made up of various            The Institute of Electrical and Electronic Engineers’ Standard
+government agencies, power utilities, insurance companies, electrical      519 suggests limits for both harmonic current and voltage distor-
+manufacturers, and other organizations. They update CSA Standard           tion, based on electrical system conditions.
+C22.1, the Canadian Electrical Code (CEC), every two or three
+years.                                                                                             BIBLIOGRAPHY
+    The Canadian Standards Association (or recognized equivalent)          ANSI. 2011. Electric power systems and equipment—Voltage ratings
+must certify every electrical device or component before it can be sold       (60 Hz). Standard C84.1-2011. American National Standards Institute,
+in Canada. Implicit in this is that all wiring must be done with CSA-         Washington, D.C.
+approved materials. Testing is similar to UL testing (a bit more strin-    ASHRAE. 2002. Measurement of energy and demand savings. Guideline
+gent), except that CSA approval is required by law. Like the UL, if a         14-2002.
+fire is caused by non-CSA-approved equipment, the insurance com-           CSA. 2006. Canadian electrical code, part I, 20th ed.: Safety standard for
+pany may not pay the claim.                                                   electrical installations. Standard C22.1-06. Canadian Standards Associ-
+                                                                              ation, Toronto.
+                                                                           IEEE. 1980. Definitions of fundamental waveguide terms. ANSI/IEEE
+ULC                                                                           Standard 146-1980. Institute of Electrical and Electronics Engineers,
+   Underwriters Laboratory of Canada (ULC) is an independent                  Piscataway, NJ.
+organization that undertakes the quarterly inspection of manufactur-       IEEE.1995. Recommended practice for emergency and standby power sys-
+ers to ensure continued compliance of UL listed/recognized prod-              tems for industrial and commercial applications. Standard 446-1995.
+ucts to agency reports and safety standards. This work is done under          Institute of Electrical and Electronics Engineers, Piscataway, NJ.
+                                                                           IEEE. 1992. Recommended practices and requirements for harmonic con-
+contract to UL, Inc.; they are not a branch or subsidiary of UL.
+                                                                              trol in electrical power systems. ANSI/IEEE Standard 519-1992. Insti-
+                                                                              tute of Electrical and Electronics Engineers, Piscataway, NJ.
+NAFTA Wiring Standards                                                     NEMA. 2007. Condensed information guide for general purpose industrial
+    Since the North America Free Trade Agreement (NAFTA) came                 ac small and medium squirrel-cage induction motor standards. ANSI/
+into effect on January 1, 1994, CSA approval of a device is legally           NEMA Standard MG 1-2007. National Electrical Manufacturers Asso-
+considered equivalent to UL approval in the United States, and UL             ciation, Rosslyn, VA.
+listing is accepted as equivalent to CSA approval in Canada. De-           NFPA. 2011. National electrical code®. Standard 70-2011. National Fire
+                                                                              Protection Association, Quincy, MA.
+vices marked only with UL approval are acceptable in the CEC, and          U.S. EPA. 2012. Frequently asked questions from owners and operators of
+CSA approval by itself of a device is accepted by the NEC. This               nonroad engines, vehicles, and equipment certified to EPA standards.
+allows much freer trade in electrical materials between the two               EPA-420-F-12-053. U.S. Environmental Protection Agency, Office of
+countries. This does not affect the electrical codes themselves, so           Transportation and Air Quality, Washington, D.C. Available at http://
+differences in practice between the NEC and CEC remain.                       www.epa.gov/oms/highway-diesel/regs/420f12053.pdf.
+                                                                              CHAPTER 57
+
+                                                 ROOM AIR DISTRIBUTION
+Indoor Air Quality and Sustainability ..................................... 57.1               Partially Mixed Air Distribution .............................................. 57.9
+Application Guidelines ............................................................ 57.2       Terminal Units........................................................................ 57.10
+Mixed Air Distribution ............................................................. 57.2      Fan Selection .......................................................................... 57.15
+Fully Stratified Air Distribution............................................... 57.6          Chilled Beams ........................................................................ 57.18
+
+
+
+
+R    OOM air distribution systems, like other HVAC systems, are
+       intended to achieve required thermal comfort and ventilation
+for space occupants and processes. Although air terminals (inlets
+                                                                                               • Partially mixed systems (e.g., most underfloor air distribution
+                                                                                                 designs) provide limited air mixing in the occupied and/or process
+                                                                                                 space.
+and outlets), terminal units, local ducts, and the rooms themselves                            • Task/ambient air distribution (e.g., personally controlled desk
+may affect room air distribution, this chapter addresses only air                                outlets, spot conditioning systems) focuses on conditioning only
+terminals and their effect on occupant comfort. This chapter is in-                              part of the space for thermal comfort and/or process control.
+tended to help HVAC designers apply air distribution systems to oc-
+                                                                                                  Because task/ambient design requires a high degree of individual
+cupied spaces, providing information on characteristics of various
+                                                                                               control, it is not covered in this chapter; see Chapter 20 of the 2013
+air distribution strategies, and tools and guidelines for applications
+                                                                                               ASHRAE Handbook—Fundamentals for details. Limited design
+and system design. Naturally ventilated spaces are not addressed;
+                                                                                               guidance is also provided by Bauman and Daly (2003).
+see Chapter 16 of the 2013 ASHRAE Handbook—Fundamentals for
+                                                                                                  Figure 1 illustrates the spectrum between the two extremes (full
+details. Also see Chapter 20 of the 2013 ASHRAE Handbook—Fun-
+                                                                                               mixing and full stratification) of room air distribution strategies.
+damentals for more information on space air diffusion; Chapter 20
+of the 2012 ASHRAE Handbook—HVAC Systems and Equipment for
+information on room air distribution equipment; and Chapter 48 of                              1.     INDOOR AIR QUALITY AND SUSTAINABILITY
+this volume for sound and vibration control guidance.                                              Air distribution systems affect not only indoor air quality (IAQ)
+    Room air distribution systems can be classified by (1) their pri-                          and thermal comfort, but also energy consumption over the entire
+mary objective and (2) the method by which they attempt to accom-                              life of the project. Choices made early in the design process are
+plish that objective. The objective of any air distribution system can                         important. ANSI/ASHRAE/IESNA Standard 90.1 provides energy
+be classified as one of the following:                                                         efficiency requirements that affect supply air characteristics.
+• Conditioning and/or ventilation of the space for occupant thermal                                The U.S. Green Building Council’s (USGBC) Leadership in
+   comfort                                                                                     Energy and Environmental Design (LEED) Green Building Rating
+• Conditioning and/or ventilation to support processes within the                              System was originally created in response to indoor air quality
+   space                                                                                       concerns, and has evolved to include prerequisites and credits for
+• A combination of these                                                                       increasing ventilation effectiveness and improving thermal comfort
+    As a general guideline, the occupied zone in a space is any loca-                          (USGBC 2009). These requirements and optional points are rela-
+tion where occupants normally reside, and may differ from project to                           tively easy to achieve if good room air distribution design principles,
+project; it is application-specific, and should be carefully defined by                        methods, and standards are followed.
+the designer. The occupied zone is generally considered to be the                                  Environmental tobacco smoke (ETS) control is a LEED prereq-
+room volume between the floor level and 1.8 m above the floor. Stan-                           uisite. Banning indoor smoking is a common approach, but if indoor
+dards and guidelines, such as ANSI/ASHRAE Standards 55 and                                     smoking is to be allowed, ANSI/ASHRAE Standard 62.1-2010
+62.1, further define the occupied zone (e.g., Standard 55 exempts                              requires that more than the base non-ETS ventilation air be provided
+areas near walls).                                                                             where ETS is present in all or part of a building. Rock (2006) pro-
+    Occupant comfort is defined in detail in ANSI/ASHRAE Standard                              vides additional advice on dealing with ETS.
+55-2004. Figure 5.2.1.1 of the standard shows acceptable ranges of                                 Ventilation effectiveness is affected directly by the room air dis-
+temperature and humidity for spaces. As a general guide, 80% of                                tribution system’s design, construction, and operation, but is very
+occupants in typical office spaces can be satisfied with thermal envi-                         difficult to predict. Many attempts have been made to quantify ven-
+ronments over a wide range of temperatures and relative humidities.                            tilation effectiveness, including ASHRAE Standard 129. However,
+Designers often target indoor dry-bulb temperatures between 22 and                             this standard is only for experimental tests in well-controlled labo-
+25°C, relative humidities between 25 and 60%, and occupied zone                                ratories and should not be applied directly to real buildings.
+air velocities below 0.25 m/s. ANSI/ASHRAE Standard 113                                            Because of the difficulty in predicting ventilation effectiveness,
+describes a method for evaluating effectiveness of various room air                            ASHRAE Standard 62.1 provides a table of typical values that were
+distribution systems in achieving thermal comfort.                                             determined through the experiences of its Standard Project Commit-
+    Room air distribution methods can be classified as one of the                              tee and reviewers or extracted from research literature; for example,
+following:                                                                                     well-designed ceiling-based air diffusion systems produce near-per-
+                                                                                               fect air mixing in cooling mode, and yield an air change effective-
+• Mixed systems (e.g., overhead distribution) have little or no ther-                          ness of almost 1.0. More information on ASHRAE Standard 62.1 is
+   mal stratification of air in the occupied and/or process space.                             available in its user’s manual (ASHRAE 2011).
+• Full thermal stratification systems (e.g., thermal displacement
+                                                                                                   Displacement and underfloor air distribution (UFAD) systems
+   ventilation) have little or no air mixing in the occupied and/or pro-
+                                                                                               have the potential for values greater than 1.0. More information on
+   cess space.
+                                                                                               ceiling- and wall-mounted air inlets and outlets can be found in Rock
+                                                                                               and Zhu (2002). Performance of displacement systems is described
+The preparation of this chapter is assigned to TC 5.3, Room Air Distri-                        by Chen and Glicksman (2003), and UFAD is discussed in detail by
+bution.                                                                                        Bauman and Daly (2003).
+
+                                                                                        57.1
+57.2                                                                     2015 ASHRAE Handbook—HVAC Applications (SI)
+
+
+
+
+                                            Fig. 1 Classification of Air Distribution Strategies
+
+   Air terminals, such as diffusers or grilles, may become unsightly           Table 1       Recommended Return Inlet Face Velocities
+over time because of accumulation of dirt on their faces (smudging).      Inlet Location                        Velocity Across Gross Area, m/s
+Instead of replacing air terminals, and thus requiring new materials
+and energy for manufacturing, they can often be cleaned in place to       Above occupied zone                                   >4
+restore their appearance. Those that cannot be cleaned and must be        In occupied zone, not near seats                    3 to 4
+replaced should be recycled, not discarded, to recover the various        In occupied zone, near seats                        2 to 3
+metals and other desirable materials of construction.                     Door or wall louvers                               1 to 1.5
+                                                                          Through undercut area of doors                     1 to 1.5
+            2.   APPLICATION GUIDELINES
+                                                                          vertical ducts or in the side of horizontal ducts, and most ceiling out-
+Design Constraints                                                        lets are attached either directly to the bottom of horizontal ducts or
+   Space design constraints affect room air distribution system           to special vertical takeoff ducts that connect the outlet with the hor-
+choices and how air inlets and outlets are used. Space constraints        izontal duct. In all these cases, devices for directing and equalizing
+may include the following:                                                the airflow may be necessary for proper direction and diffusion of
+                                                                          the air.
+• Dimensions
+• Heat gain and loss characteristics                                      Return Air Inlets
+• Use                                                                         The success of a mixed air distribution system depends pri-
+• Acoustical requirements                                                 marily on supply diffuser location. Return grille location is far
+• Available locations for air inlets and outlets                          less critical than with outlets. In fact, the return air intake
+                                                                          affects room air motion only immediately around the grille. Mea-
+   Inlet and outlet characteristics are discussed in Chapter 20 of the
+                                                                          surements of velocity near a return air grille show a rapid decrease
+2012 ASHRAE Handbook—HVAC Systems and Equipment. This
+                                                                          in magnitude as the measuring device is moved away from the grille
+chapter discusses more specific application considerations for air
+                                                                          face. Table 1 shows recommended maximum return air grille veloc-
+inlets and outlets.
+                                                                          ities as a function of grille location. Every enclosed space should
+Sound                                                                     have return/transfer inlets of adequate size per this table.
+                                                                              For stratified and partially mixed air distribution systems, there
+   Sound emitted from inlets and outlets is directly related to the       are advantageous locations for return air inlets. For example, an
+airflow quantity and free area velocity. The airflow sound intensity      intake can be located to return the warmest air in cooling season.
+in a space also depends on the room’s acoustical absorption and the
+                                                                              If the outlet is selected to provide adequate throw and directed
+observer’s distance from air distribution devices, For more informa-
+                                                                          away from returns or exhausts, supply short-circuiting is normally
+tion, see Chapter 48 of this volume and Chapter 8 in the 2013
+                                                                          not a problem. The success of this practice is confirmed by the
+ASHRAE Handbook—Fundamentals.
+                                                                          availability and use of combination supply and return diffusers.
+Inlet Conditions to Air Outlets
+   The way an airstream approaches an outlet is important. For
+                                                                                        3.    MIXED AIR DISTRIBUTION
+good air diffusion, the inlet configuration should create a uniform          In mixed air systems, high-velocity supply jets from air outlets
+discharge velocity profile from the outlet, or the outlet may not per-    maintain comfort by mixing room air with supply air. This air
+form as intended.                                                         mixing, heat transfer, and resultant velocity reduction should occur
+   The outlet usually cannot correct effects of improper duct             outside the occupied zone. Occupant comfort is maintained not
+approach. Many sidewall outlets are installed either at the end of        directly by motion of air from outlets, but from secondary air
+Room Air Distribution                                                                                                                       57.3
+
+motion from mixing in the unoccupied zone. Comfort is maximized
+when uniform temperature distribution and room air velocities of
+less than 0.25 m/s are maintained in the occupied zone.
+   Maintaining velocities less than 0.25 m/s in the occupied zone is
+often overlooked by designers, but is critical to maintaining com-
+fort. The outlet’s selection, location, supply air volume, discharge
+velocity, and air temperature differential determine the resulting air
+motion in the occupied zone.
+Principles of Operation
+    Mixed systems generally provide comfort by entraining room air
+into discharge jets located outside occupied zones, mixing supply
+and room air. Ideally, these systems generate low-velocity air
+motion (less than 0.25 m/s) throughout the occupied zone to provide           Fig. 2   Air Supplied at Ceiling Induces Room Air into
+uniform temperature gradients and velocities. Proper selection of an                                 Supply Jet
+air outlet is critical for proper air distribution; improper selection
+can result in room air stagnation, unacceptable temperature gradi-
+ents, and unacceptable velocities in the occupied zone that may lead         Mixed air systems typically use either ceiling or sidewall outlets
+to occupant discomfort.                                                   discharging air horizontally, or floor- or sill-mounted outlets dis-
+    The location of a discharge jet relative to surrounding surfaces is   charging air vertically. They are the most common method of air
+important. Discharge jets attach to parallel surfaces, given sufficient   distribution in North America.
+velocity and proximity. When a jet is attached, the throw increases       Horizontal Discharge Cooling with Ceiling-
+by about 40% over a jet discharged in an open area. This difference       Mounted Outlets
+is important when selecting an air outlet. For detailed discussion of
+the surface effect on discharge jets, see Chapter 20 of the 2013              Ceiling-mounted outlets typically use the surface effect to trans-
+ASHRAE Handbook—Fundamentals.                                             port supply air in the unoccupied zone. The supply air projects
+                                                                          across the ceiling and, with sufficient velocity, can continue down
+Space Ventilation and Contaminant Removal                                 wall surfaces and across floors, as shown in Figure 2. In this appli-
+    These systems are intended to maintain acceptable indoor air          cation, supply air should remain outside the occupied zone until it is
+quality by mixing supply and room air (dilution ventilation). Supply      adequately mixed and tempered with room air. Air motion in the
+air is typically a conditioned mixture of ventilation and recirculated    occupied zone is generated by room air entrainment into the supply
+air. Outlet type and discharge velocity determine the mixing rate of      air (Nevins 1976).
+the space and should be a design consideration. The room’s return or          Overhead outlets may also be installed on exposed ducts, in
+exhaust air carries away diluted air contaminants. Space air ventila-     which case the surface effect does not apply. Typically, if the outlet
+tion rates are mandated under ASHRAE Standard 62.1-2010, but              is mounted 300 mm or more below a ceiling surface, discharge air
+supply airflow rates are often higher because of thermal loads.           will not attach to the surface. The unattached supply air has a shorter
+                                                                          throw and can project downward, resulting in high air velocities in
+Benefits and Limitations                                                  the occupied zone. Some outlets are designed for use in exposed
+   Benefits of fully mixed systems include the following:                 duct applications. Typical outlet performance data presented by
+• Most office applications can use lower supply dry-bulb temper-          manufacturers are for outlets with surface effect; consult manufac-
+  atures, for smaller ductwork and lower supply air quantities.           turers for information on exposed duct applications.
+• Air can be supplied at a lower moisture content, possibly elimi-
+                                                                          Vertical-Discharge Cooling or Heating with
+  nating the need for a more complex humidity control system.
+                                                                          Ceiling-Mounted Outlets
+• Vertical temperature gradients are lower for cooling applications
+  with high internal heat gains, which may improve thermal comfort.           Vertically projected outlets are typically selected for high-ceiling
+• Mixed systems are the most common design for distribution sys-          applications that require forcing supply air down to the occupied
+  tems, because designers and installers are familiar with the re-        zone. It is important to keep cooling supply air velocity below
+  quired system components and installation.                              0.25 m/s in the occupied zone. For heating, supply air should reach
+                                                                          the floor.
+   Limitations of mixed systems include the following:                        There are outlets specifically designed for vertical projection and
+• Partial-load operation in variable-air-volume (VAV) systems may         it is important to review the manufacturer’s performance data notes
+  reduce outlet velocities, reducing room air mixing and compro-          to understand how to apply catalog data. Throws for heating and
+  mising thermal comfort. Designers should consider this when             cooling differ and also vary depending on the difference between
+  selecting outlets.                                                      supply and room air temperatures.
+• Cooling and heating with the same ceiling or high-sidewall dif-
+  fuser may cause inadequate performance in heating mode and/or           Cooling with Sidewall Outlets
+  excessive velocity in cooling mode.                                        Sidewall outlets are usually selected when access to the ceiling
+• Ceilings more than 4 m high may require special design consid-          plenum is restricted. Sidewall outlets within 300 mm of a ceiling
+  erations to provide acceptable comfort in the occupied zone. Care       and set for horizontal or a slightly upward projection the sidewall
+  should be taken to select the proper outlet for these applications.     outlet provide a discharge pattern that attaches to the ceiling and
+• Because mixed systems typically use high-velocity jets of air, any      travels in the unoccupied zone. This pattern entrains air from the
+  obstructions in the space (e.g., bookshelves, wall partitions, fur-     occupied zone to provide mixing.
+  niture) can reduce comfort.                                                In some applications, the outlet must be located 0.5 to 1.25 m
+• Lighter-than-air contaminants are uniformly mixed in the space          below the ceiling. When set for horizontal projection, the discharge
+  and typically result in higher contaminant concentrations, which        at some distance from the outlet may drop into the occupied zone.
+  may compromise indoor air quality.                                      Most devices used for sidewall application can be adjusted to project
+57.4                                                                       2015 ASHRAE Handbook—HVAC Applications (SI)
+
+the air pattern upwards toward the ceiling. This allows the discharge       this, the outlet should be selected for horizontal discharge toward
+air to attach to the ceiling, increasing throw distance and minimizing      the wall. Outlet selection should be such that isothermal throw to the
+drop. This application provides occupant comfort by inducing air            terminal velocity of 0.75 m/s should include the distance from the
+from the occupied zone into the supply air.                                 outlet to the perimeter surface. For heating, the supply air tempera-
+    Some outlets may be more than 1.25 m below the ceiling (e.g., in        ture should not exceed 8.5 K above the room air temperature.
+high-ceiling applications, the outlet may be located closer to the
+occupied zone to minimize the volume of the conditioned space).             Space Temperature Gradients and Airflow Rates
+Most devices used for sidewall applications can be adjusted to proj-           A fully mixed system creates homogeneous thermal conditions
+ect the air pattern upward or downward, which allows the device’s           throughout the space. As such, thermal gradients should not be
+throw distance to be adjusted to maximize performance.                      expected to exist in the occupied zone. Improper selection, sizing, or
+    When selecting sidewall outlets, it is important to understand the      placement may prevent full mixing and can result in stagnant areas,
+manufacturer’s data. Most manufacturers offer data for outlets              or having high-velocity air entering the occupied zone.
+tested with surface effect, so they only apply if the device is set to         Supply airflow requirements to satisfy space sensible heat gains
+direct supply air toward the ceiling. When the device is 1.25 m or          or losses are inversely proportional to the temperature difference
+more below a ceiling, or supply air is directed horizontally or down-       between supply and return air. The following equation can be used
+ward, the actual throw distance of the device is typically shorter.         to calculate space airflow requirements (at standard conditions):
+Many sidewall outlets can be adjusted to change the spread of sup-
+ply air, which can significantly change throw distance. Manufactur-                                                  qs
+ers usually publish throw distances based on specific spread angles.                                  Q = -------------------------            (1)
+                                                                                                          1.2  t r – t s 
+Cooling with Floor-Mounted Air Outlets
+                                                                            where
+   Although not typically selected for nonresidential buildings,                 Q = required supply airflow rate to meet sensible load, L/s
+floor-mounted outlets can be used for mixed system cooling appli-                qs = net sensible heat gain in the space, W
+cations. In this configuration, room air from the occupied zone is               tr = return or exhaust air temperature, °C
+induced into the supply air, providing mixing. When cooling, the                 ts = supply air temperature, °C
+device should be selected to discharge vertically along windows,
+walls, or other vertical surfaces. Typical nonresidential applications         For fully mixed systems with conventional ceiling heights, the
+include lobbies, long corridors, and houses of worship.                     return (or exhaust) and room air temperatures are the same; for
+   It is important to select a device that is specially designed for        example, a room with a set-point temperature of 24°C has, on aver-
+floor applications. It must be able to withstand both the required          age, a 24°C return or exhaust air temperature.
+dynamic and static structural loads (e.g., people walking on them,
+loaded carts rolling across them). Also, many manufacturers offer           Methods for Evaluation
+devices designed to reduce the possibility of objects falling into the          The objective of air diffusion is to create the proper combination
+device. It is strongly recommended that obstructions are not located        of room air temperature, humidity, and air motion in the occupied
+above these in-floor air terminals, to avoid restricting their air jets.    zone to provide thermal comfort and acceptable indoor environmen-
+   Long floor-mounted grilles generally have both functioning and           tal quality. There are three recommended methods of selecting out-
+nonfunctioning segments. When selecting air outlets for floor               lets for mixed air systems using manufacturers’ data:
+mounting, it is important to note that the throw distance and sound
+generated depend on the length of the active section. Most manu-            • By appearance, flow rate, and sound data
+facturers’ catalog data include correction factors for length’s effects     • By isovels (lines of constant velocity) and mapping
+on both throw and sound. These corrections can be significant and           • By comfort criteria
+should be evaluated. Understanding manufacturers’ performance                  These selection methods are not meant to be independent. It is
+data and corresponding notes is imperative.                                 the designer’s choice as to which to start with, but it is recom-
+Cooling with Sill-Mounted Air Outlets                                       mended that at least two methods be used for any design.
+                                                                               Variation from accepted thermal limits (ASHRAE Standard 55),
+   Sill-mounted air outlets are commonly used in applications that          lack of uniform thermal conditions in the space, or excessive fluc-
+include unit ventilators and fan coil units. The outlet should be se-       tuation of conditions in one part of the space may produce discom-
+lected to discharge vertically along windows, walls, or other vertical      fort. Thermal discomfort also can arise from any of the following
+surfaces, and project supply air above the occupied zone.                   conditions:
+   As with floor-mounted grilles, when selecting and locating sill
+grilles, consider selecting devices designed to reduce the nuisance         • Excessive air motion (draft)
+of objects falling inside them. It is also recommended that sills be        • Excessive room air temperature stratification (horizontal, verti-
+designed to prevent them from being used as shelves.                          cal, or both)
+                                                                            • Failure to deliver or distribute air according to load requirements
+Heating and Cooling with Perimeter Ceiling-                                   at different locations
+Mounted Outlets                                                             • Rapid fluctuation of room temperature
+   When air outlets are used at the perimeter with vertical projec-
+tion for heating and/or cooling, they should be located near the            Selection
+perimeter surface, and selected so that the published 0.75 m/s iso-            By Appearance, Flow Rate, and Sound Data. For a given
+thermal throw extends at least halfway down the surface or 1.5 m            appearance, flow rate, pressure drop, and sound level criteria,
+above the floor, whichever is lower. In this manner, during heating,        designers can select outlets from manufacturers’ catalogs, using the
+warm air mixes with the cool downdraft on the perimeter surface, to         following steps:
+reduce or even eliminate drafts in the occupied space.
+   If a ceiling-mounted air outlet is located away from the perimeter       1. Determine air volumetric flow requirements based on load and
+wall, in cooling mode, the high-velocity cool air reduces or over-             room size. For VAV systems, evaluation should include the range
+comes the thermal updrafts on the perimeter surface. To accomplish             of flow rates from minimum occupied to design load.
+Room Air Distribution                                                                                                                       57.5
+
+2. Determine acceptable outlet noise criterion (NC); consult Chap-            Combining selection by isovels and mapping with acoustical
+   ter 48 of this volume, or Chapter 8 in the 2013 ASHRAE Hand-            selection allows discharge jet location and intensity in a space to be
+   book—Fundamentals.                                                      predicted. Outlet selection should be evaluated at the space’s typical
+3. Locate a range of products from manufacturers’ catalogs that            operating points (i.e., maximum heating and cooling, and minimum
+   meet the airflow and NC requirements. Multiple outlets in a             heating and cooling). The following steps may be used:
+   space at the same cataloged NC, and other design considerations,
+                                                                           1. Identify the occupied zone for the space.
+   may result in actual sound levels greater than cataloged values.
+                                                                           2. Select outlet(s) that meet design NC, pressure drop, and flow rate
+   Manufacturers’ data are obtained using ideal inlet conditions,
+                                                                              requirements. Identify the supply jet location using cataloged
+   and may vary from field installations. From experience,
+                                                                              throw data.
+   • For identical outlets 3 m or more apart, the cataloged NC rat-        3. Evaluate air jet mapping to ensure terminal velocities in the
+     ing applies.                                                             occupied zone do not exceed 0.25 m/s.
+   • Identical outlets within 3 m of each other add no more than           4. For overhead heating applications, t < 8.5 K (see Chapter 20 of
+     3 dB to the sound pressure level.                                        the 2013 ASHRAE Handbook—Fundamentals), evaluate the dia-
+   • For continuous linear outlets, only the sound produced by the            gram to ensure that jet velocities 1.5 m from the floor are at least
+     closest 3 m need be considered.                                          0.75 m/s.
+   • A wide-open damper installed in the neck of a diffuser can add
+     4 to 5 NC to the cataloged NC value.                                     Other design considerations include the following:
+   • Significantly closed balancing dampers can add more than              • In multiple-outlet applications, jets should not collide to cause a
+     10 NC, depending on duct pressure and how far upstream it is            downward projection of air resulting in velocities greater than
+     installed. Table 2 gives an example.                                    0.25 m/s in the occupied zone.
+4. Select air terminals from manufacturers’ catalogs that meet aes-        • For VAV applications, consider both minimum and maximum
+   thetic and physical needs.                                                flow conditions.
+    Although these selections may meet the sound requirements for              Selection by Comfort Criteria T0.25 /L. Selection by isovels and
+a project, the results do not fully address occupant comfort. Without      mapping is effective at predicting the path of the discharge jet from
+evaluating the throw of the outlets or room air mixing, this selection     an outlet and evaluating resultant occupant comfort. However, there
+method may result in excessive air velocities in the occupied zone,        is an established method to quantify occupant comfort during cool-
+or limited mixing and resultant stagnation. It is recommended that         ing conditions, based on space dimensions and isothermal catalog
+the designer consider selection by isovel mapping or by comfort cri-       throw data. This method can be used to predict a space’s resulting
+teria in addition to selection by appearance, flow rate, and sound         air diffusion performance index (ADPI).
+data. Either of these methods addresses resulting air motion in the            The comfort criteria T0.25 /L method was developed to predict
+occupied zone and occupant comfort.                                        occupant comfort during cooling conditions, using manufacturers’
+    By Isovels and Mapping. Using manufacturers’ catalog throw             isothermal catalog throw data (T, usually for 0.25 m/s terminal
+data, a designer can predict the path of an outlet’s discharge jet. Most   velocity) and the dimensions available for throw (L) on the plan
+manufacturers’ catalogs list the distance a jet travels to reach a ter-    view of a mechanical drawing. By using the ratio of T0.25 /L, the
+minal velocity of 0.75 to 0.25 m/s. With this information, the             designer can predict the level of comfort with a single rating num-
+designer can map the path of the discharge jet for a given outlet. This    ber: ADPI. ADPI can provide further information about the comfort
+evaluation can prevent problems such as excessively high air veloc-        level in a space for results obtained from the NC and mapping selec-
+ities in the occupied zone, or stagnation in a given area. Note that       tion methods.
+most manufacturers’ throw data are based on isothermal supply air;             Air Distribution Performance Index (ADPI). The air distribution
+the supply jet temperature is equal to the room air temperature.           performance index was developed as a way to quantify the comfort
+When using this mapping method, consider the positive or negative          level for a space conditioned by a mixed air system in cooling. ADPI
+buoyancy of nonisothermal (heated or cooled) supply air. In both           uses the effective draft temperature collected at an array of points
+heating and cooling, a discharge jet should travel the distance shown      taken within the occupied zone to predict comfort. ADPI is the per-
+in the catalog to a terminal velocity of 0.75 m/s without much influ-      centage of points in a space where the effective draft temperature is
+ence from buoyancy. When evaluating a jet at lower terminal veloc-         between –1.5 and +1°C and the air velocity is less than 0.35 m/s. A
+ities (e.g., 0.5 to 0.25 m/s), consider buoyancy’s effect on the           high percentage of people have been found to be comfortable in
+distance the jet will travel.                                              cooling applications for office-type occupations where these condi-
+    A cool air jet travels less far along a horizontal surface than an     tions are met. High ADPI values generally correlate to high space
+isothermal jet does. If an outlet is selected so that the horizontal jet   thermal comfort levels with the maximum obtainable value of 100.
+does not have enough velocity to reach a vertical surface, the jet can     Select outlets to provide a minimum ADPI value of 80.
+separate from the horizontal surface and project down into the occu-           The effective draft temperature provides a quantifiable indica-
+pied zone, causing drafts and discomfort. Manufacturers’ tables            tion of comfort at a discrete point in a space by combining the phys-
+show the drop of a cool air jet so the designer can predict the result-    iological effects of air temperature and air motion on a human body.
+ing path.                                                                  The effective draft temperature ted (the difference in temperature
+    When evaluating heated air, the designer should consider the           between any point in the occupied zone and the control condition)
+positive buoyancy of the discharge jet. A heated jet projecting along      can be calculated using the following equation proposed by Ryd-
+a horizontal surface or in an upward vertical pattern travels farther      berg and Norback (1949) and modified by Straub (Straub and Chen
+than an isothermal jet. In downward vertical discharge, a heated jet       1957; Straub et al. 1956) in discussion of a paper by Koestel and
+travels a shorter distance than an isothermal jet.                         Tuve (1955):
+
+ Table 2       Effect of Neck-Mounted Damper on Air Outlet NC                               ted = (tx – tc) – 7.73(Vx – 0.15)                 (2)
+Total Pressure Ratio*             100%            150%   200%   400%
+                                                                           where
+dB Increase                          0            4.5     8      16            ted = effective draft temperature, °C
+*Ratio of air pressure before and after damper.                                 tx = local airstream dry-bulb temperature, °C
+57.6                                                                              2015 ASHRAE Handbook—HVAC Applications (SI)
+
+       tc = average (control) room dry-bulb temperature, °C                        1. Determine air volumetric flow requirements based on load and
+      Vx = local airstream centerline velocity, m/s                                   room size. For VAV systems, evaluation should include both
+   T0.25 /L Selection Method. This method uses the ratio of cata-                     minimum occupied and maximum design flow rates.
+loged isothermal throw data at 0.25 m/s to the characteristic length               2. Select tentative diffuser type and location in room.
+for a given device (Table 3).                                                      3. Determine room’s characteristic length L (Table 3).
+                                                                                   4. Select recommended T0.25 /L (or T0.50 /L) ratio from Table 4.
+   Each type of diffuser has different performance characteristics
+                                                                                   5. Calculate throw distance T0.25 by multiplying recommended
+and therefore may provide a different ADPI value for the same cool-
+                                                                                      T0.25 /L (T0.50 /L for linear slots) ratio from Table 4 by available
+ing application at the same conditions. Calculating T0.25 /L for a
+                                                                                      length L.
+given outlet can predict the level of cooling comfort for a space.
+                                                                                   6. Locate appropriate outlet size from manufacturer’s catalog.
+Using Table 4, the designer can optimize not only the type of dif-
+                                                                                   7. Ensure that this outlet meets other imposed specifications (e.g.,
+fuser to select but also the size and capacity.
+                                                                                      noise, static pressure loss).
+   Using T0.25 /L helps designers maximize space cooling comfort;
+however, this method is not meant to, nor may it be practical to, eval-            Example 1. For a 6 by 3.7 m room, with 2.7 m ceiling, with uniform load-
+uate T0.25 /L values for each outlet on a project.                                    ing of 31.5 W/m2 or 700 W, and air volumetric flow of 5 L/s per square
+   Design Procedures. T0.25 /L can be used as a general tool to eval-                 metre or 111 L/s for one outlet, find the size for a high sidewall grille
+uate cooling comfort levels in a space, at the beginning of design to                 located at the center of 3.7 m end wall, 225 mm from ceiling.
+optimize outlet selection (as shown in the following steps), or at the                Solution:
+end of the process to predict cooling comfort levels in spaces                            Characteristic length L = 6 m (length of room: Table 3)
+designed using NC and mapping methods:                                                    Recommended T0.25 /L = 1.5Table 4
+                                                                                          Throw to 0.25 m/s T0.25 = 1.5  6 = 9 m
+                                                                                          Refer to the manufacturer’s catalog for a size that gives this isother-
+  Table 3 Characteristic Room Length for Several Diffusers                            mal throw to 0.25 m/s. One manufacturer recommends the following
+           (Measured from Center of Air Outlet)                                       sizes, when vanes are straight, discharging at 0.25 m/s: 400 by 100 mm,
+                                                                                      300 by 125 mm, or 250 by 150 mm.
+Diffuser Type                 Characteristic Length L
+                                                                                     More information on conventional mixing systems, and many
+High sidewall grille          Distance to wall perpendicular to jet
+                                                                                   more design examples, can be found in Rock and Zhu (2002).
+Circular ceiling diffuser     Distance to closest wall or intersecting air jet
+Sill grille                   Length of room in direction of jet flow                  4.    FULLY STRATIFIED AIR DISTRIBUTION
+Ceiling slot diffuser         Distance to wall or midplane between outlets            Systems that discharge cool air at low sidewall or floor locations
+Light troffer diffusers       Distance to midplane between outlets plus            with very little entrainment of (and thus mixing with) room air
+                               distance from ceiling to top of occupied zone       create (vertical) thermal stratification throughout the space. These
+Perforated, louvered          Distance to wall or midplane between outlets         displacement ventilation systems have been popular in northern
+ ceiling diffusers                                                                 Europe for some time. Floor-based outlets in underfloor applica-
+                                                                                   tions may also be used to provide fully stratified air distribution.
+        Table 4 Air Diffusion Performance Index (ADPI)                             Principles of Operation
+                        Selection Guide                                                Thermal displacement ventilation (TDV) systems (Figure 3) use
+                     Room T0.25 /L for      For ADPI Range                         very low discharge velocities, typically 0.25 to 0.35 m/s, to deliver
+Terminal            Load, W/ Maximum Maximum Greater   of                          cool supply air to the space. The discharge temperature of the sup-
+Device                m2      ADPI     ADPI   Than   T0.25 /L                      ply air is generally above 16°C, although lower temperatures may
+High sidewall            250        1.8          68          —           —         be used in industrial applications, exercise or sports facilities, and
+ grilles                 190        1.8          72          70      1.5 to 2.2    transient areas. The cool air is negatively buoyant compared to
+                         125        1.6          78          70      1.2 to 2.3    ambient air and drops to the floor after discharge. It then spreads
+                          60        1.5          85          80      1.0 to 1.9    across the lower level of the space.
+Circular ceiling         250        0.8          76          70      0.7 to 1.3        As convective heat sources (Figure 3) in the space transfer heat to
+  diffusers              190        0.8          83          80      0.7 to 1.2    the cooler air around them, natural convection currents form and
+                         125        0.8          88          80      0.5 to 1.5    rise along the heat transfer boundary. Without significant room air
+                          60        0.8          93          90      0.7 to 1.3    movement, these currents rise to form a convective heat plume
+Sill grille, straight    250        1.7          61          60      1.5 to 1.7    around and above the heat source. As the plume rises, it expands by
+  vanes                  190        1.7          72          70      1.4 to 1.7    entraining surrounding air. Its growth and ascent are proportional to
+                         125        1.3          86          80      1.2 to 1.8    the heat source’s size and intensity and temperature of ambient air
+                          60        0.9          95          90      0.8 to 1.3    above it. Ambient air from below and around the heat source fills the
+Sill grille, spread      250        0.7          94          90      0.6 to 1.5    void created by the rising plume. If the heat source is near the floor
+  vanes                  190        0.7          94          80      0.6 to 1.7    (e.g., an occupant), the plume entrains cool, conditioned air from
+                         125        0.7          94          —           —         the floor level, which is drawn to the respiration level, and serves as
+                          60        0.7          94          —           —         the source of inhaled air. Exhaled air rises with the escaping heat
+Ceiling slot             250        0.3          85          80      0.3 to 0.7    plume, because it is warmer and more humid than the ambient air.
+  diffusers for          190        0.3          88          80      0.3 to 0.8    Convective heat from sources located above the occupied zone has
+  T0.50/L)               125        0.3          91          80      0.3 to 1.1    little effect on occupied-zone air temperature.
+                          60        0.3          92          80      0.3 to 1.5        At a certain height, where plume temperature equals ambient
+Light troffer            190        2.5          86          80        <3.8        temperature, the plume disintegrates and spills horizontally. Two
+  diffusers              125        1.0          92          90        <3.0        distinct zones are thus formed in the room: a lower occupied zone
+                          60        1.0          95          90        <4.5        with little or no recirculation flow (close to displacement flow), and
+Perforated,           35 to 160     2.0          96          90      1.4 to 2.7    an upper zone with recirculation flow. The boundary between these
+  louvered ceiling                                           80      1.0 to 3.4    two zones is called shift zone. The shift zone height is calculated as
+  diffusers                                                                        the height above the floor where the total amount of air carried in
+Room Air Distribution                                                                                                                     57.7
+
+convective plumes above heat sources equals the supply airflow dis-       Typical Applications
+tributed through displacement diffusers. Actual and simplified rep-          Thermal displacement ventilation systems typically have higher
+resentations of the temperature gradient in the space are shown in        return air temperatures than mixed systems. Thus, they may allow
+Figure 4.                                                                 extended periods of air- or water-side economizer operation, espe-
+    Thermal displacement ventilation systems can be modeled as            cially in mild, relatively dry climates.
+shown in Figure 4. A thin layer of conditioned supply air lies adja-         Thermal displacement ventilation systems are commonly used in
+cent to the floor. Next is a lower zone in which both ambient air         applications such as
+temperature and contaminant concentration levels increase with
+height. Finally, a pool of warm used or contaminated air (the upper       • Restaurants
+zone) may form next to the ceiling, depending on the supplied air-        • Casinos
+flow rate in proportion to the volume of thermal plumes rising            • Large open-plan offices, classrooms, lecture halls, and meeting
+through the space.                                                          rooms
+                                                                          • Theaters and auditoriums
+Space Ventilation and Contaminant Removal
+                                                                          • Hospitals and clean rooms
+   Thermal displacement ventilation is very effective at removing         • Other spaces with high ceilings
+airborne contaminants that are equal to or lighter than the ambient air
+(e.g., respiratory-produced contaminants, tobacco smoke). Accord-         Benefits and Limitations
+ing to ASHRAE Standard 62.1-2010, these systems have zone air
+distribution effectiveness EZ values of 1.2, compared to maximum             Benefits of displacement ventilation systems include the fol-
+values of 1.0 for mixed air systems.                                      lowing:
+                                                                          • Removal of airborne contaminants is more effective.
+                                                                          • In mild climates, significantly less energy may be used to maintain
+                                                                            the same space occupied zone air temperature in cooling mode.
+                                                                          • Air distribution effectiveness is high: less outdoor air is required
+                                                                            to meet ASHRAE Standard 62.1-2010 requirements.
+                                                                          • Diffuser noise level is lower.
+                                                                          • Lower turbulence intensity can reduce draft-related complaints.
+                                                                              Some applications do not favor use of thermal displacement ven-
+                                                                          tilation. Small offices, especially with perimeter exposures, often do
+                                                                          not have room for the large outlets that may be required. The fol-
+                                                                          lowing types of areas may be better served by a mixed system:
+                                                                          • Spaces with ceiling heights less than 2.7 m
+                                                                          • Spaces with exceptionally high occupied zone heat loads (Bau-
+                                                                            man and Daly 2003)
+                                                                          • Spaces with ceiling heights below 3 m that are subjected to sig-
+                                                                            nificant room air disturbances
+   Fig. 3    Displacement Ventilation System Characteristics
+                                                                          • Applications where contaminants are heavier and/or colder than
+                                                                            ambient air
+                                                                              When thermal displacement systems are used in humid climates,
+                                                                          it may be necessary to dehumidify and possibly reheat supply air to
+                                                                          maintain desired space conditions. As with all HVAC air systems’
+                                                                          design, a psychrometric analysis is advised.
+
+                                                                          Outlet Characteristics
+                                                                              Displacement outlets are designed for average face velocities
+                                                                          between 0.25 to 0.35 m/s, and are typically in a low sidewall or floor
+                                                                          location. Return or exhaust air intakes should always be located
+                                                                          above the occupied zone for human thermal comfort applications.
+                                                                              Displacement outlets are available in a number of configurations
+                                                                          and sizes. Some models are designed to fit in corners or along side-
+                                                                          walls, or stand freely as columns. It is important to consider the
+                                                                          degree of flow equalization the outlet achieves, because use of the
+                                                                          entire outlet surface for air discharge is paramount to minimizing
+                                                                          clear zones and maintaining acceptable temperatures at the lower
+                                                                          levels of the space.
+                                                                              Stationary occupants should not be subjected to discharge veloc-
+                                                                          ities exceeding about 0.2 m/s because air at the ankle level within
+                                                                          this velocity envelope tends to be quite cool. As such, most outlet
+                                                                          manufacturers define a clear zone in which location of stationary,
+                                                                          low-activity occupants is strongly discouraged, but transient occu-
+            Fig. 4 Temperature Profile of Displacement                    pancy, such as in corridors or aisles, is possible. Occupants with
+                       Ventilation System                                 high activity levels may also find the clear zone acceptable.
+57.8                                                                       2015 ASHRAE Handbook—HVAC Applications (SI)
+
+                                                                            should be considered (e.g., smoking rooms and other facilities with
+                                                                            emissions of gaseous, equal- or lighter-than-air contaminants). The
+                                                                            objective of the temperature-based method is satisfying thermal
+                                                                            comfort in the occupied zone; the shift-zone design addresses this
+                                                                            concern and also ensures that contaminants rise above the occu-
+                                                                            pants’ breathing level.
+                                                                                Space temperature gradient (STG) is affected by the strength and
+                                                                            location of heat sources in the space, heat exchange by radiation
+                                                                            between surfaces in the space, and supply airflow. The design pro-
+                                                                            cedure presented in this section is based on Skistad et al.’s (2002)
+                                                                            simplified method of estimating temperature gradient (Figure 5).
+                                                                            This method is applicable for typical spaces with a ceiling height up
+                                                                            to 3.7 m, such as classrooms, office spaces, and meeting rooms.
+                                                                            When designing more complex spaces, computational fluid dynam-
+                                                                            ics (CFD) software programs may be used (see Chapter 13 of the
+                                                                            2013 ASHRAE Handbook—Fundamentals for more information).
+                                                                                The thermal gradient relationships illustrated in Figure 5 can be
+                                                                            used to establish an acceptable supply-to-return air temperature dif-
+                                                                            ferential tSR from which the supply airflow rate is calculated.
+                                                                            Because the space temperature gradient is assumed to be linear, the
+                                                                            occupied gradient in the occupied zone is proportional to the vol-
+                                                                            ume of the space it represents. For example, if return height is 3 m
+                                                                            and the occupied zone is 1.5 m high, its gradient comprises 50% of
+       Fig. 5 Temperature Gradient Relationships for
+                                                                            the space temperature gradient, or 25% of tSR. The temperature
+     Thermal Displacement Ventilation System in Typical
+                                                                            difference between room air at the top of the occupied zone and the
+             Classroom or Office with 3 m Ceiling
+                                                                            supply air is therefore 75% of tSR.
+                                                                                Determining an acceptable tSR should consider both the room-
+Space Temperature Gradients and Airflow Rates                               to-supply temperature differential and the occupied zone tempera-
+   Figure 5 illustrates thermal temperature gradients that might be         ture gradient (as limited to 3 K by ASHRAE Standard 55).
+expected for a classroom with a 3 m ceiling, served by thermal dis-             In general, high-ceiling applications allow larger supply-to-
+placement ventilation. If loads are typical to the application and          return air temperature differentials, because the occupied zone is a
+proper space airflow is supplied, Skistad et al. (2002) indicate that       smaller percentage of total room air volume. However, the differen-
+approximately 50% of the total temperature difference between sup-          tial may be reduced by limitations on the supply air temperature, as
+ply air and return or exhaust air is dissipated in clear zone(s) next to    shown in Example 2.
+the outlet(s). The other half of the temperature gradient is the space          The supply airflow rate Q to achieve tSR is calculated from
+temperature gradient (STG), assumed to be linear with air tem-              Equation (1).
+perature, increasing gradually from floor to ceiling.
+                                                                            Example 2. A classroom with a 3 m ceiling is to be cooled by thermal dis-
+   For stationary, low-activity occupants, keep supply air tempera-
+                                                                               placement ventilation. The supply air temperature is 16.5°C and room
+tures above 16°C. When occupants are very near outlets (e.g., in               temperature is maintained at 24°C at 1.5 m level. The total sensible heat
+underseat delivery), keep supply air temperatures at or above 18°C.            gain of the space is 8200 W.
+                                                                                   Calculate the (1) overall temperature differential between supply
+Methods of Evaluation                                                          and return airflow and (2) required space airflow. Identify return air
+   Unlike mixed systems, outlets in thermal displacement systems               temperature and temperature at occupants’ ankle level.
+discharge air at very low velocities, resulting in very little mixing.         Solution: Using the relationships in Figure 5, the supply-to-return tem-
+As such, design of these systems primarily involves determining a              perature differential tSR and return air temperature can be predicted as
+supply airflow rate to manage the thermal gradients in the space in            follows:
+accordance with ASHRAE comfort guidelines. ASHRAE Standard
+                                                                                       tSR = (troom – tsupply)/0.75 = (24 – 16.5)/0.75 = 10 K
+55 recommends that the vertical temperature difference between the
+ankle and head levels of space occupants be limited to no more than                         treturn = tsupply + tSR = 16.5 + 10 = 26.5°C
+3 K to maintain a high degree (>95%) of occupant satisfaction.
+                                                                                   To ensure a high level of thermal comfort, the occupied-zone
+Design Procedures                                                              temperature gradient toz should not exceed 3 K. For this application,
+                                                                               the occupied zone gradient is acceptable:
+    Displacement ventilation system design is somewhat different
+than for mixing ventilation. For mixing ventilation systems, where                            toz = tSR  0.25 = 10  0.25 = 2.5°C
+air is mixed relatively evenly throughout the space, the return/
+                                                                                   From Equation (1), the airflow required to maintain this gradient is
+exhaust air temperature is assumed to equal the space temperature.
+In displacement ventilation systems, the space is divided into two                                Q = 8200/(1.2  10) = 683 L/s
+vertical zones. The desired space air temperature is maintained only
+in the lower zone and is always higher in the upper zone because of         Application Considerations
+the temperature stratification created by natural convection.                  Displacement ventilation is a cooling-only method of room air
+    Depending on space requirements, two types of design methods            distribution. For heating, a separate system is generally recom-
+are used. The most common is temperature-based, and is used when            mended. Displacement ventilation can be used successfully in com-
+heat removal is the main objective of the air-conditioning system           bination with radiators and convectors installed at the exterior walls
+design (e.g., in schools, offices, auditoriums, sport facilities). The      to offset space heat losses. Radiant heating panels and heated floors
+other, the shift-zone method, is used when contaminant removal              also can also be used with displacement ventilation. To maintain
+Room Air Distribution                                                                                                                         57.9
+
+displacement ventilation, outlets should supply ventilation air about         reasonable target at 1.5 to 2.5 K temperature difference from head
+2 K lower than the desired room temperature.                                  to ankle height, which satisfies ASHRAE Standard 55-2010.
+    Thermal displacement ventilation systems can be either constant         • By increasing airflow and mixing in the occupied zone, excessive
+or variable air volume. A thermostat in a representative location in          stratification can be avoided, thereby improving thermal comfort.
+the space or return plenum should determine the delivered air vol-
+                                                                               In practice, successful installation requires an optimal balance of
+ume or temperature. If the time-averaged requirements of ASHRAE
+                                                                            these issues (Webster and Bauman 2006).
+Standard 62.1-2004 are met, intermittent on/off airflow control can
+                                                                               Figure 6 shows one example of the resulting room air distribution
+be used.
+                                                                            in which the room air is mixed in the lower mixed zone, which is
+    Avoid using thermal displacement and mixed air systems in the           bounded by the floor and the elevation (throw height) at which the
+same space, because mixing destroys the natural stratification that         0.25 m/s terminal velocity occurs. At this elevation, stratification
+drives the thermal displacement ventilation system. Thermal dis-            begins to occur and a linear temperature gradient, similar to that
+placement systems can be complemented by hydronic systems such              found in thermal displacement systems, forms and extends through
+as chilled floors. Use caution when combining chilled ceilings,             the stratified zone. As with thermal displacement ventilation, con-
+beams, or panels with fully stratified systems, because cold surfaces       vective heat plumes from space heat sources draw conditioned air
+in the upper zone of the space may recirculate contaminants strati-         from the lower (mixed) level through the stratified zone and to the
+fied in the upper zone back into the occupied zone.                         overhead return location. A third zone, referred to as the upper
+    Chen and Glicksman (2003) provide additional information on             mixed zone, may exist where the volume of rising heat plumes
+fully stratified air distribution systems.                                  terminate. Although velocities in this area are quite low, the air tends
+                                                                            to be mixed.
+    5.   PARTIALLY MIXED AIR DISTRIBUTION
+   A partially mixed system’s characteristics fall between a fully          Space Ventilation and Contaminant Removal
+mixed system and a fully stratified system. It includes both a high-            Partially mixed systems’ ventilation and contaminant removal
+velocity mixed air zone and a low-velocity stratified zone where            efficiencies vary considerably. Restricting mixed conditions to
+room air motion is caused by thermal forces. For example, floor-            below the breathing level results in most respiratory-associated con-
+based outlets, when operating in a cooling mode with relatively high        taminants being conveyed directly to the overhead return by heat
+discharge velocities (>0.75 m/s), create mixing, thus affecting the         plumes rising from occupants. If the lower mixed zone extends
+amount of stratification in the lower portions of the room. In the          above the breathing level, contaminants are entrained and horizon-
+upper portions of the room, away from the influence of floor outlets,       tally transmitted across occupied levels of the space, as occurs in
+room air often remains thermally stratified in much the same way as         mixed air (dilution ventilation) systems.
+displacement ventilation systems.                                               According to ASHRAE Standard 62.1, these systems may have
+                                                                            zone air distribution effectiveness EZ values that exceed those of
+Principles of Operation                                                     fully mixed systems.
+   Supply air is discharged, usually vertically, at relatively high
+velocities and entrains room air in a similar fashion to outlets used
+                                                                            Typical Applications
+in mixed air systems. This entrainment, as shown in Figure 6,                  Partially mixed systems are commonly used in applications such
+reduces the temperature and velocity differentials between supply           as the following:
+and ambient room air. This discharge results in a vertical plume that       • Office buildings with raised floors
+rises until its velocity is reduced to about 0.25 m/s. At this point, its   • Call centers
+kinetic energy is insufficient to entrain much more room air, so mix-       • Libraries
+ing stops. Because air in the plume is still cooler than the surround-      • Casinos
+ing air, the supply air spreads horizontally across the space, where it     • Other spaces with open or high ceilings
+is entrained by rising thermal plumes generated by nearby heat
+sources.                                                                       Many underfloor air distribution (UFAD) systems can be classi-
+   Research and experience have shown that the amount of room air           fied as partially mixed systems. These systems are popular because
+stratification varies depending on design, commissioning, and oper-         of their relocation flexibility when used in conjunction with raised-
+ation. Control of stratification includes the following consider-           access flooring systems. Outlet accessibility also allows easy occu-
+ations:                                                                     pant adjustment of space airflow delivery. The cavity beneath the
+                                                                            access floor tiles is generally pressurized and used as a supply air
+• By reducing airflow and mixing in the occupied zone, fan energy           plenum. Supply outlets placed in access floor tiles are commonly
+  can be reduced and stratification can be increased, approaching a         tapped directly into the pressurized plenum, but may be ducted from
+                                                                            a fan-assisted terminal unit mounted beneath the floor.
+                                                                            Benefits and Limitations
+                                                                               Benefits of UFAD systems include the following:
+                                                                            • Using a raised floor system may substantially reduce air distribu-
+                                                                              tion ductwork and terminal requirements.
+                                                                            • Central fan energy consumption may be lower.
+                                                                            • The space service flexibility of the access floor platform is ex-
+                                                                              tended to include HVAC services as well. Nonducted outlets can
+                                                                              be easily added or relocated.
+                                                                            • Because most outlets are sized to handle loads typical to an inte-
+                                                                              rior single-occupant office or workstation, they can be placed
+                                                                              within the workstation to give occupants thermal control over
+                                                                              their individual work environment. This makes higher individual
+   Fig. 6 UFAD System in Partially Stratified Application                     occupant comfort levels possible.
+57.10                                                                     2015 ASHRAE Handbook—HVAC Applications (SI)
+
+• Air- and water-side economizer opportunities are extended, espe-         • The desired space temperature, the elevation to which it applies,
+  cially in mild and relatively dry climates.                                and an appropriate supply air temperature must be identified.
+                                                                           • The supply air temperature for UFAD systems served by a pres-
+   Applications where contaminants are heavier and/or colder than
+                                                                             surized or neutral pressure floor plenum should be limited to that
+ambient air may be better served by a mixed air system. As with
+                                                                             which results in a relative humidity level below 80% in the floor
+thermal displacement systems, partially stratified systems in humid
+                                                                             cavity, to minimize the threat of mold or fungus growth.
+climates require that the outdoor air be sufficiently dehumidified to
+satisfy space latent requirements. The temperature of dehumidified         • Supply air temperatures tend to rise as air moves through the floor
+air must often be increased before introduction to the occupied              cavity; therefore, the supply air temperature varies with its dis-
+space.                                                                       tance traveled. When determining space airflow requirements,
+                                                                             supply temperatures should be modified accordingly to avoid
+Outlet Characteristics                                                       undercooling the occupied space. Bauman and Daly (2003) dis-
+                                                                             cuss this subject further.
+    One outlet type is a swirl diffuser with a high-induction core,
+                                                                           • If the objective is to provide displacement ventilation of respira-
+which induces large amounts of room air to quickly reduce supply
+                                                                             tory contaminants in the stratified zone, mixing must be limited to
+to ambient air velocity and temperature differentials. Supply air is
+                                                                             below the breathing level of most space occupants.
+injected into the room as a swirling vertical plume close to the out-
+                                                                           • Outlets should be located far enough from stationary occupants to
+let. Properly selected, these outlets produce a limited vertical pro-
+                                                                             ensure that they are not subjected to drafts that might cause ther-
+jection of the supply air plume, restricting mixing to the lower
+                                                                             mal discomfort. Outlet manufacturers generally prescribe clear
+portions of the space. Most of these outlets allow occupants to adjust
+                                                                             zones that quantify this separation distance.
+the outlet airflow rate easily. Other versions incorporate automati-
+cally controlled dampers that are repositioned by a signal from the        Application Considerations
+space thermostat and/or central control system.
+    Another category includes more conventional floor grilles de-             ASHRAE’s Underfloor Air Distribution Design Guide (Bauman
+signed for directional discharge of supplied airflow. These grilles        and Daly 2003) includes a thorough discussion of issues involved
+may be either linear or modular in design, and may allow occupants         in the design, application, and commissioning of UFAD systems.
+to adjust the discharge air pattern by repositioning the core of the       Some considerations include the following:
+outlet. Most floor grilles include an integral actuated damper, or         • Supply temperatures in the access floor cavity should be kept at
+other means, that automatically throttles the volume of air in re-           16°C or above, to minimize the risk of condensation and subse-
+sponse to the zone conditioning requirements.                                quent mold growth.
+    Room air induction allows UFAD diffusers to comfortably de-            • Most UFAD outlets can be adjusted automatically by a space ther-
+liver supply air a few degrees cooler than possible with outlets used        mostat or other control system, or manually by the occupant. In
+for thermal displacement ventilation outlets. The observance of              the latter case, outlets should be located within the workstation
+clear, or adjacent, zones above and around the diffusers, where sta-         they serve.
+tionary occupants should not reside, is recommended. Outlet man-           • Use of manually adjusted outlets should be restricted to open
+ufacturers typically identify such restrictive areas in their product        office areas where cooling loads do not tend to vary considerably
+literature.                                                                  or frequently. Perimeter areas and conference rooms require auto-
+                                                                             matic control of supply air temperatures and/or flow rates because
+Space Temperature Gradients and Airflow Rates                                their thermal loads are highly transient.
+   The objective of partially mixed systems is to condition the air in     • Heat transfer to and from the floor slab affects discharge air tem-
+the occupied zone while allowing stratification to naturally occur.          perature and should be considered when calculating space airflow
+By allowing this stratification, some of the space heat gain can be          requirements. Floor plenums should be well sealed to minimize
+removed by return or exhaust instead of by supply air delivery to the        air leakage, and exterior walls should be well insulated and have
+space. If the supply airflow rate and sensible heat gains affecting the      good vapor retarders. Night and holiday temperature setbacks
+lower zone are balanced, an acceptable temperature gradient (<3 K)           should likely be avoided, or at least reduced, to minimize plenum
+can be achieved in the occupied zone. Supply airflow beyond that             condensation and thermal mass effect problems. With air-side
+required by these heat gains reduces the degree of stratification            economizers, using enthalpy control rather than dry-bulb control
+shown in Figure 6. If the supply airflow rate is insufficient, exces-        can help reduce hours of admitting high moisture-content air, thus
+sive vertical space temperature gradients may occur.                         also reducing the potential for condensation in the floor plenums.
+   Accurate calculation of the space design supply airflow rate            • Avoid using stratified and mixed air systems in the same space,
+requires analysis of all space sensible heat gains to determine their        because mixing destroys the natural stratification that drives the
+contribution to the lower zone. Although there is not yet a single rec-      stratified system.
+ognized procedure for calculating these airflow rates, most UFAD           • Return static pressure drop should be relatively equal throughout
+equipment manufacturers offer guidance.                                      the spaces being served by a common UFAD plenum. This re-
+                                                                             duces the chance of unequal pressurization in the UFAD plenum.
+Methods of Evaluation
+   As for thermal displacement systems, design involves determin-                             6.   TERMINAL UNITS
+ing a supply airflow rate that limits thermal gradients in the occu-
+pied zone in accordance with ASHRAE Standard 55 guidelines.                System Selection
+ASHRAE Standard 55 recommends that the vertical temperature                    Designers have various systems (terminal units and their asso-
+difference between the ankle and head level of space occupants be          ciated controls) to choose from when designing a building. The
+limited to no more than 3 K if a high degree (>95%) of occupant            owner’s needs must be met for installation, application, and cost of
+comfort is to be maintained.                                               operation. The designer must consider performance, capacity, reli-
+                                                                           ability, energy consumption, sustainability, and spatial require-
+Design Procedures                                                          ments and restrictions. The following guidelines describe different
+   The design of partially mixed air distribution systems requires         types of equipment and their general uses, restrictions, and limi-
+identifying both thermal and contaminant removal objectives:               tations. Table 5 summarizes the different types of terminal units
+Room Air Distribution                                                                                                                                                                                                                                                  57.11
+
+                                                          Table 5             Suitability of Terminal Units for Various Applications
+                                                                                                                                                      Facility Type
+                                                      Office Space, Educational, and                                                Hospitals, Cleanrooms,                                              Noise-Sensitive
+                                                          Institutional Buildings                                                     and Laboratoriesa                                                 Applicationsb                        Other Facilities
+
+
+
+
+                                                                                                                                                                         Laboratory Space   Broadcast Studios                                       Shopping Centers
+                                                            Large                                           Small
+
+
+
+                                                                                                                                      Patient Areas    Operating Areas
+                                                                                                                                                                                                                                       Public Use                       Mixed Use
+                                          Interior Zone       Exterior Zone                 Interior Zone           Exterior Zone
+                                                                                                                                                                                                                           Libraries
+                                                                                 Low
+                                                                                                                                                                                                                Theaters
+
+                                                                              Temperature
+Terminal Types
+Single-Duct
+              VAV without reheat                                                                                                                  P                                                                                                           
+              VAV with reheat                                                                                                                     N                  P                                                                                         
+Dual-Duct
+            VAV no mixing                                                      N           N                       N                 N                N                 N                                                                                          
+            VAV with mixing                                                    N           N                       N                                                  N                                                                                          
+            Constant volume                                                    N           N                       N                 P                P                                    P                                                   N                    
+Exhaust Terminal                                                               N           N                       N                 P                P                 P                   •                                                                       
+Induction Terminal
+            VAV with heat                                                                                                                         N                                                                                                           
+            VAV without heat                                                                                                      N                N                 N                                                                                          
+Fan-Powered
+            Parallel with heat            N                                                N                                        N                N                 N                  N                                       P                               
+            Series without heat           P                                                                                        N                N                 N                  P                  P          P           P             P                  P
+            Series with heat                                  P                                                                                    N                                   P                  P          P           P             P                  P
+            Low-temperature               N                    N                 P           N                       N                 N                N                 N                  N                  N          N           N             N                  N
+Bypass                                    N                    N                 N                                                   N                N                 N                  N                  N          N           N             N                  N
+P = Preferred for this application.
+ = Used for this application.
+N = Not recommended for this application.
+aSealed lining is recommended to minimize entrainment of airborne fibers from liner to occupied spaces.
+bSpecial consideration should be given to selecting very quiet operating equipment and use of attenuators or silencers.
+
+
+
+and their suitability for particular commercial building applica-                                                                        In small buildings, such as shopping malls and other low-rise
+tions.                                                                                                                                buildings where each tenant area is small, it is common to use small
+    Building Use. Before specifying equipment types, the designer                                                                     packaged air conditioners. If terminal units are used on these sys-
+must consider the building’s intended use. Office buildings with                                                                      tems, usually single duct or bypass units are selected. A variation of
+daily operational schedules frequently use fan-powered terminal                                                                       this system, variable-volume variable-temperature (VVT), uses pres-
+units. Usually, fan-powered terminals with auxiliary heaters (sup-                                                                    sure-dependent single-duct units with a main bypass damper in the
+plementary heat) are used in perimeter zones; these units allow the                                                                   supply duct. The bypass damper is regulated by static pressure in the
+greatest flexibility for individual zones while also allowing the cen-                                                                supply duct. A nearly constant pressure can be maintained, allowing
+tral system to be turned off during unoccupied periods. During                                                                        the packaged units to operate at constant volume and the individual
+unoccupied periods, the fan-powered terminal units maintain the                                                                       zones to be pressure-dependent VAV.
+minimum or setback temperature levels without the help of the cen-                                                                       Building Controls. The type of control system to be used is
+tral air-conditioning equipment.                                                                                                      somewhat dependent on the size and type of building. Controls can
+    In institutional, medical, or campus buildings, systems that pro-                                                                 be electric, pneumatic, analog electronic, or digital electronic.
+vide pressurization differences between interior areas may be                                                                         • Electric controls are pressure dependent where the damper re-
+required.                                                                                                                               sponds to a single control input. For example, the thermostat sends
+    Buildings with centralized heating and cooling plants sometimes                                                                     a signal to the damper to open or close based solely on room sen-
+use dual-duct terminal units.                                                                                                           sible temperature.
+    Building Size. In large buildings, central air handlers deliver                                                                   • Pneumatic controls are usually used for building renovation or
+large quantities of air to many zones with different needs. Interior                                                                    buildout of existing buildings where the base building already
+zones may not require heat; therefore, they can be served either by                                                                     has a pneumatic system installed. They can be pressure de-
+single duct or fan-powered units with no supplemental heat. Unless                                                                      pendent or pressure independent. Pneumatic controls require
+the building is located in a tropical climate, the perimeter zones                                                                      regular system maintenance and may need to be periodically re-
+require heat, typically electric or hot water. These are usually                                                                        balanced.
+included with the terminal units, but sometimes separate heating                                                                      • Analog controls are often applied to smaller buildings that do not
+systems are used, such as dual-duct or baseboard. In buildings                                                                          have a building operation staff. Typically, these controls do not
+where the owner desires low operating costs, the static pressure in                                                                     communicate with other zones or other equipment in the building.
+the ducts should be lowered in accordance with ASHRAE Standard                                                                        • Digital controls are typically used on buildings that have a build-
+90.1 to the minimum pressure, which sets at least one VAV damper                                                                        ing operation staff. These controls provide individual zone con-
+to near-full open. Interior zones in these buildings can use fan-pow-                                                                   trol and communication to the building management system.
+ered terminal units to keep the static pressure low. Buildings with
+parallel-type fan-powered terminal units usually use single-duct                                                                         Acoustical Considerations. Terminal units and room air distri-
+units in the interior zones and require higher system static pressures.                                                               bution devices are typical equipment sound sources for the room.
+57.12                                                                     2015 ASHRAE Handbook—HVAC Applications (SI)
+
+However, they are not the only sources that affect room acoustics.         device, and selected controls. Accessory discharge attenuators and
+Refer to Chapter 48 as well as AHRI Standard 885 and other stan-           multiple outlet attenuators are also frequently used.
+dards for guidance on space acoustics. Broadcast studios, theaters,           Typical applications include
+and libraries require very low noise levels. Equipment selection and
+location is important here, and careful examination of the equip-          • Where the supply air system is not tasked with the space heating
+ment sound performance is imperative. Radio-frequency interfer-              requirements
+ence (RFI) and electromagnetic interference (EMI) should also be           • With VVT or other auto-changeover controls
+considered when designing television studios.                              • Constant air volume
+    Environmental Factors. Environmental factors play an impor-            • Constant pressure control
+tant role in system selection. They include the climate and air con-          A single duct with reheat has an added heating coil (hot water
+ditions inside as well as outside the building. They also include          or electric). They are typically applied in zones where heat losses
+legislative requirements such as outdoor air ventilation rates and         create a need for heating. The terminal usually reheats at the mini-
+local building codes. When high ventilation rates are required,            mum airflow setting. An auxiliary higher heating setting may be
+reheat is often required to maintain human comfort. Fan-powered            available as an option with additional controls.
+terminal units are usually used where the thermal load changes sig-
+                                                                              Interior zones, where ventilation requirements may be larger
+nificantly and heating is required. Single-duct terminal units are
+                                                                           than the desired heating airflow, may require additional reheat.
+usually applied in the interior where the thermal load is normally
+stable.                                                                       A single-duct exhaust consists of an airflow regulator and may
+                                                                           also include an actuator, an airflow-measuring device, and selected
+    Contamination Considerations. Hospitals, cleanrooms, and
+                                                                           controls. Accessory inlet attenuators are sometimes used. Specialty
+laboratories pose special challenges. Protective isolation spaces
+                                                                           materials may need to be considered for corrosion resistance. The
+such as operating rooms, bone marrow transplant patient rooms,
+                                                                           designer should consider pressure drop and inlet versus outlet
+AIDS patient areas, and cleanrooms require positively pressurized
+                                                                           designs.
+environments. Infectious isolation spaces such as tuberculosis
+patient rooms require negatively pressurized environments. See                Single-duct exhaust units are typically used in isolation wards,
+ASHRAE Standard 170 for details on room pressurization, Chapter            operating theaters, laboratories, cleanrooms, and systems that re-
+8 for specifics on health care requirements, and Chapter 18 for            quire supply and exhaust tracking.
+details on clean spaces. Hospital rooms and cleanrooms frequently             Dual Duct. A nonmixing dual duct is effectively two single-
+also require constant high ventilation rates, which tend to favor sin-     duct terminal units side by side. The basic unit incorporates separate
+gle- or dual-duct terminal units. Pressure-independent, variable-          cold and hot (sometimes neutral) air inlets. They are usually applied
+speed motor technology has lead to the development of fan-powered          in exterior zones in buildings where overhead heating and cooling
+pressurization units.                                                      are desired but not auxiliary heat, and zero minimum flow is accept-
+    To minimize entrainment of fibers into the airstream, either do        able during changeover between heating and cooling.
+not use internal insulation or use special liners in the terminal units       A mixing dual duct is the same, with an integral mixing/atten-
+and duct systems. Insulations can be isolated from the airstream by        uator section on the downstream end of the terminal unit to mini-
+metal, foil, or polymer liners inside silencers and terminal units. All    mize temperature stratification in the discharge airstream. Interior
+of these liners have different thermal, acoustic, and other physical       and exterior zones in buildings (e.g., hospitals) where overhead
+properties and should be evaluated for each job.                           heating and cooling are desired but an auxiliary heating coil is not,
+                                                                           and zero minimum flow is unacceptable during changeover between
+    Maintenance and Accessibility.                                         heating and cooling. Mixing performance should be evaluated to fit
+    Typical Applications. Terminal units are typically not easily          the application.
+accessible after building occupation; they should be selected and             Fan-Powered Parallel Flow. Sometimes called variable-vol-
+located with consideration for required maintenance. Review the            ume or intermittent-fan units, these consist of a single duct unit,
+applicable building codes [e.g., ICC (2009)] for required access.          blower/motor, backdraft damper, and selected controls where the
+    Critical Environments. Some applications, such as cleanrooms           motor and primary damper are arranged such that mixing occurs
+and operating theaters, require high levels of reliability from termi-     downstream of the blower. Supplemental heating coils (either hot
+nal units because of the difficulty and cost associated with servicing     water or electric) are generally required. Electric heaters are typi-
+or maintaining the equipment. In a cleanroom, for example, if the          cally located on the discharge of the unit. Water coils may be on the
+ceiling must be opened, the space may require disinfection before it       discharge or the induction port, although location on the discharge
+can be used again. Associated costs might include lost production          adds to the supply air system’s static pressure requirements and
+time as well as the cost for wipedown and/or disinfecting the room         increases leakage through the backdraft damper, as shown in
+and/or equipment. In cases like these, the designer should consider        ASHRAE research project RP-1292 (Davis et al. 2007). Heating
+locating the equipment outside of the clean space or consider highly       coils on the induction port increase ambient temperature at the
+reliable, very-low-maintenance, very basic equipment and controls.         motor and decrease motor life.
+Terminal units may require access to internal components for clean-           Fan-powered parallel-flow units are used in exterior zones where
+ing in the case of contamination.                                          heating and cooling loads may vary considerably, and in buildings
+    Cost Factors. Costs should be considered before system selec-          where heating is needed when the central system is shut down dur-
+tion is finalized. Installation, operation, and maintenance all con-       ing unoccupied hours.
+tribute to total cost. Often, one of these costs overrides the others.        Fan-Powered Series Flow. The basic unit consists of a single-
+Electric heaters usually have a lower installed cost than hot water        duct unit, blower/motor, and selected controls where the motor and
+coils, but they may have a higher operating cost. Local utility rates      primary damper are arranged such that mixing occurs upstream of
+and building codes should be researched to arrive at the correct deci-     the blower. These units are also called constant-volume or con-
+sion before making the final selection.                                    stant-fan. Supplemental heating coils (either hot water or electric)
+                                                                           are generally required. Electric heaters are typically located on the
+Applications                                                               discharge of the unit; water coils may be on the discharge or the
+   Single Duct. The basic single-duct unit consists of an airflow          induction port. Heating coils on the induction port increase ambient
+regulator and may also include an actuator, an airflow-measuring           temperature at the motor and decrease motor life.
+

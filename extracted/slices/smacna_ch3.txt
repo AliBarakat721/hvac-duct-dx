@@ -1,0 +1,997 @@
+                                                                  CHAPTER 3
+                                                            ROOM AIR DISTRIBUTION
+
+                                                             ature between any point in the occupied zone and
+       COMFORT                                               the control condition, the following equation is used:
+       CONDITIONS                                                                                     Equation 3-1
+An understanding of the principles of room air distri-         0 = (tx -to) - a(V, - b)
+bution helps in the selection, design, control and op-       where (U.S. Units):
+eration of HVAC air duct systems. The real evaluation            0 = effective draft temperature, °F
+of air distribution in a space, however, requires an            tx = local airstream dry-bulb temperature, F
+affirmative answer to the question: "Are the occu-
+                                                                tc = average room dry-bulb temperature, F
+pants comfortable?" The object of good air distribu-
+tion in HVAC systems is to create the proper combi-            Vx = local airstream velocity, fpm
+nation of temperature, humidity and air motion, in the          a = 0.07
+occupied zone of the conditioned room from the floor            b = 30
+to 6 feet (2m) above floor level. To obtain comfort          where (Metric Units):
+conditions within this zone, standard limits have been
+established as acceptable effective draft tempera-                0 = effective draft temperature, °C
+                                                                 tx = local airstream dry-bulb temperature, °C
+ture. This term includes air temperature, air motion,
+relative humidity, and their physiological effects on the        tc = average room dry-bulb temperature, °C
+human body. Any variation from accepted standards               Vx = local airstream velocity, m/s
+of one of these elements causes discomfort to oc-                a=8
+cupants. Lack of uniform conditions within the space             b = 0.15
+or excessive fluctuation of conditions in the same part      Equation 3-1 accounts for the feeling of "coolness"
+of the space may produce similar effects.                    produced by air motion and is used to establish the
+Although the percentage of room occupants who ob-            neutral line in Figures 3-1 and 3-2. In summer, the
+ject to certain conditions may change over the years,        local airstream temperature, tx, is below the control
+ Figures 3-1 and 3-2 provide insight into possible ob-       temperature. Hence, both temperature and velocity
+jectives of room air distribution. The data show that        terms are negative when velocity, Vx, is greater than
+a person tolerates higher velocities and lower tem-          30 fpm (0.15 m/s) and both of them add to the feeling
+peratures at ankle level than at neck level. Because         of coolness. If, in winter, tx is above the control tem-
+of this, conditions in the zone extending from approx-       perature, any air velocity above 30 fpm (0.15 m/s)
+imately 30 to 60 inches (0.75 to 1.5 m) above the floor      subtracts from the feeling of warmth produced by tx.
+are more critical than conditions nearer the floor.          Therefore, it is usually possible to have zero differ-
+                                                             ence in effective temperature between location, x,
+Room air velocities less than 50 fpm (0.25 m/s) are          and the control point in winter, but not in summer.
+acceptable: However, Figure 3-1 and 3-2 show that
+even higher velocities may be acceptable to some
+occupants. ASHRAE Standard 55-1981R recom-
+mends elevated air speeds at elevated air tempera-
+tures. No minimum air speeds are recommended for
+                                                                    AIR DIFFUSION
+comfort, although air speeds below 20 fpm (0.1 m/s)                 PERFORMANCE INDEX
+are usually imperceptible.
+                     B
+                                                                     (ADPI)
+Figure 3-1 shows that up to 20 percent of occupants
+will not accept an ankle-to-sitting-level gradient of        1. Comfort Criteria
+about 4°F (2°C). Poorly designed or operated sys-
+tems in a heating mode can create this condition,            A high percentage of people are comfortable in se-
+which emphasizes the importance of proper selection          dentary (office) occupations where the effective draft
+and operation of perimeter systems.                          temperature (0), as defined in Equation 3-1, is be-
+To define the difference (0) in effective draft temper-      tween -3 Fand + 2°F (-1.7°C and + 1.1°C) and the
+
+
+                                                                                                                 3.1
+                                                                              ROOM     AIR    DISTRIBUTION
+
+
+
+
+   Figure 3-1 PERCENTAGE OF OCCUPANTS                         Figure 3-2 PERCENTAGE OF OCCUPANTS
+ OBJECTING TO DRAFTS IN AIR-CONDITIONED                     OBJECTING TO DRAFTS IN AIR-CONDITIONED
+             ROOMS (U.S. UNITS) (2)                                  ROOMS (METRIC UNITS) (2)
+air velocity is less than 70 fpm (0.35m/s). If many        humidity. These and similar effects, such as mean
+measurements of air velocity and air temperature           radiant temperature, must be accounted for sepa-
+were made throughout the occupied zone of an office,       rately according to ASHRAE recommendations.
+the ADPI would be defined as the percentage of lo-
+cations where measurements were taken that meet            ADPI is a measure of cooling mode conditions. Heat-
+the previous specifications on effective draft temper-     ing conditions can be evaluated using ASHRAE Stan-
+ature and air velocity. If the ADPI is maximum (ap-        dard 55-1981 R guidelines or the ISO Standard 7730-
+proaching 100 percent), the most desirable conditions      83, "Comfort Equations."
+are achieved.                                              The following cooling zone design criteria for the var-
+ADPI is based only on air velocity and effective draft     ious air diffusion devices maximize the ADPI and
+temperature, a combination of local temperature dif-       comfort. These criteria also account for airflow rate,
+ferences from the room average, and is not directly        outlet size, manufacturer's design qualities, and di-
+related to the level of dry-bulb temperature or relative   mensions of the room for which the system is de-
+                                                           signed.
+
+
+3.2
+                                                                                                            CHAPTER 3
+
+
+
+2. Definitions                                                Table 3-1 CHARACTERISTIC ROOM LENGTH
+                                                                           FOR DIFFUSERS
+A. THROW
+The throw of a jet is the distance from the outlet                Diffuser Type           Characteristic Length, L
+device to a point in the airstream where the maximum
+                                                             High Sidewall Grille    Distance to wall
+velocity in the stream cross section has been re-                                    perpendicular to jet
+duced to a selected terminal velocity. For all devices,
+the terminal velocity, V,, was selected as 50 fpm (0.25      Circular Ceiling        Distance to closest wall or
+m/s) except in the case of ceiling slot diffusers, where        Diffuser             intersecting air jet
+the terminal velocity was selected as 100 fpm (0.5 m/        Sill Grille             Length of room in the
+s). Data for the throw of a jet from various outlets are                             direction of the jet flow
+generally given by each manufacturer for isothermal          Ceiling Slot Diffuser Distance to wall or midplane
+jet conditions and without boundary walls interfering                                between outlets
+with the jet. Throw data certified under Air Diffusion
+                                                             Light Troffer Diffusers Distance to midplane
+Council (ADC) Equipment Test Code 1062GRD-84                                         between outlets, plus
+must be taken under isothermal conditions. Throw                                     distance from ceiling to top
+data not certified by ADC may be isothermal or not,
+                                                                                     of occupied zone
+as the manufacturer chooses. ASHRAE Standard 70-
+72R also includes specifications for reporting throw         Perforated, Louvered Distance to wall or midplane
+data.                                                           Ceiling Diffusers    between outlets
+
+B. THROW DISTANCE
+The throw distance of a jet is denoted by the symbol
+                                                             concentrated load against one wall that simulated a
+Tv, where the subscript indicates the terminal velocity
+                                                             business machine or a large sunloaded window. Over
+for which the throw is given.
+                                                             this range of data the maximum ADPI condition is
+                                                             lower for the highest loads; however, the optimum
+C. CHARACTERISTIC ROOM LENGTH                                design condition changes only slightly with the load.
+The characteristic room length (L) is the distance
+from the outlet device to the nearest boundary wall
+in the principal horizontal direction of the airflow. How-
+                                                             4. Design Conditions
+ever, where air injected into the room does not im-          The quantity of air must be known from other design
+pinge on a wall surface but mixes with air from a            specifications. If it is not known, the solution must be
+neighboring outlet, the characteristic length (L) is         obtained by a trial and error technique.
+one-half the distance between outlets, plus the dis-         The devices for which data were obtained are (1)
+tance the mixed jets must travel downward to reach           high sidewall grille, (2) sill grille, (3) two and four-slot
+the occupied zone. Table 3-1 summarizes definitions          ceiling diffusers, (4) conetype circular ceiling diffus-
+of characteristic length for various devices.                ers, (5) light troffer diffusers, and (6) square-faced
+                                                             perforated and louvered ceiling diffusers. Table 3-2
+D. MIDPLANE                                                  summarizes the results of the recommendations on
+The midplane between outlets also can be consid-             values of TV/L by giving the value of Tv/L where the
+ered the module line when outlets serve equal mod-           ADPI is a maximum for various loads, as well as a
+ules throughout a space, and characteristic length           range of values TV/L where ADPI is above a minimum
+consideration can then be based on module dimen-             specified value.
+sions.
+                                                             5. Outlet Type Selection
+3. Load Considerations                                       No criteria have been established for choosing
+These recommendations cover cooling loads of up to           among the six types of outlets to obtain an optimum
+80 Btu/h.ft2 (250 W/m2) of floor surface. The loading        ADPI. All outlets tested, when used according to
+is distributed uniformly over the floor up to about 7        these recommendations, can have ADPI values that
+Btu/h ft2 (22 W/m2), lighting contributes about 10 Btu/      are satisfactory [greater than 90 percent for loads
+h-ft2 (31 W/m2) and the remainder is supplied by a           less than 40 Btu/h.ft2 (126 W/m2)].
+
+
+
+                                                                                                                     3.3
+                                                                         ROOM     AIR    DISTRIBUTION
+
+
+
+             Table 3-2 AIR DIFFUSION PERFORMANCE INDEX (ADPI) SELECTION GUIDE (2)
+
+
+
+
+6. Design Procedure                                       f) Locate the appropriate outlet size from manu-
+  a) Determine the air volume requirements and               facturer's catalog.
+     room size.                                           g) Ensure that this outlet meets other imposed
+  b) Select the tentative outlet type and location           specifications, such as noise and static pres-
+     within room.                                            sure.
+  c) Determine the room's characteristic length (L)
+     (Table 3-1).                                                   Example 3-1 (U.S. Units)
+                                                        Specifications:
+  d) Select the recommended Tv/L ratio from Table         Room Size: 20 ft by 12 ft with 9 ft. ceiling
+     3-2.                                                 Type device: High sidewall grille, located at the
+  e) Calculate the throw distance (Tv) by multiplying       center of 12 ft endwall, 9 in. from ceiling.
+     the recommended Tv/L ratio from Table 3-2 by         Loading: Uniform, 10 Btu/h. ft2 or 2400 Btu/h
+     the room length (L).                                 Air Volume: 1 cfm/ft2 or 240 cfm for the one outlet
+
+
+
+3.4
+                                                                                                     CHAPTER 3
+
+
+Data Required:                                           straight, discharging 120 I/s: 400 mm by 100 mm,
+ Characteristic length: (L) = 20 ft (length of room:     300 mm by 125 mm or 250 mm by 125 mm.
+    Table 3-1
+  Recommended Tv/L = 1.5 (Table 3-2)
+  Throw to 50 fpm = T50 = 1.5 x 20 = 30 ft
+                                                                AIR DISTRIBUTION
+                        Solution
+                                                                FUNDAMENTALS
+Refer to the manufacturer's catalog for a size that
+gives this isothermal throw to 50 fpm. Manufacturer
+recommends the following sizes, when blades are          1. Air Diffusion
+straight, discharging 240 cfm: 16 in. by 4 in., 12 in.
+by 5 in. or 10 in. by 6 in.                              Conditioned air normally is supplied to air outlets at
+                                                         velocities much greater than those acceptable in the
+                                                         occupied zone. Conditioned air temperature may be
+           Example 3-1 (Metric Units)                    above, below, or equal to the air. Proper air diffusion,
+Specifications:                                          therefore, calls for entrainment of room air by the
+  Room size: 6000 by 4000 mm with 2500 mm high           primary airstream outside the zone of occupancy to
+    ceiling                                              reduce air motion and temperature differences to ac-
+  Type Device: High sidewall grille, located at the      ceptable limits before the air enters the occupied
+    center of 4000 mm endwall, 230 mm from ceiling       zone.
+  Loading: Uniform, 30 W/m2 or 720 W                     This process of entrainment of secondary air into the
+  Air Volume: 0.5 I/s per m2 or 120 I/s per outlet       primary air is an essential part of air distribution to
+Data Required:                                           create total air movement within the room. This pro-
+  Characteristic length L = 6000 mm (length of           cess also will tend to overcome natural convection
+     room: Table 3-1).                                   and radiation effects within the room, thereby elimi-
+  Recommended Tv/L = 1.5 (Table 3-3)                     nating stagnant air areas and reducing temperature
+  Throw to 0.25 m/s = T 25 = 1.5 x 6 = 9m                differences to acceptable levels before the air enters
+                                                         the occupied zone.
+
+                       Solution
+Refer to the manufactuer's catalog for a size that       2. Surface (Coanda) Effect
+gives this isothermal throw to 0.25 m/s. Manufacturer    Drawings A and B of Figure 3-3 illustrate the Coanda
+recommends the following sizes, when blades are          effect phenomenon. Since turbulent jet airflow from a
+
+
+
+
+                                   Figure 3-3 SURFACE (COANDA) EFFECT
+
+
+
+                                                                                                             3.5
+                                                                              ROOM     AIR    DISTRIBUTION
+
+
+grille or diffuser is dynamically unstable, it may veer    4. Sound Level
+rapidly back and forth. When the jet airflow veers
+close to a parallel and adjacent wall or ceilings, the     The sound level of an outlet is a function of the dis-
+surface interrupts the flow path on that side as shown     charge velocity and the transmission of systemic
+in Figure 3-3 (B). The result is that no more second-      noise, which is a function of the size of the outlet.
+ary air is flowing on that side to replace the air being   Higher frequency sounds can be the result of exces-
+entrained with the jet airflow. This causes a lowering     sive outlet velocity but may also be generated in the
+of the pressure on that side of the outlet device, cre-    duct by the moving airstream. Lower-pitched sounds
+ating a low-pressure bubble that causes the jet airflow    are generally the result of mechanical equipment
+to become stable and remain attached to the adjacent       noise transmitted through the duct system and outlet.
+surface throughout the length of the throw. The sur-       The cause of higher frequency sounds can be pin-
+face effect counteracts the drop of horizontally pro-      pointed as outlet or systemic sounds by removing
+jected cool airstreams.                                    the outlet during operation. A reduction in sound
+Ceiling diffusers exhibit surface effect to a high de-     level indicated that the outlet is causing noise. If
+gree because a circular air pattern blankets the entire    the sound level remains essentially unchanged, the
+ceiling area surrounding each outlet. Slot diffusers,      system is at fault. Chapter 42 "Sound and Vibration
+which discharge the airstream across the ceiling, ex-      Control" in the 1991 ASHRAE "HVAC Applications"
+hibit surface effect only if they are long enough to       handbook has more information on design criteria,
+blanket the ceiling area. Grilles exhibit varying de-      acoustic treatment, and selection procedures.
+grees of surface effect, depending on the spread of
+the particular air pattern.
+In many installations, the outlets must be mounted         5. Effect of Blades
+on an exposed duct and discharge the airstream into        Blades affect grille performance if their depth is at
+free space. In this type of installation, the airstream    least equal to the distance between the blades. If the
+entrains air on both its upper and lower surfaces; as      blade ratio is less than one, effective control of the
+a result, a higher rate of entrainment is obtained and     airstream discharged from the grille by means of the
+the throw is shortened by about 33 percent. Airflow        blades is impossible. Increasing the blade ratio above
+per unit area for these types of outlets can, therefore,   two has little or no effect, so blade ratios should be
+be increased. Because there is no surface effect from      between one and two.
+ceiling diffusers installed on the bottom of exposed
+ducts, the air drops rapidly to the floor. Therefore,      A grille discharging air uniformly forward (blades in
+temperature differentials in airconditioning systems       straight position) has a spread of 14° to 24°, depend-
+must be restricted to a range of 15°F to 20°F (8°C to      ing on the type of outlet, duct approach, and dis-
+11°C). Airstreams from slot diffusers and grilles show     charge velocity. Turning the blades influences the di-
+a marked tendency to drop because of the lack of           rection and throw of the discharged airstream.
+surface effect.                                            A grille with diverging blades (vertical blades with
+                                                           uniformly increasing angular deflection from the cen-
+3. Smudging                                                terline to a maximum at each end of 45°) has a spread
+                                                           of about 60°, and reduces the throw considerably.
+Smudging may be a problem with ceiling and slot            With increasing divergence, the quantity of air dis-
+diffusers. Dirt particles held in suspension in the sec-   charged by a grille for a given upstream total pres-
+ondary (room) air are subjected to turbulence at the       sure decreases.
+outlet face. This turbulence, along with surface effect,
+                                                           A grille with converging blades (vertical blades with
+is primarily responsible for smudging. Smudging can
+                                                           uniformity decreasing angular deflection from the
+be expected in areas of high pedestrian traffic (lob-
+                                                           centerline) has a slightly higher throw than a grille
+bies, stores, etc.) When ceiling diffusers are installed
+                                                           with straight blades, but the spread is approximately
+on smooth ceilings (such as plaster, mineral tile, and
+                                                           the same for both settings. The airstream converges
+metal pan), smudging is usually in the form of a nar-
+                                                           slightly for a short distance in front of the outlet and
+row band of discoloration around the diffuser. Anti-
+                                                           then spreads more rapidly than air discharged from
+smudge rings may reduce this type of smudging. On
+                                                           a grille with straight blades.
+highly textured ceiling surfaces (such as rough plas-
+ter and sprayed-on-composition), smudging often oc-        In addition to vertical blades that normally spread the
+curs over a more extensive area.                           air horizontally, horizontal blades may spread the air
+
+
+
+3.6
+                                                                                                          CHAPTER 3
+
+
+
+vertically. However, spreading the air vertically risks     A wall grille installed at the end of a long horizontal
+hitting beams or other obstructions or blowing primary      duct and a ceiling outlet at the end of a long vertical
+air at excessive velocities into the occupied zone. On      duct receive the air perpendicularly and at uniform
+the other hand, vertical deflection may increase ad-        velocity over the entire duct cross section, if the sys-
+herence to the ceiling and reduce the drop.                 tem is designed carefully. However, few outlets are
+In spaces with exposed beams, the outlets should be         installed in this way. Most sidewall outlets are in-
+located below the bottom of the lowest beam level,          stalled either at the end of vertical ducts or in the side
+preferably low enough to employ an upward or arched         of horizontal ducts, and most ceiling outlets are at-
+air path. The air path should be arched sufficiently to     tached either directly to the bottom of horizontal ducts
+miss the beams and prevent the primarily or induced         or to special vertical takeoff ducts that connect the
+airstream from striking furniture and obstacles and         outlet with the horizontal duct. In all these cases,
+producing objectionable drafts.                             special devices for directing and equalizing the air-
+                                                            flow are necessary for proper direction and diffusion
+                                                            of the air.
+6. Duct Approaches to Outlets
+The manner in which the airstream is introduced into        A. STACK HEADS
+the outlet is important. To obtain correct air diffusion,   Tests conducted with the stack heads indicated that
+the velocity of the airstream must be as uniform as         splitters or turning vanes in the elbows at the top of
+possible over the entire connection to the duct and         the vertical stacks were needed, regardless of the
+must be perpendicular to the outlet face. No air outlet     shape of the elbows (whether rounded, square or
+can compensate for air flow from an improper duct           expanding types). Cushion chambers at the top of
+approach.                                                   the stack heads are not beneficial. Figure 3-4 shows
+
+
+
+
+                     Figure 3-4 OUTLET VELOCITY AND AIR DIRECTION DIAGRAMS FOR
+                                 STACK HEADS WITH EXPANDING OUTLETS
+
+
+                                                                                                                   3.7
+                                                                                 ROOM      AIR    DISTRIBUTION
+
+
+
+    the direction of flow, diffusion, and velocity [measured   Outlets should be located to neutralize any undesir-
+    12 inches (300 mm) from opening] of the air for var-       able convection currents set up by a concentrated
+    ious stack heads tested, expanding from a 14 in. by        load. If a concentrated heat source is located at the
+    6 in. (350 mm x 150 mm) stack to a 14 in. by 9 in.         occupancy level of the room, the heating effect can
+    (350 mm x 225 mm) opening, without grille. The air         be counteracted by directing cool air toward the heat
+    velocity for each was 500 fpm (2.5 m/s) in the stack       source or by locating an exhaust or return grille ad-
+    below the elbow, but the direction of flow and the         jacent to the heat source. The second method is more
+    diffusion pattern indicate performance obtained with       economical, rather than dissipated into the condi-
+    nonexpanding elbows of similar shapes, for velocities      tioned space. Where lighting loads are heavy [5 W,
+    from 200 to 400 fpm. (1 to 2 m/s).                         ft2 (54 W/m2)] and ceilings relatively high [above 15
+    In tests conducted with 3 in. by 10 in. (75 mm x 250       ft (4.6m)], the outlets should be located below the
+    mm), 4 in by 9 in., and 6 in. by 6 in. (150 mm x 150       lighting load, and the stratified warm air should be
+    mm), side outlets in a 6 in. by 20 in. horizontal duct     removed by an exhaust or return fan. An exhaust fan
+    at duct velocities of 200 to 1400 fpm (1 to 7 m/s) in      is recommended if the wet-bulb temperature of the
+    the horizontal duct section, multiple curved deflectors    air is above that of the outdoors; a return fan is rec-
+    produced the best flow characteristics. Vertical guide     ommended if it is below this temperature. These
+    strips in the outlet were not as effective as curved       methods reduce the requirements for supply air. En-
+    deflectors. A single scoop-type deflector at the outlet    closed lights produce more savings than exposed
+    did not improve the flow pattern obtained from a plain     lights, since a considerable portion of the energy is
+    outlet and, therefore, was not desirable.                   radiant.
+                                                               Based upon the analysis of ASHRAE outlet perfor-
+    B. BRANCH TAKEOFFS                                         mance tests by Straub et al. (1955, 1957) the follow-
+                                                               ing are selection consideration for outlet types in
+    SMACNA duct fitting research at the ETL Laborato-
+    ries and the SMACNA "bubble" airflow research video        Groups A to E (See Figures 3-5 to 3-9).
+    have shown, both from duct traverse pressure read-
+    ings and from visual observation of airflow with en-       1. Group A Outlets.
+    trained soap bubbles, that airflow in branch ducts has
+    a non-uniform profile. Regardless of the type of de-       Outlets mounted in or near the ceiling with horizontal
+    vice used and the type of tap or branch fitting, most      air discharge should not be used with temperature
+    of the airflow is found in the downstream portion of       differentials exceeding 25°F (14°C) during heating.
+    the branch duct. The upstream portion of the branch        Consequently, Group A outlets should be used for
+    duct contains either reverse flow back (toward the         heating in buildings located in regions where winter
+    main duct) or swirling turbulence. See the discussion      heating is only a minor problem and, in northern lati-
+    in Chapter 5, Section E "Dynamic Losses".                  tudes, solely for interior spaces. However, these out-
+                                                               lets are particularly suited for cooling and can be
+                                                               used with high airflow rates and large temperature
+                                                               differentials. They are usually selected for their cool-
+                                                               ing characteristics.
+           OUTLET                                              The performance of these outlets is affected by var-
+D           LOCATION                                           ious factors. Blade deflection settings reduce throw
+                                                               and drop by changing air from a single straight jet to
+    The building's use, size and construction type, must       a wide-spreading or fanned-out jet. Accordingly, a si-
+    be considered in designing the air distribution sys-       dewall outlet with 0° deflection has a longer throw and
+    tem, and in selecting the type and location of the         a great drop than a ceiling diffuser with a single 360°
+    supply outlets. Location and selection of the supply       angle of deflection. Sidewall grilles and similar outlets
+    outlets is further influenced by the interior design of    with other deflection settings may have performance
+    the building, local sources of heat gain or loss, and      characteristics between these two extremes.
+    outlet performance and design.                             Wide deflection settings also cause a surface effect,
+    Local sources of heat gain or loss promote convec-         which increases the throw and decreases the drop.
+    tion currents or cause stratification and may, there-      To prevent smudging, the total air should should be
+    fore, determine both the type and location of the sup-     directed away from the ceiling, but this rarely is prac-
+    ply outlets.                                               tical, except for very high ceilings. For optimum air
+
+
+
+    3.8
+                                                                                                       CHAPTER 3
+
+
+
+
+                   Figure 3-5 AIR MOTION CHARACTERISTICS OF GROUP A OUTLETS (2)
+
+
+
+
+                  FIGURE 3-6 AIR MOTION CHARACTERISTICS OF GROUP B OUTLETS (2)
+
+
+diffusion in areas without high ceilings, total air         distance between the walls. Following the above rec-
+should scrub the ceiling surface.                           ommendations, the air drops before striking the op-
+                                                            posite wall or the opposing airstream. To counteract
+Drop increases and throw decreases with larger cool-        specific sources of heat gain or provide higher air
+ing temperature differentials. For constant tempera-        motion in rooms with high ceilings, it may be neces-
+ture differential, airflow rate affects drop more than      sary to select a longer throw. In no case should the
+velocity. Therefore, to avoid drop, several small out-      drop exceed the distance from the outlet to the 6 foot
+lets may be better in a room instead of one large           (2m) level.
+outlet.
+                                                            To maintain maximum ventilation effectiveness with
+With "Isothermal Jets", the throw may be selected           ceiling diffusers, throws should be kept as long as
+for a portion of the distance between the outlet and        possible. With VAV designs, some overthrow at max-
+wall or, preferably, for the entire distance. For outlets   imum design volumes will be desirable-the highest
+in opposite walls, the throw should be one-half the         induction can be maintained at reduced flows. Ade-
+
+
+
+                                                                                                              3.9
+                                                                            ROOM     AIR    DISTRIBUTION
+
+
+
+                          Table 3-3 GUIDE FOR SELECTION OF SUPPLY OUTLETS
+
+
+
+
+Figure 3-7 AIR MOTION CHARACTERISTICS OF                   Figure 3-8 AIR MOTION CHARACTERISTICS OF
+            GROUP C OUTLETS (2)                                        GROUP D OUTLETS (2)
+
+
+quate induction by a ceiling-mounted diffuser pre-         face effect. This scrubbing of the wall increases heat
+vents shortcircuiting of unmixed supply air between        gain or loss. To reduce scrubbing, outlets should be
+supply outlet and ceiling-mounted returns.                 installed some distance from the wall, or the supply
+                                                           air should be deflected at an angle away from the
+                                                           wall. However, the distance should not be too large,
+2. Group B Outlets                                         nor the angle too wide, to prevent the air from drop-
+In selecting Group B outlets, it is important to provide   ping into the occupied zone before maximum projec-
+enough throw to project the air high enough for proper     tion has been reached. A distance of 6 inches (150
+cooling in the occupied zone. An increase of supply        mm) and an angle of 15 is satisfactory.
+air velocity improves air diffusion during both heating    These outlets do not counteract natural convection
+and cooling. Also during heating and cooling, a ter-       currents, unless sufficient outlets are installed around
+minal velocity of about 150 fpm (0.75 m/s) is found        the perimeter of the space-preferably in locations of
+at the same distance from the floor. Therefore, outlets    greatest heat gain or loss (under windows). The effect
+should be selected with throw based on terminal ve-        of drapes and blinds must be considered with outlets
+locity of 150 fpm (0.75 ms).
+                                                           installed near windows. If installed correctly, outlets
+With outlets installed near the exposed wall, the pri-     of this type handle large airflow rates with uniform air
+mary air is drawn toward the wall, resulting in a sur-     motion and temperatures.
+
+
+
+3.10
+                                                                                                             CHAPTER 3
+
+
+                                                                 During cooling, temperature differential, supply air
+                                                                velocity, and airflow rate have considerable influence
+                                                                on projection. Therefore, low values of each should
+                                                                be selected.
+                                                                During heating, selection of the correct supply air ve-
+                                                                locity is important to project the warm air into the
+                                                                occupied zone. Temperature differential is also criti-
+                                                                cal, because a small temperature differential reduces
+                                                                variation of the throw during the cyclic operation of
+                                                                the supply air temperature. Blade setting for deflec-
+ Figure 3-9 AIR MOTION CHARACTERISTICS OF                       tion is as important here as for Group B and C outlets.
+             GROUP E OUTLETS (2)
+                                                                6. Ventilating Ceilings
+                                                                ASHRAE Investigations indicate that air tempera-
+                                                                tures and velocities throughout a room cooled by a
+                                                                ventilating ceiling are a linear function of room load
+ 3. Group C Outlets                                             (heat load per unit area), and are not affected signif-
+ Group C outlets can be used for heating, even with             icantly by variations in ceiling type, total air temper-
+ severe heat load conditions. High supply velocities            ature differential, or air volume flow rate. Higher room
+ produce better room air diffusion than lower veloci-           loading produces wider room air temperature varia-
+ties, but velocity is not critical in selecting these units     tions and higher velocities, which decreases perfor-
+for heating.                                                    mance.
+ For cooling, the outlets should be used with temper-           These studies also found no appreciable difference
+ature differentials of less than 15°F (8°C) to achieve          in the performance of air diffusing ceilings and cir-
+the required projection. With higher temperature dif-           cular ceiling diffusers for lower room loads [20 Btu/
+ferentials, supply air velocity is not sufficient to project    h ft2 (65 W/m2)] For higher room loads [80 Btu ft2,
+the total air up to the desired level.                          (250 W/m2)] an air-diffusing ceiling system has only
+The outlets have been used successfully for residen-           slightly larger vertical temperature variations and
+tial heating, but they may also offer a solution for           slightly lower room air velocities than a ceiling diffuser
+applications where heating requirements are severe             system.
+and cooling requirements are moderate.                         When the ventilating ceiling is used at exterior expo-
+                                                               sures, the additional load at the perimeter must be
+                                                               considered. During heating operation, the designer
+4. Group D Outlets                                             must provide for the cold wall effect, as with any ceil-
+Group D outlet directs high velocity total air into the        ing supply diffusion system. Cold air in plenums also
+occupied zone, and, therefore, is not recommended              may cause condensation to form on the exterior fa-
+for comfort application-particularlyfor summer cool-           cade of the plenum. The sound generated by the air
+ing. If used for heating, outlet velocities should not be      supply device must also be considered in total sys-
+higher than 300 fpm (1.5 m/s), so that air velocities          tem analysis to ensure that room sound levels do not
+in the occupied zone will not be excessive. These              exceed the design criteria. Check local codes for
+outlets have been applied successfully to process              maximum plenum sizes, fire dampers, and other re-
+installations where controlled air velocities are de-          strictions to the use of ceiling plenums.
+sired.
+
+5. Group E Outlets                                             E OUTLET
+The heating and cooling diagrams for Group E outlets                  CRITERIA
+show different throws that become critical consider-
+ations in selecting and applying these outlets. Since          1. General
+the total air enters the occupied zone for both cooling
+and heating, outlets are used for either cooling or            Outlets with higher induction rates move (throw) air
+heating.-seldom for both.                                      short distances but have rapid temperature equali-
+
+
+
+                                                                                                                  3.11
+                                                                             ROOM      AIR    DISTRIBUTION
+
+
+zation. Ceiling diffusers with radial patterns have          c) Locate outlets in the room to distribute the air
+shorter throws and obtain more rapid temperature                as uniformly as possible. Outlets may be sized
+equalization than slot diffusers. Grilles, which have           and located to distribute air in proportion to the
+long throws, have the lowest diffusion and induction            heat gain or loss in various portions of the room.
+rates. Therefore, in those cases, round or square            d) Select proper outlet size from manufacturers'
+ceiling diffusers deliver more air to a given space than        ratings according to air quantities, discharge
+grilles and slot diffuser outlets that require room ve-         velocities, distribution patterns, and sound lev-
+locities of 25 to 35 fpm (0.13 to 0.18 m/s). In some            els. Note manufacturers' recommendations
+spaces, higher room velocities can be tolerated, or,            with regard to use. In an open space configu-
+the ceilings may be high enough to permit a throw               ration, the interaction of airstreams from multi-
+long enough to result in the recommended room ve-               ple diffuser sources may alter single diffuser
+locities.                                                       throw data or single diffuser air temperature air
+Outlets with high induction characteristics can also            velocity data, and it may not be sufficient to
+be used advantageously in air-conditioning systems              predict particular levels of air motion in a space.
+with low supply-air temperatures and consequent                 Also, obstructions to the primary air distribution
+high-temperature differentials between room air tem-            pattern require special consideration.
+perature and supply-air temperatures. Therefore,
+ceiling diffusers may be used in systems with cooling      3. Grille and Register
+temperature differentials up to 30 Fto 35 F(17°C to
+19°C) and still provide satisfactory temperature              Applications
+equalizations within the spaces. Slot diffusers may        Properly selected grilles operate satisfactorily from
+be used in systems with cooling temperature differ-        high side and perimeter locations in the sill, curb, or
+entials as high as 25°F (14°C). Grilles may generally      floor. Ceiling-mounted grilles, which discharge the
+be used in well-designed systems with cooling tem-         airstream down, are generally not acceptable in com-
+perature differentials up to 20°F (11°C).                  fort air-conditioning installations in interior zones and
+                                                           may cause drafts in perimeter applications.
+
+2. Selection Procedures                                    A. HIGH SIDE WALLS
+The following procedure is generally used in selecting     The use of a double deflection grille usually provides
+outlet locations and types:                                the most satisfactory solution. The vertical face
+                                                           blades of a well-designed grille deflect the air ap-
+  a) Determine the amount of air to be supplied to
+                                                           proximately 50 degrees to either side and amply
+     each room. (Refer to Chapters 25 and 26 in the
+                                                           cover the conditioned space. The rear blades deflect
+     1989 ASHRAE "FUNDAMENTALS" Handbook
+                                                           the air at least 15 degrees in the vertical plane, which
+     to determine air quantities for heating and cool-
+                                                           is ample to control the elevation of the discharge pat-
+     ing.
+                                                           tern.
+  b) Select the type and quantity of outlets for each
+     room, considering such factors as air quantity        B. PERIMETER INSTALLATIONS
+     required, distance available for throw or radius
+     of diffusion, structural characteristics, and         The grille selected must fit the specific job. When
+     architectural concepts. Table 3-3 is based on         small grilles are used, adjustable blade grilles im-
+     experience and typical ratings of various out-        prove the coverage of perimeter surfaces. Where the
+     lets. It may be used as a guide to the outlets        perimeter surface can be covered with long grilles,
+     applicable for use with various room air load-        the fixed blade grille is satisfactory. Where grilles are
+     ings. Special conditions, such as ceiling heights     located more than 8 inches (200 mm) from the perim-
+     greater than the normal 8 to 12 feet (2.4 to 3.6      eter surface, it is usually desirable to deflect the air-
+     m) and exposed duct mounting, as well as prod-        stream toward the perimeter wall. This can be done
+     uct modifications and unusual conditions of           with adjustable or fixed deflecting blade grilles.
+     room occupancy, can modify this table. Manu-
+     facturers' rating data should be consulted for        C. CEILING INSTALLATIONS
+     final determination of the suitability of the out-    Ceiling installations generally are limited to grilles
+     lets used.                                            having curved blades, which, because of their de-
+
+
+
+
+3.12
+                                                                                                           CHAPTER 3
+
+
+
+sign, provide a horizontal pattern. Curved blade              wall at an angle of approximately 15 degrees; deflec-
+grilles may also be used satisfactorily in high side          tions as great as 30 degrees may be desirable in
+wall or perimeter installations.                              some cases. The air should not be deflected away
+                                                              from the wall into the occupied zone. To perform sat-
+4. Slot Diffuser Applications                                 isfactorily, outlets of this type must be used only in
+                                                              installations with carefully designed duct and plenum
+A slot diffuser is an elongated outlet consisting of a        systems. Slot diffusers are generally equipped with
+single or multiple number of slots. It is usually in-         accessory devices for uniform supply air discharge
+stalled in long continuous lengths. Outlets with di-          along the entire length of the slot. While accessory
+mensional aspect ratios of 25 to 1 or greater and             devices help correct the airflow pattern, proper ap-
+maximum height of approximately 3 inches (80 mm),             proach conditions for the airstream are also important
+generally meet the performance criteria for slot diffus-      for satisfactory performance. When the plenum sup-
+ers.                                                          plying a slot diffuser is being designed, the traverse
+                                                              velocity in the plenum should be less than the dis-
+A. HIGH SIDE WALL INSTALLATION                                charge velocity of jet, as recommended by the man-
+The perpendicular-flow slot diffuser is best suited to        ufacturer and also as shown by experience.
+high side wall installations and perimeter installations      If tapered ducts are used for introducing supply air
+in sills, curbs, and floors. The air discharged from a        into the diffuser, they should be sized to maintain a
+perpendicular slot diffuser will not drop if the diffuser     velocity of approximately 500 fpm (2.5 m/s) and
+is located within 6 to 12 inches (150 to 300 mm) from         tapered to maintain constant static pressure.
+the ceiling and is long enough to establish surface
+effect. Under these conditions, air travels along the         D. AIR-LIGHT FIXTURES
+ceiling to the end of the throw. If the slot diffuser is      Slot diffusers, having a single-slot discharge and
+mounted 1 to 2 feet (300 to 600 mm) below the ceil-           nominal 2, 3 and 4 feet (600, 900, and 1200 mm)
+ing, an outlet that deflects the air up to the ceiling        lengths are available for use in conjunction with re-
+must be used to achieve the same result. If the slot          cessed fluorescent light troffers. A diffuser mates with
+is located more than 2 feet (600 mm) below the ceil-
+                                                              a light fixture and is entirely concealed from the room.
+ing, premature drop of cold air into the occupied zone        It discharges air through suitable openings in the fix-
+will probably result.                                         ture and is available with fixed or adjustable air dis-
+                                                              charge patterns, air distribution plenum, inlet dam-
+B. CEILING INSTALLATION                                       pers for balancing, and inlet collars suitable for
+The parallel-flow slot diffuser is ideal for ceiling in-      flexible duct connections. Light fixtures adapted for
+stallation because it discharges across the ceiling.          slot diffusers are available in styles to fit common
+The perpendicular-flow slot diffuser may be mounted           ceiling constructions. Various slot diffuser and light
+in the ceiling; however, the downward discharge pat-          fixture manufacturers can furnish products compati-
+tern may cause localized areas of high air motion.            ble with one another's equipment.
+This device performs satisfactorily when installed ad-
+jacent to a wall or over an unoccupied or transiently
+occupied area. Care should be exercised in using
+                                                              5. Ceiling Diffuser Applications
+perpendicular-flow slot diffuser in a downward dis-           A. CEILING INSTALLATIONS
+charge pattern because variations of supply air tem-          Ceiling diffusers should be mounted in the center of
+perature cause large variations in throw.                     the space that they serve when they discharge the
+                                                              supply air in all directions. Multi-pattern diffusers, can
+C. SILL INSTALLATION                                          be used in the center of the space or adjacent to
+The perpendicular-flow slot diffuser is well suited to        partitions, depending on the discharge pattern. By
+sill installation, but it may also be installed in the curb   using different inner assemblies, their air pattern can
+and floor. When the diffuser is located within 8 inches       be changed to suit particular requirements.
+(200 mm) of the perimeter wall, the discharged air
+may be either directed straight toward the ceiling or         B. SIDE WALL INSTALLATIONS
+deflected slightly toward the wall. When the diffuser         Half-round diffusers, when installed high in side
+distance from the wall is greater than 8 inches (200          walls, should generally discharge the air toward the
+mm), the air should generally be deflected toward the
+                                                              ceiling.
+
+
+                                                                                                                  3.13
+                                                                                  ROOM     AIR    DISTRIBUTION
+
+
+                                     Table 3-4 SUPPLY AIR OUTLET TYPES
+
+          Type                             Characteristics                                Applications
+
+Fixed blade grille           Single set of vertical or horizontal blades    Long perimeter grille installations
+Adjustable single            Single set of vertical or horizontal adjust-   Sidewall installation where single plane
+deflection blade grille      able blades                                    air deflection is required
+Adjustable double            One set of vertical and one set of hori-       Preferred grille for sidewall installation
+deflection blade grille      zontal adjustable blades                       provides both horizontal and vertical air
+                                                                            deflection
+Stamped plate grilles        Stamped from single sheet of metal with        No adjustment of air deflection possible.
+                             square, round or ornamental designed           Use for architectural design purposes
+                             openings                                       only
+Variable area grille         Similar to adjustable double deflection        Use with variable volume system to min-
+                             blade grille with means to effectively vary    imize variation of throw with variable sup-
+                             the discharge area                             ply air volume
+Curved blade grilles         Curved blades to provide horizontal air        Ceiling installation
+                             pattern                                        High sidewall installation
+                                                                            Perimeter installation
+Perpendicular-flow slot      Generally 25 to 1 dimensional aspect ra-       High sidewall installation
+diffuser                     tio with maximum height of 3 inches (75        Perimeter installation in sills, curbs and
+                             mm)                                            floors
+Parallel-flow slot           Generally 25 to 1 dimensional aspect ra-       Ceiling installation
+diffuser                     tio with maximum height of 3 inches (75
+                             mm)
+Air light fixture slot       Use in conjunction with recessed fluores-      Ceiling installation-
+diffuser                     cent light fixtures with fixed or adjustable   Order to match light fixture
+                             air discharge patterns
+Multi-passage round          Series of flaring rings or louvers forming     Install in center of area served
+ceiling diffuser             series of concentric air passages
+Multi-passage square         Series of flaring rings or louvers forming     Install in center of area served
+and rectangular ceiling      series of concentric air passages
+diffuser
+Adjustable pattern           Series of flaring rings or louvers forming     Install for control of diffuser discharge
+round ceiling diffuser       series of concentric air passages. Air dis-    pattern or where specific requirement to
+                             charge pattern adjustable from horizontal      direct airflow pattern either horizontal or
+                             to vertical or down blow pattern               vertical.
+Adjustable pattern           Series of flaring rings or louvers forming     Install for control of diffuser discharge
+square and                   series of concentric air passages. Air dis-    pattern or where specific requirement to
+rectangular ceiling          charge pattern adjustable from horizontal      direct airflow pattern either horizontal or
+diffuser                     to vertical or down blow pattern               vertical.
+Multi-pattern square         Special louvers discharge air in one or        Install in center of area served or adjacent
+and rectangular ceiling      more directions                                to partitions. Set pattern according to flow
+diffuser                                                                    requirements.
+Half round diffuser          Matches round diffuser                         Install in ceiling adjacent to partition or
+                                                                            high sidewall
+Supply and return            Combination diffuser with return grille in     Install in center of area served
+concentric diffuser          center of diffuser
+Light fixture air diffuser   Combination diffuser-light fixture             Ceiling installation combined with light
+combination                                                                 fixture pattern
+
+
+
+3.14
+                                                                                                              CHAPTER 3
+
+
+Perforated face diffuser       Perforated face plate with or without de-      Install in center of area served or control
+                               flection device to obtain a horizontal dis-    discharge pattern when installed off cen-
+                               charge pattern                                 ter of area served
+Variable area diffuser         Parallel or concentric passages or perfo-      Use with variable volume system to min-
+                               rated face with means to vary discharge        imize variation to throw with variable sup-
+                               area                                           ply air volume
+Air distributing ceilings      Ceiling system provided with round holes       Use with ceiling supply plenum-partic-
+                               or slots                                       ularly suited to large zones of uniform
+                                                                              room temperature
+Linear grille                  Linear slot width 1/2 to 1 inch (12 to 25      Ceiling and perimeter with air deflection
+                               mm), continuous length with adjustable         adjustable from 1-way horizontal to verti-
+                               airflow blades                                 cal to 2-way horizontal
+Egg crate grille               Fixed square grid                             Ceiling or sidewall (no pattern adjust-
+                                                                              ment)
+High capacity double           One set vertical and one set horizontal       High sidewall installation where high ca-
+deflection blade grille        adjustable blades. Blades are deep &          pacity and low discharge velocity are re-
+                               wide spaced                                   quired
+Drum louvers and               Adjustable direction core                     High sidewall or ceiling installation,
+adjustable high                                                              where directional and/or long throw re-
+capacity diffusers                                                           quired provides spot heating or spot cool-
+                                                                             ing to areas of high load requirements
+
+
+
+C. EXPOSED DUCT INSTALLATION                                     air from stub ducts. The plenum should be designed
+                                                                 to achieve uniform plenum pressure, resulting in uni-
+Some ceiling diffuser types, particularly stepped-               form delivery of air to the conditioned space below.
+down units, perform satisfactorily on exposed ducts.
+Consult manufacturers' catalogs for specific types.              Air is delivered through round holes or slots in the
+                                                                 ceiling material or suspension system. These holes
+D. ADJUSTABLE PATTERN DIFFUSERS                                  and slots vary in shape and size among manufactur-
+                                                                 ers. Various manufacturers have developed a number
+Surface effect is important in the performance of ad-            of products based on the principle of a supply plenum,
+justable pattern diffusers. In fact, this effect is so pro-     with sizes ranging mainly from 1 by 1 foot (300 by
+nounced that usually only two discharge patterns are             300 mm) tile for a concealed grid to 2 by 4 feet (600
+possible with adjustable pattern diffusers mounted               by 1200 mm) lay-in panels for an exposed grid.
+directly on the ceiling. When the diffuser is changed           Sometimes, the slots are equipped with adjustable
+from a horizontal pattern position toward the down-             dampers to facilitate changing the open area after
+blow pattern position, the surface effect maintains the         installation.
+horizontal discharge pattern until the discharge air-
+                                                                The upper limit of plenum pressure must be that rec-
+stream is effectively deflected at the diffuser face,
+resulting in a vertical pattern. However, when adjust-          ommended by the ceiling manufacturer. It generally
+                                                                ranges from 0.10 to 0.15 in. w.g. (25 to 35 Pa), dictated
+able pattern ceiling diffusers are mounted on ex-
+                                                                by resistance to sag, to a lower pressure limit of
+posed ducts, and no surface effect exists, the air may
+assume any pattern between horizontal and vertical              about 0.01 in. w.g. (2.5 Pa), where uniformity of
+                                                                plenum pressure becomes more important. The
+discharge. Directional or segmented horizontal air              range of air rates extends from about 15 cfm (70 l/s)
+patterns can usually be obtained by adjusting internal          down to about 1 cfm per square foot (5 I/s per m2 of
+baffles or deflectors.                                          floor area. High flow rates are recommended only for
+                                                                low-temperature differentials.
+6. Air-Distributing Ceilings
+                                                                Active portions of the air-distributing ceilings should
+The air-distributing ceiling uses the confined space            be located with respect to room load distribution, with
+above the ceiling as a supply plenum that receives              higher airflow rates at the exterior exposures. This
+
+
+
+                                                                                                                   3.15
+                                                                                  ROOM      AIR   DISTRIBUTION
+
+
+                                Table 3-5 SUPPLY AIR OUTLET PERFORMANCE
+
+                                                  Discharge                        Characteristics
+Group-Type                    Mounting            Direction             Cooling                       Heating
+A High Sidewall             Ceiling,           Horizontal       Good mixing with warm        Large amount of stag-
+    Grilles                 High Sidewall                       room air. Minimum tem-       nant air near floor. In in-
+  Sidewall Diffusers                                            perature variation           terior zones where load-
+  Ceiling Diffusers                                             within room. Particu-        ing is not severe,
+  Slot Diffusers                                                larly suited to cooling      stagnant air is practi-
+    (Parallel Flow)                                             applications                 cally non-existent
+  Variable Area             Ceiling,           Horizontal       Maintain design air dis-     Maintain design air dis-
+    Grille                  High Sidewall      Specially        tribution characteristics    tribution characteristics
+  Variable Area                                adapted for      as air volume changes        as air volume changes
+    Diffuser                                   variable
+                                               volume
+                                               systems
+
+B Floor Grilles             Floor,             Vertical         Small amount of stag-        Smaller amount of stag-
+  Baseboard Units           Low Sidewall,      Non Spreading    nant air generally above     nant air than Group A
+  Fixed Bar Grilles         Sill               Air Jet          occupied zone                outlets
+  Linear Grilles
+C Floor Grilles             Floor,             Vertical         Larger amount of stag-       Smaller amount of stag-
+  Adjustable Bar            Low Sidewall,      Spreading        nant air than Group B        nant air than group B
+    Grilles                 Sill               Air Jet          outlets                      outlets-particularly
+  Linear Diffusers                                                                           suited to heating appli-
+                                                                                             cations
+D Baseboard Units           Floor,             Horizontal       Large amount of stag-        Uniform temperature
+    Grilles                 Low Sidewall                        nant air above floor in      throughout area. Rec-
+                                                                occupied zone-rec-           ommended for process
+                                                                ommended for comfort         applications
+                                                                cooling
+E Ceiling Diffusers         Ceiling,           Vertical         Small amount of stag-        Good air distribution.
+  Linear Grilles            High Sidewall                       nant air near ceiling.       Select for heating only
+  Grilles                                                       Select for cooling only      applications
+  Slot Diffusers                                                applications.
+    (Vertical Flow)
+  Sidewall Diffusers
+
+
+
+
+method of air distribution is particularly suited to large     7. Outlets in Variable Air Volume
+zones of uniform room temperature. Where different
+room temperatures are desired, a separate ceiling                 (VAV) Systems
+plenum is required for each zone. Construction of the          The performance of a particular outlet or diffuser is
+ceiling plenum requires care with regard to air tight-         generally independent of the terminal box that is up-
+ness, obstructions causing unequal plenum pressure             stream. For a given supply air volume and tempera-
+and temperature, heat storage effect of the structure,         ture differential (to meet a particular load), a standard
+and the influence of a roof or the areas surrounding           outlet does not recognize whether the terminal box is
+the plenum.                                                    of a constant volume, variable volume, or induction
+
+
+3.16
+                                                                                                          CHAPTER 3
+
+
+type. However, any diffuser, or system of diffusers,        C. V-BLADE GRILLE
+gives optimum air diffusion at some particular load
+condition and air volume.                                   The V-blade grille, with blades in the shape of in-
+                                                            verted V's stacked within the grille frame, has the
+In a variable air volume system, the performance of         advantage of being sightproof; it can be viewed from
+outlets with regard to throw, room velocity and noise       any angle without detracting from appearance. Door
+levels will vary greatly with the discharge volume. A       grilles are usually V-blade grilles. The capacity of the
+volume variation of 25 percent to 35 percent is gen-        grille decreases with increased sight tightness.
+erally effective in controlling the load without substan-
+tial adverse effect on the performance of properly          D. LIGHTPROOF GRILLE
+selected outlets. When areas are unoccupied, a vol-
+ume variation of up to 50 percent is permissible. Spe-      A Lightproof Grille is used to transfer air to or from
+cially designed outlets can be used that will perform       darkrooms. The blades of this type of grille form a
+with air volumes substantially below half of the design     labyrinth.
+volume. This will still allow the desired space tem-
+perature to be maintained. Outlets should be se-            E. STAMPED GRILLE
+lected that are designed to perform within the limits
+of the variable air volume system parameters.               Stamped Grilles are frequently used as return and
+                                                            exhaust inlets, particularly in rest rooms and utility
+                                                            areas.
+       INLET
+F CRITERIA                                                  F. DIFFUSERS
+                                                            Ceiling and Slot Diffusers may also be used as return
+1. General                                                  and exhaust inlets.
+
+ Return air or exhaust air inlets may either be con-        3. Selection Procedures
+nected to a duct or be simple vents that transfer air
+from one area to another. Exhaust air inlets remove         Select return and exhaust air inlets to suit architec-
+air directly from a building and, therefore, are always     tural design requirements including appearance,
+connected to a duct. Whatever the arrangement, inlet        compatibility with supply outlets and space available
+size and configuration determine velocity and pres-         for installation of inlets and ductwork. Generally, inlets
+sure requirements for the required airflow.                 should be installed to return room air of the greatest
+                                                            temperature differential that collects in the stagnant
+In general, the same type of equipment, grilles, slot
+                                                            air areas. The location of return and exhaust inlets
+diffusers, and ceiling diffusers used for supplying air
+                                                            does not significantly affect air motion. The location
+may also be used for air return and exhaust. Inlets
+                                                            of return and exhaust inlets will not compensate for
+do not require the deflection, flow equalizing, and
+                                                            ineffective supply air distribution.
+turning devices necessary for supply outlets. How-
+ever, volume dampers installed in the branch ducts          The selection of return and exhaust inlets depends
+are necessary to balance the airflow in the return air      on (a) velocity in the occupied zone near the inlet, (b)
+duct system.                                                permissible pressure drop through the inlet, and (c)
+                                                            noise.
+2. Types of Inlets
+A. ADJUSTABLE BLADE GRILLES                                 A. VELOCITY
+The same grilles used for air supply are used to            Control of the room air motion to maintain comfort
+match the deflection setting of the blades with that of     conditions depends on proper supply outlet selection.
+                                                            The effect of air flow through return inlets on air
+the supply outlets.
+                                                            movement in the room is slight. Air handled by the
+                                                            inlet approaches the opening from all directions, and
+B. FIXED BLADE GRILLES                                      its velocity decreases rapidly as the distance from
+This grille is the most common return-air inlet. Blades     the opening increases. Drafty conditions rarely occur
+are straight or set at a certain angle, the latter being    near return inlets. Table 3-6 shows recommended re-
+preferred when appearance is important.                     turn air inlet face velocities.
+
+
+
+                                                                                                                3.17
+                                                                                    ROOM     AIR    DISTRIBUTION
+
+
+                                Table 3-6 RECOMMENDED RETURN AIR INLET
+                                             FACE VELOCITIES
+
+                                                               Velocity Over Gross Inlet Area
+             Inlet Location                          Feet per Minute                    Metres per Second
+
+        Above occupied zone                                 800 Up                                 4 Up
+        Within occupied zone,                               600-800                                3-4
+         not near seats
+        Within occupied zone,                               400-600                                2-3
+         near seats
+        Door or wall louvers                                200-300                                1-1.5
+        Undercut doors                                      200-300                                1-1.5
+
+
+
+
+B. PERMISSIBLE PRESSURE DROP                                      return air flowing over ceiling mounted lighting fix-
+                                                                  tures keeps most of that heat from being distributed
+Permissible pressure drop depends on the choice of
+                                                                  into the conditioned space. Combination return air/
+the designer. Proper pressure drop allowances
+                                                                  lighting fixtures, besides increasing the HVAC system
+should be made for control or directive devices.
+                                                                  efficiency, improve light output and extend the lamp
+                                                                  life. The manufacturers of fixtures, ceiling grids, and
+C. NOISE                                                          grilles give performance information (airflow rate,
+The problem of return air inlet noise is the same as              pressure drop, and heat removal rate) of their prod-
+that for supply outlets. In computing resultant room              uct.
+noise levels from operation of an air conditioning sys-
+tem, the return inlet must be included as a part of the
+                                                                  B. EXHAUST OUTLETS
+total grille area. The major difference between supply
+outlets and return inlets is the frequent installation of         Exhaust outlets located in walls and doors, depend-
+the latter at ear level. When they are so located, the            ing on their elevation, have the characteristics of
+return inlet velocity should not exceed 75 percent                either floor or ceiling returns. In large buildings with
+maximum permissible outlet velocity.                              many small rooms, the return air may be brought
+                                                                  through door grilles or door undercuts into the corri-
+                                                                  dors, and then to a common return or exhaust. The
+4. Application                                                    pressure drop through door returns should not be
+Be careful not to locate a return air inlet directly in           excessive, or the air diffusion to the room may be
+the primary airstream from the supply outlet. To do               seriously unbalanced by opening or closing the
+so will short circuit the supply air back into the return         doors. Outward leakage through doors or windows
+without mixing with room air to obtain desired room               cannot be counted on for dependable results.
+air temperature.
+
+A. HVAC SYSTEM LOADS                                              C. SPECIAL SITUATIONS
+An HVAC system operating in the cooling mode per-                 The designer should consider special situation re-
+forms best when generated heat is removed at its                  quirements in locating return and exhaust inlets in
+source rather than distributed throughout the condi-              bars, kitchens, lavatories, dining rooms, club rooms,
+tioned space. Heat from solar and miscellaneous                   conference rooms, etc. These normally should be lo-
+loads such as machinery and floor or desk mounted                 cated near or at the ceiling level to collect the warm
+lamps are difficult to remove at the source. However,             air "build-up", odors, smoke and fumes.
+
+
+
+
+3.18
+                                                                                                         CHAPTER 3
+
+
+
+
+G SUMMARY                                                     pers to control the excessive air distribution may cre-
+                                                              ate unacceptable noise levels. Additional data can be
+                                                              found on this subject in Chapters 7, 8, and 9.
+                                                              Obstructions must be considered when selecting air
+1. General                                                    outlet devices. As an example, outlets should be in-
+                                                              stalled below the bottom of beams in beamed ceilings
+Approximate values of pressure drop requirements              or below surface mounted or suspended light fixtures
+for various types of air outlet and inlet devices may         to avoid deflection of the airstream. Outlets should be
+be found in Chapter 9. These values should be ade-            located to neutralize undesirable convection currents
+quate for preliminary duct design layout require-             set up by concentrated loads (cold air moving down-
+ments.                                                        ward across a window or hot air moving upwards
+The final duct design system calculations and layout          from a heat source).
+must include a selection of each air distribution outlet      Some outlet devices are of a unique patented design
+and inlet device using the following air distribution         and can only be furnished by one manufacturer.
+product catalog data:                                         When a system is designed for competitive bidding,
+  1. Pressure loss through outlet                             outlets should be chosen so that several manufactur-
+  2. Throw                                                    ers can furnish air outlet devices acceptable to the
+                                                              designer.
+  3. Spread
+  4. Drop                                                     2. Supply Outlets
+  5. Noise Level                                              To summarize the procedure for supply outlet loca-
+Refer to the engineering section of the air device cat-       tion and selection:
+alog for an explanation of the proper use of the man-            a) Determine room supply air quanitity from heat-
+ufacturer's data for the devices to be used.                        ing and cooling load calculations and design
+CAUTION-All air outlet terminal devices lo-                         ventilation requirements.
+cated on each branch duct or duct run should                     b) Select type and quantity of outlets for each
+be selected with similar pressure drops. Mixing                     room evaluating:
+outlets with different pressure drops on the same                   1) Outlet airflow
+duct run may cause excessive airflow through the                    2) Outlet throw pattern (performance)
+outlets with the lowest pressure drops. Using dam-                  3) Building structural characteristics
+
+
+                               Table 3-7 RETURN & EXHAUST AIR INLET TYPES
+          Type                              Characteristics                              Applications
+
+Fixed blade grille             Fixed grille blades straight or set at     Return, exhaust and transfer grilles
+                               certain angle for appearance to match
+                               supply outlets
+Adjustable blade grilles       Blade pattern to match supply outlets      Return, exhaust and transfer grilles
+V-blade grille                 Sight proof                                Particularly suited for door louvers
+Light proof grille             Light proof                                Used for dark rooms
+Stamped grilles                Match supply outlets                       Return and exhaust grilles
+Ceiling diffusers              Match supply outlets                       Return and exhaust grilles
+Slot diffusers                 Match supply outlets                       Return and exhaust grilles
+Air light fixture              Match supply outlets                       Return and exhaust grilles
+Perforated face inlet          Match supply outlets                       Return and exhaust grilles
+Egg crate grille               Match supply outlets                       Return and exhaust grilles
+
+
+
+
+                                                                                                                 3.19
+
