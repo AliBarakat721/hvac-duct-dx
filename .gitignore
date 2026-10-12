@@ -34,4 +34,3 @@ Thumbs.db
 *.sqlite
 *.db
 _archive/
-tests/

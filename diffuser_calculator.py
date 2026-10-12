@@ -1684,15 +1684,37 @@ def _selection_rationale(sel: DiffuserSelection) -> dict[str, object]:
     table4_ok = not any(
         "CFM/diffuser exceeds Table 4" in warning for warning in sel.warnings)
     pressure_ok = sel.pressure_ok
+    rule_statuses = {
+        rule_id: str(rule.get("status", "unclassified"))
+        for rule_id, rule in _cd.DIFFUSER_RULES.items()
+    }
+    unresolved_rules = tuple(
+        rule_id for rule_id, status in rule_statuses.items()
+        if status in {"unresolved", "pending_verification", "not_implemented"}
+    )
+    engineering_decisions = tuple(
+        rule_id for rule_id, status in rule_statuses.items()
+        if status == "engineer_decision"
+    )
     return {
         "catalog_valid": not any(
             warning.startswith("Neck velocity ") for warning in sel.warnings),
         "noise_compliant": noise_ok,
+        "acoustic_verification_status": (
+            "Acoustic screening; catalog NC basis unresolved"
+            if rule_statuses.get("R-NC-BASIS") == "unresolved"
+            else "Acoustic screening"),
         "pressure_ok": pressure_ok,
+        "pressure_basis": "catalog total-pressure loss; system losses not included",
         "t50_l_screening_pass": sel.adpi_ok,
         "table4_airflow_compliant": table4_ok,
         "verification_status": "ASHRAE-aligned screening; ADPI not verified",
         "t50_l_basis": "T0.25/L cooling screening; catalog T50 used as ~50 fpm proxy",
+        "terminal_velocity_status": rule_statuses.get(
+            "R-TERMINAL-VELOCITY", "unclassified"),
+        "rule_statuses": rule_statuses,
+        "unresolved_or_unimplemented_rules": unresolved_rules,
+        "engineering_decision_rules": engineering_decisions,
         "adpi_verified": False,
         "source_refs": [
             "ASHRAE HVAC Applications 2015 Ch.57 pp.57.5-57.6",
