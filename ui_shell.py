@@ -784,7 +784,8 @@ def build_shell(app):
 
     body = QSplitter(Qt.Horizontal)
     body.setChildrenCollapsible(True)
-    body.addWidget(_build_sidebar(app))
+    app.sidebar_frame = _build_sidebar(app)
+    body.addWidget(app.sidebar_frame)
 
     app.stack = QStackedWidget()
     app.stack.addWidget(_build_hap_page(app))
@@ -798,21 +799,12 @@ def build_shell(app):
     body.setStretchFactor(0, 0)
     body.setStretchFactor(1, 1)
     body.setSizes([300, 1300])
+    app.body_splitter = body
     root.addWidget(body, 1)
 
     app.setCentralWidget(central)
 
-    project_menu = app.menuBar().addMenu("&File")
-    project_menu.addAction(
-        QAction("Open Project…", app, shortcut=QKeySequence("Ctrl+Shift+O"),
-                triggered=lambda _checked=False: app.open_project()))
-    project_menu.addAction(
-        QAction("Save Project", app, shortcut=QKeySequence("Ctrl+Shift+S"),
-                triggered=lambda _checked=False: app.save_project()))
-    project_menu.addAction(
-        QAction("Save Project As…", app,
-                shortcut=QKeySequence("Ctrl+Alt+Shift+S"),
-                triggered=lambda: app.save_project(save_as=True)))
+    _build_menus(app)
 
     # status bar
     sb = QStatusBar()
@@ -822,10 +814,8 @@ def build_shell(app):
     sb.addPermanentWidget(app.sb_counts)
     app.setStatusBar(sb)
 
-    # shortcuts
-    QShortcut(QKeySequence("Ctrl+O"), app, activated=app.open_batch_file)
     QShortcut(QKeySequence("Ctrl+F"), app, activated=lambda: _focus_filter(app))
-    QShortcut(QKeySequence("Ctrl+S"), app, activated=lambda: _generate_report(app))
+    QShortcut(QKeySequence("Esc"), app, activated=lambda: _clear_filter(app))
 
     # energy parameter signals (same slots the old UI used)
     app.hours_per_year.valueChanged.connect(app._on_energy_setting_changed)
@@ -844,6 +834,122 @@ def build_shell(app):
         lambda *_: app._mark_project_dirty())
 
     go_page(app, P_HAP)
+
+
+# ── menus & shortcuts ─────────────────────────────────────────
+SHORTCUT_HELP = (
+    ("File", (
+        ("Ctrl+O", "Open project"),
+        ("Ctrl+S", "Save project"),
+        ("Ctrl+Shift+S", "Save project as…"),
+        ("Ctrl+I", "Import HAP report"),
+        ("Ctrl+E", "Generate report"),
+        ("Ctrl+Q", "Exit"))),
+    ("Navigation", (
+        ("Ctrl+1 … Ctrl+7", "Jump to workflow page"),
+        ("Alt+←  /  Alt+→", "Previous / next page"),
+        ("Ctrl+PgUp / Ctrl+PgDn", "Previous / next system"),
+        ("Ctrl+F", "Focus system filter"),
+        ("Esc", "Clear system filter"))),
+    ("Work", (
+        ("F5  /  Ctrl+Enter", "Search suitable equipment"),
+        ("Ctrl+D", "Add selected row to cart"),
+        ("Ctrl+B", "Show / hide sidebar"),
+        ("F1", "This list"))),
+)
+
+
+def _act(app, menu, text, slot, keys=None):
+    a = QAction(text, app)
+    if keys:
+        seqs = [keys] if isinstance(keys, str) else list(keys)
+        a.setShortcuts([QKeySequence(k) for k in seqs])
+    a.triggered.connect(lambda _checked=False: slot())
+    menu.addAction(a)
+    return a
+
+
+def _step_page(app, delta):
+    go_page(app, max(0, min(len(PAGES) - 1, app.stack.currentIndex() + delta)))
+
+
+def _step_system(app, delta):
+    n = len(getattr(app, "systems", []) or [])
+    if n == 0:
+        return
+    cur = app.systems_table.currentRow()
+    app._select_system_row((cur + delta) % n if cur >= 0 else 0)
+
+
+def _toggle_sidebar(app):
+    app.sidebar_frame.setVisible(not app.sidebar_frame.isVisible())
+
+
+def _search_now(app):
+    if app.stack.currentIndex() != P_EQ:
+        go_page(app, P_EQ)
+    app.search()
+
+
+def _add_selected(app):
+    if app.add_to_cart_btn.isEnabled():
+        app._add_to_selection()
+
+
+def _clear_filter(app):
+    if app.sys_filter.text():
+        app.sys_filter.clear()
+
+
+def _show_shortcuts(app):
+    rows = []
+    for title, items in SHORTCUT_HELP:
+        rows.append(f"<tr><td colspan=2><b>{escape(title)}</b></td></tr>")
+        rows.extend(
+            f"<tr><td style='padding-right:18px'><code>{escape(k)}</code></td>"
+            f"<td>{escape(d)}</td></tr>" for k, d in items)
+    QMessageBox.information(
+        app, "Keyboard shortcuts", f"<table cellspacing=4>{''.join(rows)}</table>")
+
+
+def _build_menus(app):
+    mb = app.menuBar()
+
+    m = mb.addMenu("&File")
+    _act(app, m, "&Open Project…", lambda: app.open_project(), "Ctrl+O")
+    _act(app, m, "&Save Project", lambda: app.save_project(), "Ctrl+S")
+    _act(app, m, "Save Project &As…",
+         lambda: app.save_project(save_as=True), "Ctrl+Shift+S")
+    m.addSeparator()
+    _act(app, m, "&Import HAP Report…", app.open_batch_file, "Ctrl+I")
+    _act(app, m, "Generate &Report", lambda: _generate_report(app), "Ctrl+E")
+    m.addSeparator()
+    _act(app, m, "E&xit", app.close, "Ctrl+Q")
+
+    g = mb.addMenu("&Go")
+    for i, name in enumerate(PAGES):
+        _act(app, g, f"{i + 1}. {name}",
+             lambda i=i: go_page(app, i), f"Ctrl+{i + 1}")
+    g.addSeparator()
+    _act(app, g, "Previous Page", lambda: _step_page(app, -1), "Alt+Left")
+    _act(app, g, "Next Page", lambda: _step_page(app, 1), "Alt+Right")
+    _act(app, g, "Previous System", lambda: _step_system(app, -1), "Ctrl+PgUp")
+    _act(app, g, "Next System", lambda: _step_system(app, 1), "Ctrl+PgDown")
+
+    t = mb.addMenu("&Tools")
+    _act(app, t, "&Search Suitable Equipment",
+         lambda: _search_now(app), ["F5", "Ctrl+Return", "Ctrl+Enter"])
+    _act(app, t, "&Add Selected Row to Cart",
+         lambda: _add_selected(app), "Ctrl+D")
+    _act(app, t, "&Find System…", lambda: _focus_filter(app), "Ctrl+F")
+
+    v = mb.addMenu("&View")
+    _act(app, v, "Toggle &Sidebar", lambda: _toggle_sidebar(app), "Ctrl+B")
+
+    h = mb.addMenu("&Help")
+    _act(app, h, "&Keyboard Shortcuts", lambda: _show_shortcuts(app), "F1")
+    _act(app, h, "&About", lambda: QMessageBox.about(
+        app, "About", "Duct DX Equipment Selector — HAP Analyzer"))
 
 
 # ── header ────────────────────────────────────────────────────
@@ -907,7 +1013,7 @@ def _build_sidebar(app):
     app.side_loaded = _label("", "hint", wrap=True)
     v.addWidget(app.side_loaded)
     v.addWidget(_btn("Load HAP Report", None, app.open_batch_file,
-                     "Load a HAP Systems Design Report (Ctrl+O). RTF / PDF / images."))
+                     "Load a HAP Systems Design Report (Ctrl+I). RTF / PDF / images."))
 
     v.addSpacing(8)
     v.addWidget(_label("SYSTEMS", "section"))
