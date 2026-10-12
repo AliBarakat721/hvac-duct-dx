@@ -54,7 +54,8 @@ def _solve_supply_diffuser(item: dict[str, Any],
     manual-input dialog).
     """
     name = item.get("system", "?")
-    cfm = float(item.get("cfm", 0) or 0)
+    from airflow_utils import design_airflow_cfm
+    cfm = design_airflow_cfm(item)
     if cfm <= 0:
         return {"system": name, "error": "Airflow CFM is 0 or missing"}
     sensible_load = float(item.get("sensible_btu", 0) or 0)
@@ -290,7 +291,8 @@ def _solve_system_diffuser(item: dict[str, Any],
                            default_app: str = "office_priv") -> dict[str, Any]:
     """Add a return CCD schedule to the existing supply diffuser result."""
     result = _solve_supply_diffuser(item, default_app)
-    supply_cfm = float(item.get("cfm", 0) or 0)
+    from airflow_utils import design_airflow_cfm
+    supply_cfm = design_airflow_cfm(item)
     raw_return_cfm = item.get("return_cfm", supply_cfm)
     return_cfm = float(
         supply_cfm if raw_return_cfm is None else raw_return_cfm)
@@ -401,10 +403,12 @@ def add_diffuser_summary(doc, cart_items, application: str = "office_priv"):
     """Append a 'Diffuser Selection & Layout' section to a Word doc."""
     from docx.shared import Pt, RGBColor
 
+    cart_items = list(cart_items)
     results = []
     skipped = []
     for item in cart_items:
-        cfm = float(item.get("cfm", 0) or 0)
+        from airflow_utils import design_airflow_cfm
+        cfm = design_airflow_cfm(item)
         area = float(item.get("floor_area_ft2", 0) or 0)
         has_custom = bool(item.get("diffuser_selection"))
         # A manual room (no HAP floor area) is still valid if the GUI
@@ -446,6 +450,13 @@ def add_diffuser_summary(doc, cart_items, application: str = "office_priv"):
         r.italic = True
         r.font.size = Pt(9)
         r.font.color.rgb = RGBColor(0x6B, 0x72, 0x80)
+    from airflow_utils import airflow_summary_text
+    for item in cart_items:
+        p = doc.add_paragraph(
+            f"{item.get('system', '?')}: {airflow_summary_text(item)}")
+        for run in p.runs:
+            run.font.size = Pt(8)
+            run.font.color.rgb = RGBColor(0x4B, 0x55, 0x63)
 
     # ── Summary table ────────────────────────────────────────
     headers = ["System", "Status", "Model", "Size", "Qty", "CFM/ea", "V (fpm)",
@@ -690,6 +701,7 @@ def add_diffuser_sheet_to_excel(wb, cart_items, application="office_priv"):
     """Add a 'Diffusers' worksheet to an existing openpyxl Workbook."""
     from openpyxl.styles import Alignment, Font, PatternFill
 
+    cart_items = list(cart_items)
     if "Diffusers" in wb.sheetnames:
         del wb["Diffusers"]
     ws = wb.create_sheet("Diffusers")
@@ -715,7 +727,8 @@ def add_diffuser_sheet_to_excel(wb, cart_items, application="office_priv"):
     results = []
     skipped = []
     for item in cart_items:
-        cfm  = float(item.get("cfm", 0) or 0)
+        from airflow_utils import design_airflow_cfm
+        cfm = design_airflow_cfm(item)
         area = float(item.get("floor_area_ft2", 0) or 0)
         has_custom = bool(item.get("diffuser_selection"))
         if cfm <= 0 or (area <= 0 and not has_custom):
@@ -729,6 +742,12 @@ def add_diffuser_sheet_to_excel(wb, cart_items, application="office_priv"):
                "Return NC", "VCD dP est (in.wg)", "Branch dP (in.wg)",
                "T50 (ft)", "ACH",
                "ACH Check", "T50/L Screen (ADPI not verified)"]
+    from airflow_utils import airflow_summary_text
+    ws.merge_cells(f"A3:{chr(64 + len(headers))}3")
+    ws["A3"] = "Airflow basis: " + " | ".join(
+        f"{item.get('system', '?')}: {airflow_summary_text(item)}"
+        for item in cart_items)
+    ws["A3"].alignment = Alignment(wrap_text=True, vertical="top")
     hdr_row = 4
     for col, h in enumerate(headers, start=1):
         c = ws.cell(row=hdr_row, column=col, value=h)

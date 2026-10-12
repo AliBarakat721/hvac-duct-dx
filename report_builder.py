@@ -271,6 +271,22 @@ def _kv_table(doc, items, style="Light Grid Accent 1"):
     return t
 
 
+def _airflow_reconciliation_label(conditions):
+    from airflow_utils import reconcile_airflow
+
+    result = reconcile_airflow(conditions)
+    difference = result["difference_cfm"]
+    if difference is None:
+        return "Unverified; no automatic reconciliation"
+    if difference < -0.5:
+        amount = f"{abs(difference):,.0f} CFM shortfall"
+    elif difference > 0.5:
+        amount = f"{difference:,.0f} CFM excess / unallocated"
+    else:
+        amount = "Numerically matched"
+    return f"{amount}; not automatically reconciled ({result['status']})"
+
+
 # ═══════════════════════════════════════════════════════════════
 #  Cart reuse helpers  —  load once, render many
 # ═══════════════════════════════════════════════════════════════
@@ -378,8 +394,25 @@ def render_system_block(doc, system_name, data, design_conditions,
     if dc.get('heating_btu', 0) > 0:
         items.append(("Required Heating Load",
                       f"{dc['heating_btu']:,.0f} Btu/hr"))
+    required_cfm = dc.get("required_cfm", dc.get("cfm", 0))
+    design_cfm = dc.get("design_cfm", required_cfm)
+    available_cfm = dc.get("available_unit_cfm")
+    available_label = (
+        f"{available_cfm:,.0f} CFM (catalog point; unverified delivery)"
+        if available_cfm is not None else "Unknown / unverified")
+    airflow_esp = dc.get("airflow_esp_inwg")
     items.extend([
-        ("Required Airflow", f"{dc.get('cfm', 0):,.0f} CFM"),
+        ("Required Airflow", f"{required_cfm:,.0f} CFM"),
+        ("Diffuser Design Airflow", f"{design_cfm:,.0f} CFM"),
+        ("Selected Unit Catalog-Point Airflow", available_label),
+        ("Selected Airflow-Point ESP",
+         f"{airflow_esp:.3f} in.wg" if airflow_esp is not None
+         else "Unknown"),
+        ("Airflow Data Source",
+         dc.get("airflow_source", "not recorded")),
+        ("Airflow Provenance",
+         dc.get("airflow_provenance", "unknown_unverified")),
+        ("Airflow Reconciliation", _airflow_reconciliation_label(dc)),
         ("External Static Pressure (ESP)", f"{dc.get('esp', 0.20):.3f} in.wg"),
         ("Fan Speed", dc.get('fan_speed', 'High')),
     ])
@@ -429,7 +462,7 @@ def render_system_block(doc, system_name, data, design_conditions,
              if perf['sensible_capacity_btuh'] else "—"),
             ("Cooling Input Power",
              f"{perf['input_w']:,.0f} W" if perf['input_w'] else "—"),
-            ("Airflow at Design ESP",
+            ("Catalog Airflow Point at Design ESP (delivery unverified)",
              f"{perf['airflow_cfm']:,.0f} CFM"
              if perf['airflow_cfm'] else "—"),
             ("Actual Operating ESP", f"{perf['esp_inwg']:.3f} in.wg"),
@@ -667,8 +700,25 @@ def generate_detailed_report(db_path, system_model, design_conditions,
     if dc.get('heating_btu', 0) > 0:
         items.append(("Required Heating Load",
                       f"{dc['heating_btu']:,.0f} Btu/hr"))
+    required_cfm = dc.get("required_cfm", dc.get("cfm", 0))
+    design_cfm = dc.get("design_cfm", required_cfm)
+    available_cfm = dc.get("available_unit_cfm")
+    available_label = (
+        f"{available_cfm:,.0f} CFM (catalog point; unverified delivery)"
+        if available_cfm is not None else "Unknown / unverified")
+    airflow_esp = dc.get("airflow_esp_inwg")
     items.extend([
-        ("Required Airflow", f"{dc.get('cfm', 0):,.0f} CFM"),
+        ("Required Airflow", f"{required_cfm:,.0f} CFM"),
+        ("Diffuser Design Airflow", f"{design_cfm:,.0f} CFM"),
+        ("Selected Unit Catalog-Point Airflow", available_label),
+        ("Selected Airflow-Point ESP",
+         f"{airflow_esp:.3f} in.wg" if airflow_esp is not None
+         else "Unknown"),
+        ("Airflow Data Source",
+         dc.get("airflow_source", "not recorded")),
+        ("Airflow Provenance",
+         dc.get("airflow_provenance", "unknown_unverified")),
+        ("Airflow Reconciliation", _airflow_reconciliation_label(dc)),
         ("External Static Pressure (ESP)", f"{dc.get('esp', 0.20):.3f} in.wg"),
         ("Fan Speed", dc.get('fan_speed', 'High')),
     ])
@@ -724,7 +774,7 @@ def generate_detailed_report(db_path, system_model, design_conditions,
              if perf['sensible_capacity_btuh'] else "—"),
             ("Cooling Input Power",
              f"{perf['input_w']:,.0f} W" if perf['input_w'] else "—"),
-            ("Airflow at Design ESP",
+            ("Catalog Airflow Point at Design ESP (delivery unverified)",
              f"{perf['airflow_cfm']:,.0f} CFM"
              if perf['airflow_cfm'] else "—"),
             ("Actual Operating ESP", f"{perf['esp_inwg']:.3f} in.wg"),
