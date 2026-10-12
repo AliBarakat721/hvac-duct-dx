@@ -20,7 +20,7 @@ import logging
 from html import escape
 from pathlib import Path
 
-from PySide6.QtCore import QPointF, QRectF, Qt
+from PySide6.QtCore import QPointF, QRectF, Qt, QTimer
 from PySide6.QtGui import (
     QAction,
     QBrush,
@@ -279,6 +279,7 @@ QStatusBar {{ background:{C_BG}; border-top:1px solid {C_BORDER}; color:{C_MUTED
 QStatusBar QLabel {{ background:transparent; }}
 QToolButton#collapse {{ background:transparent; color:#93C5FD; border:0; font-weight:700; }}
 QSplitter::handle {{ background:{C_BORDER}; }}
+QLineEdit[invalid="true"] {{ border:1px solid {C_DANGER}; background:#2A1A1F; }}
 QScrollArea {{ background:transparent; border:0; }}
 QScrollBar:vertical {{ background:{C_BG}; width:12px; margin:0; }}
 QScrollBar:horizontal {{ background:{C_BG}; height:12px; margin:0; }}
@@ -308,6 +309,36 @@ def _num(text, default=0.0):
         return float(str(text).replace(",", "").replace("—", "").strip() or default)
     except (TypeError, ValueError):
         return default
+
+
+def _is_valid_number(text):
+    """True for empty / placeholder dashes or anything float() accepts
+    once thousands separators are removed (so "12,000" stays valid)."""
+    t = str(text).replace(",", "").replace("\u2014", "").strip()
+    if not t:
+        return True
+    try:
+        float(t)
+    except ValueError:
+        return False
+    return True
+
+
+def _watch_numeric(w):
+    """Flag a QLineEdit red (with tooltip) while its text is not a number.
+    Typing is never blocked; _num() semantics are unchanged."""
+    base_tip = w.toolTip()
+
+    def _check(text):
+        bad = not _is_valid_number(text)
+        if bool(w.property("invalid")) != bad:
+            w.setProperty("invalid", bad)
+            w.setToolTip(f"“{text}” is not a valid number" if bad else base_tip)
+            w.style().unpolish(w)
+            w.style().polish(w)
+
+    w.textChanged.connect(_check)
+    _check(w.text())
 
 
 def _btn(text, name=None, slot=None, tip=None):
@@ -859,6 +890,7 @@ def build_shell(app):
     for w in (
             app.btu, app.sens, app.cfm, app.heat, app.esp, app.max_sound,
             app.ceiling_void, app.ceiling_clear, app.drain_run):
+        _watch_numeric(w)
         w.textChanged.connect(lambda *_: app._mark_project_dirty())
     for w in (
             app.catalog_family, app.phase, app.outdoor_temp, app.fan_speed):
@@ -1617,7 +1649,7 @@ class DiffuserCanvas(QWidget):
         p.setBrush(QBrush(QColor(37, 99, 235, 30)))
         for (px, py) in self.positions:
             cx = ox + px * scale
-            cy = oy + py * scale
+            cy = oy + (self.room_l - py) * scale
             r = self.throw_t50 * scale
             p.drawEllipse(QPointF(cx, cy), r, r)
 
@@ -1625,7 +1657,7 @@ class DiffuserCanvas(QWidget):
         for tag, (px, py) in zip(
                 self._display_tags(), self.positions, strict=True):
             cx = ox + px * scale
-            cy = oy + py * scale
+            cy = oy + (self.room_l - py) * scale
             p.setPen(QPen(QColor("#F59E0B"), 2.0))
             p.setBrush(QBrush(QColor("#FBBF24")))
             p.drawEllipse(QPointF(cx, cy), 4.5, 4.5)
@@ -1709,7 +1741,8 @@ def _build_diffuser_page(app):
     app.diff_sys_combo = QComboBox()
     app.diff_sys_combo.setMinimumWidth(260)
     app.diff_sys_combo.currentTextChanged.connect(
-        lambda _: app._on_diffuser_sys_changed())
+        lambda _: (_cancel_diffuser_calc(app),
+                   app._on_diffuser_sys_changed()))
     app.diff_prev_btn = _btn("\u2b05 Prev", "secondary",
                              lambda: _diffuser_step(app, -1))
     app.diff_next_btn = _btn("Next \u27a1", "secondary",
@@ -1837,15 +1870,15 @@ def _build_diffuser_page(app):
     for w in (app.diff_width, app.diff_length, app.diff_height,
               app.diff_max_nc, app.diff_max_dp):
         w.valueChanged.connect(lambda *_: app._mark_project_dirty())
-        w.valueChanged.connect(lambda _: app._calculate_current_diffuser())
+        w.valueChanged.connect(lambda _: _schedule_diffuser_calc(app))
     app.diff_app_combo.currentTextChanged.connect(
         lambda *_: app._mark_project_dirty())
     app.diff_type_combo.currentTextChanged.connect(
         lambda *_: app._mark_project_dirty())
     app.diff_app_combo.currentTextChanged.connect(
-        lambda _: app._calculate_current_diffuser())
+        lambda _: _schedule_diffuser_calc(app))
     app.diff_type_combo.currentTextChanged.connect(
-        lambda _: app._calculate_current_diffuser())
+        lambda _: _schedule_diffuser_calc(app))
     app.diff_return_cfm.valueChanged.connect(app._on_return_cfm_changed)
     app.diff_vcd_width_mm.valueChanged.connect(
         lambda *_: app._on_vcd_dimensions_changed())
@@ -1858,8 +1891,9 @@ def _build_diffuser_page(app):
 
     recalc_row = QHBoxLayout()
     app.diff_recalc_btn = _btn("\U0001f504 Recalculate", None,
-                               lambda: app._calculate_current_diffuser(
-                                   replace_invalid_saved_layout=True))
+                               lambda: (_cancel_diffuser_calc(app),
+                                        app._calculate_current_diffuser(
+                                            replace_invalid_saved_layout=True)))
     app.diff_apply_fallback_btn = _btn(
         "Apply Fallback Layout", "warning",
         lambda: app._apply_diffuser_fallback(),
@@ -1953,6 +1987,28 @@ def _build_diffuser_page(app):
     split.setSizes([380, 1000])
     v.addWidget(split, 1)
     return page
+
+
+DIFFUSER_CALC_DELAY_MS = 350
+
+
+def _schedule_diffuser_calc(app):
+    """Debounce: restart a single-shot timer so a burst of spin-box clicks
+    runs the (expensive) placement calculation once."""
+    t = getattr(app, "_diff_calc_timer", None)
+    if t is None:
+        t = QTimer(app)
+        t.setSingleShot(True)
+        t.setInterval(DIFFUSER_CALC_DELAY_MS)
+        t.timeout.connect(app._calculate_current_diffuser)
+        app._diff_calc_timer = t
+    t.start()
+
+
+def _cancel_diffuser_calc(app):
+    t = getattr(app, "_diff_calc_timer", None)
+    if t is not None:
+        t.stop()
 
 
 def _diffuser_step(app, delta):
