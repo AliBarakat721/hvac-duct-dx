@@ -16,10 +16,11 @@ from diffuser_calculator import (
     RoomLayout,
     access_door_select,
     format_report,
+    ft_to_m,
     get_catalog,
-    grid_positions,
     rank_options,
     rvcd_select,
+    select_layout_for_geometry,
     select_return_diffusers,
     vcd_face_velocity_fpm,
     vcd_pressure_drop,
@@ -77,7 +78,24 @@ def solve(name, cfm, room, application, type_key, delta_t=None,
                         delta_t_f=delta_t, top=5)
     if not opts:
         return {"system": name, "status": "❌ no catalog diffuser fits"}
-    s = opts[0]
+    from room_geometry import RoomGeometry
+    geometry = RoomGeometry.from_vertices(
+        [(0.0, 0.0), (ft_to_m(room.room_w_ft), 0.0),
+         (ft_to_m(room.room_w_ft), ft_to_m(room.room_l_ft)),
+         (0.0, ft_to_m(room.room_l_ft))],
+        ft_to_m(room.room_h_ft))
+    layout = select_layout_for_geometry(
+        geometry, cfm, application=application,
+        catalog=get_catalog(TYPES[type_key]), max_dp_inwg=0.20,
+        delta_t_f=delta_t)
+    if not layout.success or layout.performance is None:
+        return {
+            "system": name,
+            "status": "⚠ no fully compliant geometry-aware layout",
+            "layout": layout,
+            "options": opts,
+        }
+    s = layout.performance
     return_airflow = cfm if return_cfm is None else return_cfm
     return_error = None
     try:
@@ -119,7 +137,7 @@ def solve(name, cfm, room, application, type_key, delta_t=None,
                 "branch_dp_inwg": s.pressure_drop_inwg + damper_dp,
             }
     return {"system": name, "status": "OK", "sel": s, "options": opts,
-            "positions": grid_positions(room, s.qty),
+            "layout": layout, "positions": layout.positions_ft,
             "report": format_report(s, room, cfm, application),
             "return": returned, "return_error": return_error,
             "access_door": access_door,
@@ -129,7 +147,7 @@ def solve(name, cfm, room, application, type_key, delta_t=None,
 
 
 def print_options(opts):
-    print("\nTop options (✔ = passes every rule):")
+    print("\nTop catalog options (✔ = no catalog warnings; primary layout is geometry-aware):")
     print(f"{'':2s}{'Qty×Model':14s}{'CFM/ea':>7s}{'FPM':>6s}{'ΔP':>7s}{'NC':>5s}{'T50':>6s}{'T50/L':>11s}")
     for o in opts:
         mark = "✔" if not o.warnings else "✖"

@@ -20,8 +20,7 @@ from typing import Any
 from diffuser_calculator import (
     RoomLayout,
     get_catalog,
-    grid_positions,
-    select_diffuser,
+    select_layout_for_geometry,
 )
 
 logger = logging.getLogger(__name__)
@@ -206,10 +205,7 @@ def _solve_supply_diffuser(item: dict[str, Any],
     catalog = get_catalog(type_label)
 
     if cad_room is not None:
-        from diffuser_calculator import (
-            room_layout_from_geometry,
-            select_layout_for_geometry,
-        )
+        from diffuser_calculator import room_layout_from_geometry
         from room_geometry import RoomGeometry
 
         geometry = current_geometry
@@ -256,21 +252,33 @@ def _solve_supply_diffuser(item: dict[str, Any],
         }
 
     try:
-        sel = select_diffuser(
-            cfm, app_key, catalog=catalog,
-            max_nc=max_nc, max_dp_inwg=max_dp, room=room,
+        from diffuser_calculator import ft_to_m, room_layout_from_geometry
+        from room_geometry import RoomGeometry
+        geometry = RoomGeometry.from_vertices(
+            [(0.0, 0.0), (ft_to_m(w), 0.0),
+             (ft_to_m(w), ft_to_m(l)), (0.0, ft_to_m(l))],
+            ft_to_m(h))
+        layout = select_layout_for_geometry(
+            geometry, cfm, app_key, catalog, max_nc, max_dp,
             sensible_load_btuh=sensible_load_btuh)
     except (TypeError, ValueError, KeyError, IndexError, ZeroDivisionError,
             RuntimeError) as exc:
-        logger.warning("Diffuser selection failed for %s: %s", name, exc)
+        logger.warning("Diffuser layout selection failed for %s: %s", name, exc)
         return {"system": name, "error": str(exc)}
-
-    positions = grid_positions(room, sel.qty, sel.throw_t50_ft)
-    ok = getattr(sel, 'adpi_ok', True)
-    ratio = getattr(sel, 'adpi_ratio', 1.0)
+    if layout.performance is None:
+        return {
+            "system": name,
+            "error": "; ".join(layout.errors)
+                     or "No compliant diffuser layout for room geometry",
+        }
+    sel = layout.performance
+    room = room_layout_from_geometry(geometry)
+    positions = layout.positions_ft
+    ok = sel.adpi_ok
+    ratio = sel.adpi_ratio
     report_status = (
-        "Valid" if sel.pressure_ok
-        else "Review - catalog pressure limit exceeded")
+        "Valid" if layout.success
+        else "Review - no fully compliant geometry-aware layout")
 
     return {
         "system":     name,
@@ -291,7 +299,7 @@ def _solve_supply_diffuser(item: dict[str, Any],
         "delta_t_f":  getattr(sel, "delta_t_f", None),
         "delta_t_limit_f": getattr(sel, "delta_t_limit_f", None),
         "positions":  positions,
-        "warnings":   list(sel.warnings),
+        "warnings":   list(layout.warnings),
         "rationale":  dict(sel.rationale),
     }
 

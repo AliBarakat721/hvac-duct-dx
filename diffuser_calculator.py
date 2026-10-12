@@ -1691,6 +1691,14 @@ def _selection_rationale(sel: DiffuserSelection) -> dict[str, object]:
         "pressure_ok": pressure_ok,
         "t50_l_screening_pass": sel.adpi_ok,
         "table4_airflow_compliant": table4_ok,
+        "verification_status": "ASHRAE-aligned screening; ADPI not verified",
+        "t50_l_basis": "T0.25/L cooling screening; catalog T50 used as ~50 fpm proxy",
+        "adpi_verified": False,
+        "source_refs": [
+            "ASHRAE HVAC Applications 2015 Ch.57 pp.57.5-57.6",
+            "ASHRAE HVAC Applications 2015 Ch.48 p.48.3",
+            "ASHRAE Fundamentals 2017 Ch.20",
+        ],
         "quantity": sel.qty,
         "summary": (
             f"Selected {sel.qty} × {sel.size_label} for "
@@ -2347,15 +2355,21 @@ def wall_proximity_advice(sel: DiffuserSelection, distance_to_wall_ft: float) ->
 def format_report(sel: DiffuserSelection, room: RoomLayout, total_cfm: float,
                   application: str) -> str:
     ac = ach(total_cfm, room)
+    tl_band = (sel.rationale.get("tl_band") or (0.7, 1.2))
+    verification_status = sel.rationale.get(
+        "verification_status", "ASHRAE-aligned screening; ADPI not verified")
     lines = [
         f"═══ Al-Andalosia Diffuser Selection — {application} ═══",
         "Manufacturer         : AL-ANDALOSIA FOR AIR OUTLETS",
+        f"Verification status   : {verification_status}",
+        "Engineering basis     : ASHRAE HVAC Applications Ch.57; "
+        "Fundamentals Ch.20",
         f"Total airflow        : {total_cfm:,.0f} CFM",
         f"Room Dimensions      : {room.room_w_ft:.1f} × {room.room_l_ft:.1f} × {room.room_h_ft:.1f} ft ({room.floor_area_ft2:,.0f} ft²)",
         f"Air changes per hour : {ac:.1f} ACH",
         f"Layout               : {sel.rows} × {sel.cols}  (L = {sel.char_L_ft:.1f} ft)",
         (f"T50/L screening     : {sel.adpi_ratio_min:.2f} – {sel.adpi_ratio:.2f}  "
-        f"(screening band 0.7–1.2, "
+        f"(screening band {tl_band[0]}–{tl_band[1]}, "
         f"{'within band' if sel.adpi_ok else 'review'}; ADPI not verified)"),
         "Supply ΔT            : "
         + (f"{sel.delta_t_f:.1f}°F (Table 4 max {sel.delta_t_limit_f:.0f}°F)"
@@ -2367,7 +2381,10 @@ def format_report(sel: DiffuserSelection, room: RoomLayout, total_cfm: float,
         f"Quantity             : {sel.qty} unit(s)",
         f"Airflow per diffuser : {sel.cfm_per_unit:,.0f} CFM",
         f"Neck velocity        : {sel.neck_velocity_fpm:,.0f} FPM",
-        f"Total Pressure Drop  : {sel.pressure_drop_inwg:.4f} in.wg",
+        f"Catalog Total ΔP     : {sel.pressure_drop_inwg:.4f} in.wg "
+        f"({'OK' if sel.pressure_ok else 'REVIEW'}; limit "
+        f"{sel.max_dp_limit_inwg:.2f} in.wg)",
+        "Pressure basis       : catalog total-pressure loss; not system static pressure",
         f"Sound (catalog)      : NC {sel.nc_label}",
         f"Throw Range (T100-T50): {sel.throw_t100_ft:.1f} - {sel.throw_t50_ft:.1f} ft",
         f"Max Spacing          : {sel.spacing_max_ft:.1f} ft",
