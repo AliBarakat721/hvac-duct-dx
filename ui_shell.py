@@ -56,6 +56,8 @@ from PySide6.QtWidgets import (
     QRadioButton,
     QSpinBox,
     QSplitter,
+    QScrollArea,
+    QSizePolicy,
     QStackedWidget,
     QStatusBar,
     QTableWidget,
@@ -277,6 +279,22 @@ QStatusBar {{ background:{C_BG}; border-top:1px solid {C_BORDER}; color:{C_MUTED
 QStatusBar QLabel {{ background:transparent; }}
 QToolButton#collapse {{ background:transparent; color:#93C5FD; border:0; font-weight:700; }}
 QSplitter::handle {{ background:{C_BORDER}; }}
+QScrollArea {{ background:transparent; border:0; }}
+QScrollBar:vertical {{ background:{C_BG}; width:12px; margin:0; }}
+QScrollBar:horizontal {{ background:{C_BG}; height:12px; margin:0; }}
+QScrollBar::handle:vertical {{ background:#3B4A63; border-radius:5px; min-height:28px; margin:2px; }}
+QScrollBar::handle:horizontal {{ background:#3B4A63; border-radius:5px; min-width:28px; margin:2px; }}
+QScrollBar::handle:vertical:hover, QScrollBar::handle:horizontal:hover {{ background:{C_PRIMARY}; }}
+QScrollBar::add-line, QScrollBar::sub-line {{ width:0; height:0; }}
+QScrollBar::add-page, QScrollBar::sub-page {{ background:transparent; }}
+QMenuBar {{ background:{C_BG}; color:{C_TEXT}; }}
+QMenuBar::item {{ background:transparent; padding:5px 10px; }}
+QMenuBar::item:selected {{ background:{C_CARD}; }}
+QMenu {{ background:{C_CARD}; color:{C_TEXT}; border:1px solid {C_BORDER}; padding:4px; }}
+QMenu::item {{ padding:5px 24px 5px 18px; background:transparent; }}
+QMenu::item:selected {{ background:{C_PRIMARY}; color:#FFFFFF; }}
+QMenu::item:disabled {{ color:{C_MUTED}; }}
+QMenu::separator {{ height:1px; background:{C_BORDER}; margin:4px 8px; }}
 """
 
 CATALOG_SHORT = {"QDMT": "QDMT Duct Split", "Miraco": "Miraco 50UB/38BB", "Rooftop": "Carrier Rooftop RTU"}
@@ -338,6 +356,12 @@ class StatusLabel(QLabel):
     """Status-bar label. Collapses the multi-line messages the backend
     writes into one compact line (full text stays in the tooltip)."""
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # A long backend message must never widen the window.
+        self.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Preferred)
+        self.setMinimumWidth(0)
+
     def setText(self, text):
         full = str(text)
         super().setText(" │ ".join(p.strip() for p in full.splitlines() if p.strip()))
@@ -382,6 +406,16 @@ def _page(title, subtitle):
     v.addWidget(_label(title, "pageTitle"))
     v.addWidget(_label(subtitle, "pageSub"))
     return page, v
+
+
+def _scroll(widget):
+    """Wrap a page column in a vertical scroll area (no sideways scroll)."""
+    sa = QScrollArea()
+    sa.setWidgetResizable(True)
+    sa.setFrameShape(QFrame.NoFrame)
+    sa.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+    sa.setWidget(widget)
+    return sa
 
 
 def _configure_table(t, stretch_last=False):
@@ -768,8 +802,9 @@ def go_page(app, idx):
 
 def build_shell(app):
     app.setWindowTitle("Duct DX Equipment Selector — HAP Analyzer")
-    app.setMinimumSize(1400, 850)
-    app.resize(1600, 950)
+    app.setMinimumSize(1100, 620)
+    _avail = QApplication.primaryScreen().availableGeometry()
+    app.resize(min(1600, _avail.width()), min(950, _avail.height()))
 
     # status label must exist before pages (backend writes to it)
     app.status = StatusLabel("✓ Ready")
@@ -788,7 +823,7 @@ def build_shell(app):
     body.addWidget(app.sidebar_frame)
 
     app.stack = QStackedWidget()
-    app.stack.addWidget(_build_hap_page(app))
+    app.stack.addWidget(_scroll(_build_hap_page(app)))
     app.stack.addWidget(_build_systems_page(app))
     app.stack.addWidget(_build_equipment_page(app))
     app.stack.addWidget(_build_cart_page(app))
@@ -832,6 +867,9 @@ def build_shell(app):
         w.valueChanged.connect(lambda *_: app._mark_project_dirty())
     app.ceiling_enforce.stateChanged.connect(
         lambda *_: app._mark_project_dirty())
+
+    if _avail.width() < 1340:       # narrow screen: start with sidebar hidden
+        app.sidebar_frame.setVisible(False)
 
     go_page(app, P_HAP)
 
@@ -1281,7 +1319,7 @@ def _build_equipment_page(app):
     nav.addWidget(_btn("Next system ➡", "secondary", lambda: app._navigate_system(+1)))
     lv.addLayout(nav)
     lv.addStretch()
-    split.addWidget(left)
+    split.addWidget(_scroll(left))
 
     # ----- right: best match + results
     right = QWidget()
@@ -1728,7 +1766,7 @@ def _build_diffuser_page(app):
 
     lv.addWidget(grp_room)
 
-    grp_app = QGroupBox("Application & Diffuser Type")
+    grp_app = QGroupBox("Application && Diffuser Type")
     al = QVBoxLayout(grp_app)
     app.diff_app_combo = QComboBox()
     app.diff_app_combo.addItems([
@@ -1835,7 +1873,7 @@ def _build_diffuser_page(app):
                              lambda: app._auto_select_all_diffusers())
     lv.addWidget(app.diff_auto_btn)
     lv.addStretch()
-    split.addWidget(left)
+    split.addWidget(_scroll(left))
 
     # ── RIGHT: result + canvas + summary ──────────────────
     right = QWidget()
