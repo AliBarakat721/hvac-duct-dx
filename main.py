@@ -3128,6 +3128,43 @@ class App(QMainWindow):
     #  [NEW]  Diffuser Selection  —  per-system Al-Andalosia pick
     # ═══════════════════════════════════════════════════════════
 
+    def _populate_diffuser_candidate_choices(self, options, selected_index=0):
+        """Display the ranked candidate list and keep the explicit selection in sync."""
+        combo = getattr(self, "diff_candidate_combo", None)
+        if combo is None:
+            return
+        combo.blockSignals(True)
+        try:
+            combo.clear()
+            if not options:
+                combo.setEnabled(False)
+                return
+            for idx, option in enumerate(options[:8]):
+                combo.addItem(
+                    f"{idx + 1}. {option.model} {option.size_label} - "
+                    f"{option.qty} × {option.cfm_per_unit:,.0f} CFM",
+                    idx,
+                )
+            safe_index = max(0, min(int(selected_index or 0), combo.count() - 1))
+            combo.setEnabled(combo.count() > 1)
+            combo.setCurrentIndex(safe_index)
+        finally:
+            combo.blockSignals(False)
+
+    def _on_diffuser_candidate_changed(self):
+        """Persist an explicitly selected candidate and re-run diffuser selection."""
+        sys_name = self.diff_sys_combo.currentText()
+        if not sys_name or sys_name not in self.cart:
+            return
+        combo = getattr(self, "diff_candidate_combo", None)
+        if combo is None:
+            return
+        index = combo.currentIndex()
+        item = self.cart[sys_name]
+        item.setdefault("diffuser_selection", {})["selected_option_index"] = index
+        self._mark_project_dirty()
+        self._calculate_current_diffuser()
+
     def _on_diffuser_sys_changed(self, *, recalculate=True):
         """Loads room and airflow parameters when selecting a system
         in the Diffusers page. Blocks every input widget while the
@@ -3560,20 +3597,37 @@ class App(QMainWindow):
         if hasattr(self, "diff_access_door_result_lbl"):
             self._update_return_accessories(item, return_cfm)
 
+        selected_option_index = int(
+            previous_selection.get("selected_option_index", 0) or 0)
         saved_layout_errors = list(
             (cad_room or {}).get("layout_validation_errors", []))
+        ranked_candidates = []
+        if geometry.is_valid and cfm > 0:
+            ranked_candidates = rank_options(
+                cfm, application=app_key, catalog=catalog,
+                max_nc=max_nc, max_dp_inwg=max_dp,
+                room=room_layout_from_geometry(geometry),
+                sensible_load_btuh=sensible_load_btuh, top=8)
+            if ranked_candidates:
+                selected_option_index = max(
+                    0, min(selected_option_index, len(ranked_candidates) - 1))
+                self._populate_diffuser_candidate_choices(
+                    ranked_candidates, selected_option_index)
+            else:
+                self._populate_diffuser_candidate_choices([], 0)
+        else:
+            self._populate_diffuser_candidate_choices([], 0)
         if cad_room is not None:
             saved_diffusers = cad_room.get("diffusers", []) or []
             face_half_extent_m = None
             if saved_diffusers and geometry.is_valid:
-                recommended_options = rank_options(
-                    cfm, application=app_key, catalog=catalog,
-                    max_nc=max_nc, max_dp_inwg=max_dp,
-                    room=room_layout_from_geometry(geometry),
-                    sensible_load_btuh=sensible_load_btuh, top=1)
-                if recommended_options:
+                selected_candidate = (
+                    ranked_candidates[selected_option_index]
+                    if ranked_candidates and 0 <= selected_option_index < len(ranked_candidates)
+                    else (ranked_candidates[0] if ranked_candidates else None))
+                if selected_candidate is not None:
                     face_half_extent_m = diffuser_face_half_extent_m(
-                        recommended_options[0])
+                        selected_candidate)
 
             if saved_diffusers:
                 detected_layout_errors = []
@@ -3686,7 +3740,7 @@ class App(QMainWindow):
         }
         input_signature = selection_input_signature(
             cfm, sensible_load_btuh, geometry_signature, type_label,
-            app_key, max_nc, max_dp)
+            app_key, max_nc, max_dp, selected_option_index)
         self.diff_apply_fallback_btn.setEnabled(False)
         cached_layout = None
         saved_diffusers = (cad_room.get("diffusers", []) or []
@@ -3754,7 +3808,8 @@ class App(QMainWindow):
             layout = select_layout_for_geometry(
                 geometry, cfm, application=app_key, catalog=catalog,
                 max_nc=max_nc, max_dp_inwg=max_dp,
-                sensible_load_btuh=sensible_load_btuh)
+                sensible_load_btuh=sensible_load_btuh,
+                selected_option_index=selected_option_index)
             failure_kind = layout.failure_kind
             errors = list(layout.errors)
 

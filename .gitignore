@@ -34,5 +34,4 @@ Thumbs.db
 *.sqlite
 *.db
 _archive/
-airflow_utils.py
 tests/

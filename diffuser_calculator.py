@@ -181,9 +181,10 @@ def selection_input_signature(
         total_cfm: float, sensible_load_btuh: float | None,
         geometry_signature: dict[str, object], type_label: str,
         application: str, max_nc: float | None,
-        max_dp_inwg: float) -> dict[str, object]:
+        max_dp_inwg: float,
+        selected_option_index: int | None = None) -> dict[str, object]:
     """Stable inputs required to safely reuse a cached diffuser selection."""
-    return {
+    signature = {
         "cfm": float(total_cfm),
         "sensible_load_btuh": (
             float(sensible_load_btuh) if sensible_load_btuh is not None else None),
@@ -193,6 +194,9 @@ def selection_input_signature(
         "max_nc": float(max_nc) if max_nc is not None else None,
         "max_dp_inwg": float(max_dp_inwg),
     }
+    if selected_option_index is not None:
+        signature["selected_option_index"] = int(selected_option_index)
+    return signature
 
 
 def selection_signatures_match(saved: object, current: dict[str, object]) -> bool:
@@ -930,19 +934,34 @@ class DiffuserSelection:
     rationale: dict[str, object] = field(default_factory=dict)
 
 
-def ceiling_limits(height_ft: float) -> tuple[int, int, int, list[str]]:
-    """Return the conservative Table 4 row and any height-coverage warning."""
+def ceiling_limits(height_ft: float) -> tuple[int, float, float, list[str]]:
+    """Interpolate Table 4 limits between validated ceiling-height rows."""
     notes = []
     if height_ft > max(CEILING_TABLE):
         notes.append(
             f"Ceiling height {height_ft:.1f} ft exceeds validated Table 4 "
             f"data (maximum {max(CEILING_TABLE)} ft); manufacturer review "
             "is required.")
-    rows = [h for h in sorted(CEILING_TABLE) if h <= height_ft]
-    h = rows[-1] if rows else 8
-    if not rows:
+    heights = sorted(CEILING_TABLE)
+    if height_ft < heights[0]:
+        h = heights[0]
         notes.append("Ceiling lower than 8 ft – Table 4 row for 8 ft used.")
-    return h, CEILING_TABLE[h][0], CEILING_TABLE[h][1], notes
+        return h, *CEILING_TABLE[h], notes
+
+    lower_heights = [height for height in heights if height <= height_ft]
+    lower = lower_heights[-1]
+    if lower == heights[-1] or height_ft == lower:
+        cfm_cap, delta_t_max = CEILING_TABLE[lower]
+        return lower, cfm_cap, delta_t_max, notes
+
+    upper = next(height for height in heights if height > height_ft)
+    fraction = (height_ft - lower) / (upper - lower)
+    lower_cfm, lower_delta_t = CEILING_TABLE[lower]
+    upper_cfm, upper_delta_t = CEILING_TABLE[upper]
+    cfm_cap = lower_cfm + fraction * (upper_cfm - lower_cfm)
+    delta_t_max = lower_delta_t + fraction * (
+        upper_delta_t - lower_delta_t)
+    return lower, cfm_cap, delta_t_max, notes
 
 
 @dataclass(frozen=True)
@@ -2026,7 +2045,8 @@ def select_layout_for_geometry(
         min_wall_clearance_m: float = 0.30,
         min_spacing_m: float = 0.60,
         total_load_btuh: float | None = None,
-        sensible_load_btuh: float | None = None) -> DiffuserLayoutResult:
+        sensible_load_btuh: float | None = None,
+        selected_option_index: int | None = None) -> DiffuserLayoutResult:
     """Select, place, and evaluate one complete layout for actual geometry."""
     errors = geometry.validate()
     if errors:
@@ -2078,6 +2098,13 @@ def select_layout_for_geometry(
             False, geometry, 0, required_cfm=total_cfm,
             failure_kind="airflow_infeasible",
             errors=["No diffuser catalog option satisfies the airflow constraints."])
+
+    if selected_option_index is not None:
+        selected_option_index = max(0, min(int(selected_option_index), len(options) - 1))
+        ranked = options[selected_option_index: selected_option_index + 1]
+        remaining = [candidate for idx, candidate in enumerate(options)
+                     if idx != selected_option_index]
+        options = ranked + remaining
 
     recommended_quantity = options[0].qty
     feasible_layouts = []

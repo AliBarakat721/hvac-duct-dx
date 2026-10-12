@@ -1631,9 +1631,17 @@ def _build_diffuser_page(app):
         "Industrial", "Server Room"])
     app.diff_type_combo = QComboBox()
     app.diff_type_combo.addItems(["Circular (CCD)", "Square 4-way (4SCD)", "Square 3-way (3SCD)"])
+    app.diff_candidate_combo = QComboBox()
+    app.diff_candidate_combo.setEnabled(False)
+    app.diff_candidate_combo.setToolTip(
+        "Ranked viable diffuser candidates. Select an option to override the default top-ranked result.")
     al.addWidget(_row("Application", app.diff_app_combo))
     al.addWidget(_row("Diffuser Type", app.diff_type_combo))
+    al.addWidget(_row("Candidate", app.diff_candidate_combo))
     lv.addWidget(grp_app)
+
+    app.diff_candidate_combo.currentIndexChanged.connect(
+        lambda *_: app._on_diffuser_candidate_changed())
 
     grp_lim = QGroupBox("Limits")
     ll = QVBoxLayout(grp_lim)
