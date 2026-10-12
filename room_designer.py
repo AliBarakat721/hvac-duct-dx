@@ -471,7 +471,7 @@ class PlanView(QWidget):
             return
 
         if self.mode == "DRAW":
-            if text in "0123456789.":
+            if text and text in "0123456789.":
                 self.typed_buffer += text
                 self.update()
                 return
@@ -1275,6 +1275,7 @@ class RoomDesignerDialog(QDialog):
             self.room.layout_validation_errors = list(
                 self.layout_validation_errors)
         self._syncing = False
+        self._3d_dirty = True
         self._last_geometry_signature = self._geometry_signature()
         self._canvas_refresh_timer = QTimer(self)
         self._canvas_refresh_timer.setSingleShot(True)
@@ -1439,10 +1440,11 @@ class RoomDesignerDialog(QDialog):
         self.plan.wall_double_clicked.connect(self.prompt_edit_wall_length)
         self.view3d = View3D()
 
-        tabs = QTabWidget()
-        tabs.addTab(self.plan, "📐 2D Floor Plan & Diffusers")
-        tabs.addTab(self.view3d, "🧊 3D Solid Model")
-        right_layout.addWidget(tabs)
+        self.tabs = QTabWidget()
+        self.tabs.addTab(self.plan, "📐 2D Floor Plan & Diffusers")
+        self.tabs.addTab(self.view3d, "🧊 3D Solid Model")
+        self.tabs.currentChanged.connect(self._on_tab_changed)
+        right_layout.addWidget(self.tabs)
 
         cmd_bar = QWidget()
         cmd_bar.setStyleSheet("background-color: #1a1e24; border-top: 1px solid #2d3436; padding: 4px;")
@@ -1480,6 +1482,27 @@ class RoomDesignerDialog(QDialog):
         self.name_edit.textChanged.connect(self.on_meta_changed)
 
         self.update_ui_from_room()
+
+    TAB_2D, TAB_3D = 0, 1
+
+    def _on_tab_changed(self, index):
+        if index == self.TAB_3D:
+            if self._3d_dirty:
+                self._3d_dirty = False
+                self.view3d.set_room(self.room)
+        elif index == self.TAB_2D:
+            # Keys (Delete, Esc, C, typed wall lengths) go to the canvas.
+            self.plan.setFocus()
+
+    def _update_3d(self):
+        """Rebuild the 3D model only while its tab is visible; otherwise
+        remember that it is stale and rebuild when the tab is opened."""
+        tabs = getattr(self, "tabs", None)
+        if tabs is not None and tabs.currentIndex() != self.TAB_3D:
+            self._3d_dirty = True
+            return
+        self._3d_dirty = False
+        self.view3d.set_room(self.room)
 
     def auto_distribute_diffusers(self):
         """Place diffusers evenly near the room center and clear of the walls."""
@@ -1646,7 +1669,7 @@ class RoomDesignerDialog(QDialog):
         try:
             self.populate_table()
             self.refresh_metrics()
-            self.view3d.set_room(self.room)
+            self._update_3d()
         finally:
             self._syncing = False
 
@@ -1665,7 +1688,7 @@ class RoomDesignerDialog(QDialog):
         self.room.walls = walls
         self._invalidate_layout_if_geometry_changed()
         self.plan.set_room(self.room)
-        self.view3d.set_room(self.room)
+        self._update_3d()
         self.refresh_metrics()
         self._syncing = False
 
@@ -1675,7 +1698,7 @@ class RoomDesignerDialog(QDialog):
         self.room.wall_thickness = self.thick_spin.value()
         self._invalidate_layout_if_geometry_changed()
         self.plan.update()
-        self.view3d.set_room(self.room)
+        self._update_3d()
         self.refresh_metrics()
 
     def update_ui_from_room(self):
@@ -1686,7 +1709,7 @@ class RoomDesignerDialog(QDialog):
         self.thick_spin.setValue(self.room.wall_thickness)
         self.populate_table()
         self.plan.set_room(self.room)
-        self.view3d.set_room(self.room)
+        self._update_3d()
         self.refresh_metrics()
         self._syncing = False
 
