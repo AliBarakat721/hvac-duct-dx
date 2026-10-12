@@ -1561,18 +1561,22 @@ class RoomDesignerDialog(QDialog):
     def set_select_mode(self):
         self.plan.mode = "SELECT"
         self._highlight_btn(self.btn_select)
+        self.plan.setFocus()
 
     def start_pick_close_mode(self):
         self.plan.mode = "PICK_CLOSE"
         self._highlight_btn(self.btn_pick_close)
+        self.plan.setFocus()
 
     def set_door_mode(self):
         self.plan.mode = "ADD_DOOR"
         self._highlight_btn(self.btn_door)
+        self.plan.setFocus()
 
     def set_window_mode(self):
         self.plan.mode = "ADD_WINDOW"
         self._highlight_btn(self.btn_window)
+        self.plan.setFocus()
 
     def _highlight_btn(self, target):
         for b in (self.btn_draw, self.btn_select, self.btn_pick_close, self.btn_door, self.btn_window):
