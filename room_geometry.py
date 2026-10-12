@@ -119,11 +119,22 @@ class RoomGeometry:
             geometry = cls.from_vertices(
                 data["vertices"], data.get("height_m", data.get("height", 0)),
                 closed=bool(data.get("closed", True)))
-            return cls(geometry.vertices, geometry.height_m, geometry.closed,
-                       float(data.get("closure_gap_m", 0)),
-                       tuple(data.get("input_errors", ())))
-        return cls.from_walls(data.get("walls", []),
-                              data.get("height_m", data.get("height", 0)))
+            result = cls(geometry.vertices, geometry.height_m, geometry.closed,
+                         float(data.get("closure_gap_m", 0)),
+                         tuple(data.get("input_errors", ())))
+        else:
+            result = cls.from_walls(data.get("walls", []),
+                                    data.get("height_m", data.get("height", 0)))
+        origin = data.get("origin", (0.0, 0.0))
+        if len(origin) != 2:
+            raise ValueError("Room origin must contain two coordinates.")
+        ox, oy = float(origin[0]), float(origin[1])
+        if not math.isfinite(ox) or not math.isfinite(oy):
+            raise ValueError("Room origin coordinates must be finite.")
+        return cls(
+            tuple((x + ox, y + oy) for x, y in result.vertices),
+            result.height_m, result.closed, result.closure_gap_m,
+            result.input_errors)
 
     @property
     def walls(self) -> tuple[WallGeometry, ...]:

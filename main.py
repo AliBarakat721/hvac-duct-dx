@@ -13,9 +13,11 @@ import csv
 import importlib.util
 import logging
 import math
+import re
 import shutil
 import sqlite3
 import sys
+import uuid
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -75,6 +77,55 @@ from project_persistence import (
     save_project as write_project_file,
 )
 from report_builder import generate_detailed_report
+
+
+def _cad_diffuser_records(cad_room, positions_m, throw_t50_m):
+    """Serialize a placed layout without reassigning surviving diffuser identities."""
+    existing = list((cad_room or {}).get("diffusers", []))
+    used_existing = set()
+    used_tags = {diffuser.get("tag") for diffuser in existing
+                 if isinstance(diffuser.get("tag"), str)}
+    highest_tag_number = max(
+        (int(match.group(1))
+         for tag in used_tags
+         if (match := re.fullmatch(r"D(\d+)", tag))),
+        default=0)
+    records = []
+    for x_m, y_m in positions_m:
+        match_index = next((
+            index for index, diffuser in enumerate(existing)
+            if index not in used_existing
+            and math.dist(
+                (float(diffuser.get("x_m", math.inf)),
+                 float(diffuser.get("y_m", math.inf))),
+                (x_m, y_m)) <= 1e-6
+        ), None)
+        if match_index is not None:
+            old = existing[match_index]
+            used_existing.add(match_index)
+            tag = old.get("tag")
+            diffuser_id = old.get("id") or uuid.uuid4().hex
+            if not isinstance(tag, str) or not tag:
+                tag = None
+        else:
+            tag = None
+            diffuser_id = uuid.uuid4().hex
+        if tag is None:
+            while True:
+                highest_tag_number += 1
+                tag = f"D{highest_tag_number}"
+                if tag not in used_tags:
+                    break
+        used_tags.add(tag)
+        records.append({
+            "id": diffuser_id,
+            "tag": tag,
+            "x_m": x_m,
+            "y_m": y_m,
+            "throw_t50_m": throw_t50_m,
+        })
+    return records
+
 
 # ═══════════════════════════════════════════════════════════════
 #                         DATABASE SETUP
@@ -1337,6 +1388,24 @@ class App(QMainWindow):
                 t_air, t_cool, mid, fan_pref
             )
             if fan_to_use is None:
+                airflow_point_cfm = (
+                    float(flow_row[1])
+                    if flow_row and flow_row[1] is not None else None)
+                if airflow_point_cfm is not None and airflow_point_cfm <= 0:
+                    airflow_point_cfm = None
+                airflow_metadata = {
+                    "equipment_model_id": mid,
+                    "model": model,
+                    "catalog": catalog_label,
+                    "catalog_prefix": prefix,
+                    "fan_speed_requested": fan_pref,
+                    "fan_speed_resolved": None,
+                    "airflow_cfm": None,
+                    "airflow_esp_inwg": None,
+                    "requested_esp_inwg": esp,
+                    "airflow_source": "airflow point unavailable",
+                    "airflow_provenance": "unknown_unverified",
+                }
                 rows.append(
                     (
                         False,
@@ -1356,6 +1425,7 @@ class App(QMainWindow):
                         fan_fallback_reason,
                         catalog_label,
                         eer,
+                        airflow_metadata,
                     )
                 )
                 continue
@@ -1416,7 +1486,27 @@ class App(QMainWindow):
             """,
                 (mid, fan_to_use, esp - EPS, esp),
             ).fetchone()
-            flow = flow_row[1] if flow_row else 0
+            airflow_metadata = {
+                "equipment_model_id": mid,
+                "model": model,
+                "catalog": catalog_label,
+                "catalog_prefix": prefix,
+                "fan_speed_requested": fan_pref,
+                "fan_speed_resolved": fan_to_use,
+                "airflow_cfm": airflow_point_cfm,
+                "airflow_esp_inwg": (
+                    float(flow_row[0])
+                    if flow_row and flow_row[0] is not None else None),
+                "requested_esp_inwg": esp,
+                "airflow_source": (
+                    f"{catalog_label} airflow-point table"
+                    if flow_row else "airflow point unavailable"),
+                "airflow_provenance": (
+                    "unverified_catalog_point"
+                    if airflow_point_cfm is not None
+                    else "unknown_unverified"),
+            }
+            flow = airflow_metadata["airflow_cfm"] or 0
 
             sound_row = self.conn.execute(
                 f"""
@@ -1538,6 +1628,7 @@ class App(QMainWindow):
                     "; ".join(reasons),
                     catalog_label,
                     eer,
+                    airflow_metadata,
                 )
             )
 
@@ -1598,7 +1689,8 @@ class App(QMainWindow):
                 reason,
                 catalog_label,
                 eer,
-            ) = row
+            ) = row[:17]
+            airflow_metadata = row[17] if len(row) > 17 else None
 
             is_best = ok and (model == best_model_name)
             status_text = (
@@ -1631,6 +1723,8 @@ class App(QMainWindow):
             for j, val in enumerate(vals):
                 cell = QTableWidgetItem(str(val))
                 cell.setTextAlignment(Qt.AlignCenter)
+                if j == 0 and airflow_metadata is not None:
+                    cell.setData(Qt.UserRole, airflow_metadata)
                 if is_best:
                     color = "#fbbf24"  # gold — best/nearest fit
                 elif ok:
@@ -1757,6 +1851,31 @@ class App(QMainWindow):
                     "total_btu": total,
                     "sensible_btu": sens,
                     "cfm": cfm,
+                    "required_cfm": cfm,
+                    "design_cfm": cfm,
+                    "available_unit_cfm": (
+                        (self.table.item(self.selected_row, 0).data(Qt.UserRole)
+                         or {}).get("airflow_cfm")
+                        if self.table.item(self.selected_row, 0) else None),
+                    "airflow_provenance": (
+                        (self.table.item(self.selected_row, 0).data(Qt.UserRole)
+                         or {}).get("airflow_provenance", "unknown_unverified")
+                        if self.table.item(self.selected_row, 0)
+                        else "unknown_unverified"),
+                    "available_unit_cfm_status": (
+                        (self.table.item(self.selected_row, 0).data(Qt.UserRole)
+                         or {}).get("airflow_provenance", "unknown_unverified")
+                        if self.table.item(self.selected_row, 0)
+                        else "unknown_unverified"),
+                    "airflow_source": (
+                        (self.table.item(self.selected_row, 0).data(Qt.UserRole)
+                         or {}).get("airflow_source", "not recorded")
+                        if self.table.item(self.selected_row, 0)
+                        else "not recorded"),
+                    "airflow_esp_inwg": (
+                        (self.table.item(self.selected_row, 0).data(Qt.UserRole)
+                         or {}).get("airflow_esp_inwg")
+                        if self.table.item(self.selected_row, 0) else None),
                     "esp": esp,
                     "heating_btu": heat,
                     "outdoor_db": outdoor,
@@ -1883,6 +2002,15 @@ class App(QMainWindow):
         table_prefix = (
             next((p for lbl, p in self.CATALOGS if lbl == catalog_label), "") or ""
         )
+        airflow_metadata = (
+            self.table.item(self.selected_row, 0).data(Qt.UserRole)
+            if self.table.item(self.selected_row, 0) else None)
+        airflow_metadata = dict(airflow_metadata or {})
+        available_unit_cfm = airflow_metadata.get("airflow_cfm")
+        airflow_status = (
+            airflow_metadata.get("airflow_provenance")
+            if available_unit_cfm is not None else "unknown_unverified")
+        airflow_status = airflow_status or "unknown_unverified"
 
         try:
             klass = float(klass_text.replace("K", "").strip())
@@ -1934,6 +2062,23 @@ class App(QMainWindow):
             "total_btu": _num(self.btu),
             "sensible_btu": _num(self.sens),
             "cfm": _num(self.cfm),
+            "required_cfm": _num(self.cfm),
+            "design_cfm": _num(self.cfm),
+            "available_unit_cfm": available_unit_cfm,
+            "available_unit_cfm_status": airflow_status,
+            "airflow_source": airflow_metadata.get(
+                "airflow_source", "airflow point provenance unavailable"),
+            "airflow_provenance": airflow_metadata.get(
+                "airflow_provenance", "unknown_unverified"),
+            "airflow_esp_inwg": airflow_metadata.get("airflow_esp_inwg"),
+            "requested_esp_inwg": airflow_metadata.get(
+                "requested_esp_inwg", _num(self.esp)),
+            "fan_speed_resolved": airflow_metadata.get(
+                "fan_speed_resolved"),
+            "selected_units": [{
+                **airflow_metadata,
+                "qty": 1,
+            }] if airflow_metadata else [],
             "esp": _num(self.esp),
             "outdoor": int(self.outdoor_temp.currentText()),
             "fan": self.fan_speed.currentText(),
@@ -1972,6 +2117,11 @@ class App(QMainWindow):
 
         n = ui_shell._num
         catalog = cell(1)
+        airflow_metadata = (
+            self.table.item(r, 0).data(Qt.UserRole)
+            if self.table.item(r, 0) else None)
+        airflow_metadata = dict(airflow_metadata or {})
+        airflow_cfm = airflow_metadata.get("airflow_cfm")
         return {
             "status": cell(0),
             "catalog": catalog,
@@ -1981,7 +2131,7 @@ class App(QMainWindow):
             "sens": n(cell(5)),
             "heat": n(cell(6)),
             "eer": n(cell(7)),
-            "flow": n(cell(8)),
+            "flow": float(airflow_cfm) if airflow_cfm is not None else 0.0,
             "sound": n(cell(9)),
             "power": cell(10),
             "indoor": cell(11),
@@ -1989,6 +2139,7 @@ class App(QMainWindow):
             "dims": cell(13),
             "table_prefix": next((p for lbl, p in self.CATALOGS if lbl == catalog), "")
             or "",
+            **airflow_metadata,
         }
 
     def _combine_units(self):
@@ -2013,6 +2164,7 @@ class App(QMainWindow):
 
     def _add_combo_to_selection(self, units, tot, covers):
         import math
+        from airflow_utils import combine_selected_unit_airflow
 
         def _num(widget):
             try:
@@ -2051,6 +2203,7 @@ class App(QMainWindow):
 
         replaced = name in self.cart
         model_label = label("model")
+        combined_airflow = combine_selected_unit_airflow(units)
         self.cart[name] = {
             "system": name,
             "model": model_label,
@@ -2068,6 +2221,17 @@ class App(QMainWindow):
             "total_btu": _num(self.btu),
             "sensible_btu": _num(self.sens),
             "cfm": _num(self.cfm),
+            "required_cfm": _num(self.cfm),
+            "design_cfm": _num(self.cfm),
+            "available_unit_cfm": combined_airflow["available_unit_cfm"],
+            "available_unit_cfm_status": combined_airflow["status"],
+            "airflow_source": "combined selected catalog airflow points",
+            "airflow_provenance": combined_airflow["status"],
+            "airflow_esp_inwg": (
+                units[0].get("airflow_esp_inwg") if units else None),
+            "requested_esp_inwg": _num(self.esp),
+            "fan_speed_resolved": (
+                units[0].get("fan_speed_resolved") if units else None),
             "esp": _num(self.esp),
             "outdoor": int(self.outdoor_temp.currentText()),
             "fan": self.fan_speed.currentText(),
@@ -2329,6 +2493,7 @@ class App(QMainWindow):
 
     def _prepare_cart_rows(self):
         hours, tariff, currency = self._energy_params()
+        from airflow_utils import airflow_summary_text
         headers = [
             "System",
             "Catalog",
@@ -2345,6 +2510,10 @@ class App(QMainWindow):
             "Required Total Load (Btu/hr)",
             "Required Sensible Load (Btu/hr)",
             "Required CFM",
+            "Available Unit CFM",
+            "Diffuser Design CFM",
+            "Selected Airflow-Point ESP (in.wg)",
+            "Airflow Reconciliation / Provenance",
             "ESP (in.wg)",
             "Outdoor (°C)",
             "Fan Speed",
@@ -2384,7 +2553,15 @@ class App(QMainWindow):
                     item.get("power_supply", "") or "—",
                     int(item["total_btu"]),
                     int(item["sensible_btu"]),
-                    int(item["cfm"]),
+                    float(item.get("required_cfm", item["cfm"])),
+                    (item["available_unit_cfm"]
+                     if item.get("available_unit_cfm") is not None
+                     else "Unknown / unverified"),
+                    float(item.get("design_cfm", item["cfm"])),
+                    (item["airflow_esp_inwg"]
+                     if item.get("airflow_esp_inwg") is not None
+                     else "Unknown"),
+                    airflow_summary_text(item),
                     round(item["esp"], 3),
                     item["outdoor"],
                     item["fan"],
@@ -2536,7 +2713,8 @@ class App(QMainWindow):
             cells[1].text = item["model"]
             cells[2].text = f"{item['class_kbtu']:g}"
             cells[3].text = f"{item['total_btu']:,.0f}"
-            cells[4].text = f"{item['cfm']:,.0f}"
+            cells[4].text = (
+                f"{item.get('required_cfm', item['cfm']):,.0f}")
             cells[5].text = f"{item.get('eer', 0):.2f}" if item.get("eer") else "—"
             cells[6].text = f"{power_kw:.2f}" if power_kw > 0 else "—"
             cells[7].text = f"{annual:,.0f}" if annual > 0 else "—"
@@ -2592,12 +2770,26 @@ class App(QMainWindow):
                 "total_btu": item["total_btu"],
                 "sensible_btu": item["sensible_btu"],
                 "cfm": item["cfm"],
+                "required_cfm": item.get("required_cfm", item["cfm"]),
+                "design_cfm": item.get("design_cfm", item["cfm"]),
+                "available_unit_cfm": item.get("available_unit_cfm"),
+                "airflow_provenance": item.get(
+                    "airflow_provenance", "unknown_unverified"),
+                "airflow_source": item.get("airflow_source", "not recorded"),
+                "available_unit_cfm_status": item.get(
+                    "available_unit_cfm_status", "unknown_unverified"),
+                "airflow_esp_inwg": item.get("airflow_esp_inwg"),
                 "esp": item["esp"],
                 "heating_btu": item.get("heating_btu", 0),
                 "outdoor_db": item["outdoor"],
                 "fan_speed": item["fan"],
             }
             if item.get("units"):
+                available_text = (
+                    f"{item['available_unit_cfm']:,.0f} CFM "
+                    f"({item.get('airflow_provenance', 'unverified')})"
+                    if item.get("available_unit_cfm") is not None else
+                    "Unknown / incompatible or unverified operating points")
                 doc.add_page_break()
                 doc.add_heading(
                     f"{item['system']} — Combined: {item['model']}", level=1
@@ -2605,12 +2797,15 @@ class App(QMainWindow):
                 doc.add_paragraph(
                     f"Required: {item['total_btu']:,.0f} Btu/hr total · "
                     f"{item['sensible_btu']:,.0f} sensible · "
-                    f"{item['cfm']:,.0f} CFM.  "
+                    f"{item.get('required_cfm', item['cfm']):,.0f} CFM "
+                    f"required; diffuser design uses "
+                    f"{item.get('design_cfm', item['cfm']):,.0f} CFM.  "
                     f"Combined rated: {item['rated_capacity']:,.0f} Btu/hr · "
-                    f"{item.get('combined_sens', 0):,.0f} sensible · "
-                    f"{item.get('combined_cfm', 0):,.0f} CFM.  "
+                    f"{item.get('combined_sens', 0):,.0f} sensible. "
+                    f"Selected-unit catalog-point airflow: {available_text}. "
                     f"The units run in parallel; each block below shows one model "
-                    f"against its proportional share of the load."
+                    f"against its proportional calculated load share, not a "
+                    f"verified delivered-airflow allocation."
                 )
                 tot_cap = item["rated_capacity"] or 1.0
                 for u in item["units"]:
@@ -2618,6 +2813,16 @@ class App(QMainWindow):
                     ucd = dict(dc)
                     for k in ("total_btu", "sensible_btu", "cfm", "heating_btu"):
                         ucd[k] = dc.get(k, 0) * share
+                    ucd["required_cfm"] = ucd["cfm"]
+                    ucd["design_cfm"] = ucd["cfm"]
+                    ucd["available_unit_cfm"] = u.get("airflow_cfm")
+                    ucd["airflow_provenance"] = u.get(
+                        "airflow_provenance", "unknown_unverified")
+                    ucd["airflow_source"] = u.get(
+                        "airflow_source", "not recorded")
+                    ucd["available_unit_cfm_status"] = u.get(
+                        "airflow_provenance", "unknown_unverified")
+                    ucd["airflow_esp_inwg"] = u.get("airflow_esp_inwg")
                     udata = load_model_data(
                         DB, u["model"], ucd, u.get("table_prefix", "")
                     )
@@ -2932,6 +3137,9 @@ class App(QMainWindow):
         if not sys_name or sys_name not in self.cart:
             return
         item = self.cart[sys_name]
+        from airflow_utils import airflow_summary_text, design_airflow_cfm
+        if hasattr(self, "diff_airflow_lbl"):
+            self.diff_airflow_lbl.setText(airflow_summary_text(item))
 
         ds = item.get("diffuser_selection") or {}
         if not recalculate:
@@ -3023,7 +3231,7 @@ class App(QMainWindow):
         self.diff_height.setValue(float(
             default_h if cad_room is not None else ds.get("room_h_ft", default_h)))
         self.diff_return_cfm.setValue(float(
-            item.get("return_cfm", item.get("cfm", 0)) or 0))
+            item.get("return_cfm", design_airflow_cfm(item)) or 0))
         self.diff_vcd_width_mm.setValue(float(
             item.get("vcd_duct_width_mm", 0) or 0))
         self.diff_vcd_height_mm.setValue(float(
@@ -3241,16 +3449,23 @@ class App(QMainWindow):
             return
         item = self.cart[sys_name]
         previous_selection = item.get("diffuser_selection") or {}
-        cfm = float(item.get("cfm", 0) or 0)
+        from airflow_utils import (
+            design_airflow_cfm,
+            normalize_airflow_fields,
+        )
+        normalize_airflow_fields(item)
+        cfm = design_airflow_cfm(item)
         sensible = float(item.get("sensible_btu") or 0)
         sensible_load_btuh = sensible if sensible > 0 else None
         from diffuser_calculator import (
             ADPI_BANDS,
             APPLICATION_NC,
             ach,
+            diffuser_face_half_extent_m,
             ft_to_m,
             get_catalog,
             m_to_ft,
+            rank_options,
             room_layout_from_geometry,
             DiffuserLayoutResult,
             evaluate_layout,
@@ -3349,27 +3564,66 @@ class App(QMainWindow):
             (cad_room or {}).get("layout_validation_errors", []))
         if cad_room is not None:
             saved_diffusers = cad_room.get("diffusers", []) or []
-            if saved_diffusers and not saved_layout_errors:
-                if not geometry.is_valid:
-                    saved_layout_errors = [
-                        ("Saved diffuser layout cannot be verified because "
-                        "room geometry is invalid.")]
-                else:
-                    try:
-                        saved_positions = [
-                            (diffuser["x_m"], diffuser["y_m"])
-                            for diffuser in saved_diffusers
-                        ]
-                    except (KeyError, TypeError):
-                        saved_layout_errors = [
-                            "Saved diffuser layout has malformed coordinates."]
-                    else:
-                        from placement_engine import validate_diffuser_layout
+            face_half_extent_m = None
+            if saved_diffusers and geometry.is_valid:
+                recommended_options = rank_options(
+                    cfm, application=app_key, catalog=catalog,
+                    max_nc=max_nc, max_dp_inwg=max_dp,
+                    room=room_layout_from_geometry(geometry),
+                    sensible_load_btuh=sensible_load_btuh, top=1)
+                if recommended_options:
+                    face_half_extent_m = diffuser_face_half_extent_m(
+                        recommended_options[0])
 
+            if saved_diffusers:
+                detected_layout_errors = []
+                if not geometry.is_valid:
+                    detected_layout_errors.append(
+                        ("Saved diffuser layout cannot be verified because "
+                         "room geometry is invalid.")
+                    )
+                else:
+                    from placement_engine import (
+                        DEFAULT_MIN_SPACING_M,
+                        EPSILON,
+                        validate_diffuser_layout,
+                    )
+
+                    saved_positions = []
+                    for index, diffuser in enumerate(saved_diffusers):
+                        tag = f"D{index + 1}"
+                        try:
+                            tag = str(diffuser.get("tag") or tag)
+                            position = (
+                                float(diffuser["x_m"]),
+                                float(diffuser["y_m"]),
+                            )
+                        except (AttributeError, KeyError, TypeError, ValueError):
+                            detected_layout_errors.append(
+                                f"{tag}: saved diffuser has malformed coordinates.")
+                            continue
+                        saved_positions.append((tag, position))
                         validation = validate_diffuser_layout(
-                            geometry, saved_positions)
+                            geometry, [position],
+                            face_half_extent_m=face_half_extent_m)
                         if not validation.valid:
-                            saved_layout_errors = [validation.reason]
+                            detected_layout_errors.append(
+                                f"{tag}: {validation.reason}")
+                        detected_layout_errors.extend(validation.limitations)
+
+                    for index, (tag_a, position_a) in enumerate(saved_positions):
+                        for tag_b, position_b in saved_positions[index + 1:]:
+                            distance = math.hypot(
+                                position_a[0] - position_b[0],
+                                position_a[1] - position_b[1])
+                            if distance < DEFAULT_MIN_SPACING_M - EPSILON:
+                                detected_layout_errors.append(
+                                    f"{tag_a} and {tag_b} are closer than the "
+                                    f"{DEFAULT_MIN_SPACING_M:.3f} m minimum "
+                                    "center spacing.")
+
+                saved_layout_errors = list(dict.fromkeys(
+                    saved_layout_errors + detected_layout_errors))
                 if saved_layout_errors:
                     cad_room["layout_validation_errors"] = list(
                         saved_layout_errors)
@@ -3394,31 +3648,38 @@ class App(QMainWindow):
                     "<b>Saved diffuser coordinates were not replaced.</b><br>"
                     + "<br>".join(saved_layout_errors))
                 self.diff_apply_fallback_btn.setEnabled(False)
+                if hasattr(self, "diff_recalc_btn"):
+                    self.diff_recalc_btn.setText("Re-place diffusers")
+                    self.diff_recalc_btn.setEnabled(geometry.is_valid)
                 self.diff_canvas.set_data(
                     max(w_ft, 1.0), max(l_ft, 1.0), retained_positions,
                     0.0, "", cad_room=cad_room,
                     geometry=geometry if geometry.is_valid else None)
                 self.status.setText(
                     f"Diffuser layout for {sys_name} needs review.")
-                selection = item.setdefault("diffuser_selection", {})
-                selection.update({
+                selection_metadata = {
+                    key: previous_selection[key]
+                    for key in (
+                        "app_key", "type_label", "max_nc", "max_dp",
+                        "room_w_ft", "room_l_ft", "room_h_ft",
+                    )
+                    if key in previous_selection
+                }
+                item["diffuser_selection"] = {
+                    **selection_metadata,
                     "success": False,
                     "status": "invalid_saved_layout",
                     "layout_stale": True,
+                    "required_cfm": cfm,
                     "errors": saved_layout_errors,
-                })
+                }
                 self._mark_project_dirty()
                 self._render_diffusers_summary_table()
                 return
-            else:
-                reply = QMessageBox.question(
-                    self, "Replace invalid saved layout?",
-                    "The saved diffuser coordinates failed validation. "
-                    "Recalculate to replace them with a new layout?",
-                    QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
-                if reply != QMessageBox.Yes:
-                    return
 
+        if hasattr(self, "diff_recalc_btn"):
+            self.diff_recalc_btn.setText("🔄 Recalculate")
+            self.diff_recalc_btn.setEnabled(True)
         geometry_signature = {
             "vertices": [list(point) for point in geometry.vertices],
             "height_m": geometry.height_m,
@@ -3646,12 +3907,9 @@ class App(QMainWindow):
         adpi_lo, adpi_hi = ADPI_BANDS.get(sel.kind, (0.7, 1.2))
         delta_t_f = sel.delta_t_f
         delta_t_limit = sel.delta_t_limit_f
-        diffuser_positions = [
-            {"tag": f"D{i + 1}", "x_m": x_m, "y_m": y_m,
-             "throw_t50_m": ft_to_m(sel.throw_t50_ft)}
-            for i, (x_m, y_m) in enumerate(layout.positions_m)
-        ]
         if cad_room is not None:
+            diffuser_positions = _cad_diffuser_records(
+                cad_room, layout.positions_m, ft_to_m(sel.throw_t50_ft))
             cad_room["diffusers"] = diffuser_positions
             cad_room["layout_stale"] = False
             cad_room["layout_validation_errors"] = []
@@ -3775,11 +4033,8 @@ class App(QMainWindow):
             from diffuser_calculator import ft_to_m
             positions_m = selection.get("positions_m", [])
             t50_m = ft_to_m(float(selection.get("t50_ft", 0) or 0))
-            cad_room["diffusers"] = [
-                {"tag": f"D{i + 1}", "x_m": x, "y_m": y,
-                 "throw_t50_m": t50_m}
-                for i, (x, y) in enumerate(positions_m)
-            ]
+            cad_room["diffusers"] = _cad_diffuser_records(
+                cad_room, positions_m, t50_m)
             cad_room["layout_stale"] = False
             cad_room["layout_validation_errors"] = []
             self.diff_canvas.cad_room = cad_room
@@ -3861,7 +4116,8 @@ class App(QMainWindow):
             return
 
         item = self.cart[sys_name]
-        cfm = float(item.get("cfm", 0) or 0)
+        from airflow_utils import design_airflow_cfm
+        cfm = design_airflow_cfm(item)
         existing_room = item.get("cad_room_data")
         selection = item.get("diffuser_selection") or {}
 
@@ -4038,6 +4294,7 @@ class App(QMainWindow):
 
     def _prepare_schedule_dxf_rows(self):
         """Prepare complete consulting-grade schedule for AutoCAD DXF (Equipment + Diffusers)."""
+        from airflow_utils import airflow_summary_text
         headers = [
             "TAG",
             "CATALOG",
@@ -4046,7 +4303,11 @@ class App(QMainWindow):
             "OUTDOOR UNIT",
             "COOL MBH",
             "SENS MBH",
-            "AIR CFM",
+            "REQUIRED CFM",
+            "AVAILABLE UNIT CFM",
+            "DESIGN CFM",
+            "AIRFLOW POINT ESP (in.wg)",
+            "AIRFLOW STATUS / PROVENANCE",
             "ESP in.wg",
             "HEAT MBH",
             "EER",
@@ -4082,7 +4343,14 @@ class App(QMainWindow):
                     str(item.get("outdoor_model", "") or "---"),
                     cool_mbh,
                     sens_mbh,
-                    f"{float(item.get('cfm', 0) or 0):.0f}",
+                    f"{float(item.get('required_cfm', item.get('cfm', 0)) or 0):.0f}",
+                    (f"{float(item['available_unit_cfm']):.0f}"
+                     if item.get("available_unit_cfm") is not None
+                     else "Unknown / unverified"),
+                    f"{float(item.get('design_cfm', item.get('cfm', 0)) or 0):.0f}",
+                    (f"{float(item['airflow_esp_inwg']):.3f}"
+                     if item.get("airflow_esp_inwg") is not None else "Unknown"),
+                    airflow_summary_text(item),
                     f"{float(item.get('esp', 0.20) or 0.20):.2f}",
                     heat_mbh,
                     f"{float(item.get('eer', 0) or 0):.2f}"

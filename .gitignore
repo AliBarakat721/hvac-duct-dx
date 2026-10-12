@@ -7,7 +7,7 @@ __pycache__/
 build/
 dist/
 *.egg-info/
-
+test/
 # Virtual environments
 .venv/
 venv/
@@ -26,9 +26,13 @@ backups/
 *.bak
 *.bak_*
 *.tmp
-
+*.test
+*.docs
 # OS
 .DS_Store
 Thumbs.db
 *.sqlite
 *.db
+_archive/
+airflow_utils.py
+tests/

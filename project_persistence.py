@@ -21,6 +21,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from airflow_utils import normalize_airflow_fields
+
 PROJECT_FORMAT = "duct-dx-project"
 PROJECT_SCHEMA_VERSION = 5
 NONFINITE_TAG = "$ductdx_nonfinite_float"
@@ -102,6 +104,20 @@ def _validate_room(room: Any, label: str) -> None:
     if not (has_walls or has_vertices):
         raise ProjectFileError(
             f"{label} must contain a 'walls' or 'vertices' array.")
+    origin = room.get("origin", (0.0, 0.0))
+    if (not isinstance(origin, (list, tuple)) or len(origin) != 2
+            or any(not isinstance(value, (int, float))
+                   or isinstance(value, bool)
+                   or not math.isfinite(float(value))
+                   for value in origin)):
+        raise ProjectFileError(
+            f"{label}.origin must contain two finite numeric coordinates.")
+    next_diffuser_tag_number = room.get("next_diffuser_tag_number", 1)
+    if (not isinstance(next_diffuser_tag_number, int)
+            or isinstance(next_diffuser_tag_number, bool)
+            or next_diffuser_tag_number < 1):
+        raise ProjectFileError(
+            f"{label}.next_diffuser_tag_number must be a positive integer.")
     height = room.get("height", room.get("height_m"))
     if (not isinstance(height, (int, float)) or isinstance(height, bool)):
         raise ProjectFileError(f"{label} requires a numeric room height.")
@@ -123,6 +139,7 @@ def _validate_room(room: Any, label: str) -> None:
     diffusers = room.get("diffusers", [])
     if not isinstance(diffusers, list):
         raise ProjectFileError(f"{label}.diffusers must be an array.")
+    diffuser_ids = set()
     for index, diffuser in enumerate(diffusers):
         diffuser = _require_object(diffuser, f"{label}.diffusers[{index}]")
         if "x_m" not in diffuser or "y_m" not in diffuser:
@@ -135,6 +152,16 @@ def _validate_room(room: Any, label: str) -> None:
         if "tag" in diffuser and not isinstance(diffuser["tag"], str):
             raise ProjectFileError(
                 f"{label}.diffusers[{index}].tag must be a string.")
+        diffuser_id = diffuser.get("id")
+        if diffuser_id is not None:
+            if not isinstance(diffuser_id, str) or not diffuser_id:
+                raise ProjectFileError(
+                    f"{label}.diffusers[{index}].id must be a non-empty string.")
+            if diffuser_id in diffuser_ids:
+                raise ProjectFileError(
+                    f"{label}.diffusers contains duplicate diffuser id "
+                    f"{diffuser_id!r}.")
+            diffuser_ids.add(diffuser_id)
     stale = room.get("layout_stale", False)
     if not isinstance(stale, bool):
         raise ProjectFileError(f"{label}.layout_stale must be a boolean.")
@@ -247,6 +274,23 @@ def validate_project_document(document: Any) -> dict:
             if isinstance(value, (int, float)) and not math.isfinite(value):
                 raise ProjectFileError(
                     f"cart[{index}].equipment.{key} must be finite.")
+        optional_airflow_numbers = (
+            "required_cfm", "design_cfm", "available_unit_cfm",
+            "airflow_esp_inwg", "requested_esp_inwg",
+        )
+        for key in optional_airflow_numbers:
+            value = equipment.get(key)
+            if value is not None and (
+                    not isinstance(value, (int, float))
+                    or isinstance(value, bool)
+                    or not math.isfinite(value)):
+                raise ProjectFileError(
+                    f"cart[{index}].equipment.{key} must be a finite number or null.")
+        for key in ("available_unit_cfm_status", "airflow_source",
+                    "airflow_provenance"):
+            if key in equipment and not isinstance(equipment[key], str):
+                raise ProjectFileError(
+                    f"cart[{index}].equipment.{key} must be a string.")
         if "room" not in record or "diffuser_selection_snapshot" not in record:
             raise ProjectFileError(
                 f"cart[{index}] requires room and diffuser_selection_snapshot fields.")
@@ -310,7 +354,7 @@ def create_project_document(
     """Build the versioned document from runtime cart and settings values."""
     records = []
     for name, item_value in cart.items():
-        item = dict(item_value)
+        item = normalize_airflow_fields(dict(item_value))
         room = item.pop("cad_room_data", None)
         snapshot = item.pop("diffuser_selection", None)
         if room is not None:
@@ -370,6 +414,7 @@ def restore_project_state(
     cart = {}
     for record in validated["cart"]:
         item = deepcopy(record["equipment"])
+        normalize_airflow_fields(item)
         item["system"] = record["system_name"]
         room = deepcopy(record["room"])
         if room is not None:

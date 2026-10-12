@@ -147,6 +147,11 @@ def format_fallback_status(selection):
 def diffuser_summary_values(name, selection):
     """Return the summary-table cells, including reviewable fallback metrics."""
     selection = selection or {}
+    if selection.get("status") == "invalid_saved_layout":
+        return [
+            name, "—", "—", "—", "—", "—", "—",
+            "—", "—", "—", "—", "—", "Needs review",
+        ]
     candidate_available = bool(
         selection.get("fallback_available") or selection.get("model"))
     success = bool(selection.get("success", bool(selection.get("model"))))
@@ -1349,6 +1354,14 @@ class DiffuserCanvas(QWidget):
         self.geometry = geometry
         self.update()
 
+    def _display_tags(self):
+        diffusers = (self.cad_room or {}).get("diffusers", [])
+        tags = [diffuser.get("tag") for diffuser in diffusers]
+        if (len(tags) == len(self.positions)
+                and all(isinstance(tag, str) and tag for tag in tags)):
+            return tags
+        return [f"D{index + 1}" for index in range(len(self.positions))]
+
     def paintEvent(self, event):
         p = QPainter(self)
         p.setRenderHint(QPainter.Antialiasing)
@@ -1407,7 +1420,8 @@ class DiffuserCanvas(QWidget):
             p.drawPolygon(qpoly)
 
             # Draw the calculated diffusers.
-            for idx, (px, py) in enumerate(self.positions, 1):
+            for tag, (px, py) in zip(
+                    self._display_tags(), self.positions, strict=True):
                 # Convert diffuser coordinates.
                 cx = ox + (px - min_x) * scale if rw > 0 else ox
                 cy = oy + (max_y - py) * scale if rl > 0 else oy
@@ -1424,7 +1438,7 @@ class DiffuserCanvas(QWidget):
                 p.drawRect(QRectF(cx - 5, cy - 5, 10, 10))
                 p.setFont(QFont("Inter", 8, QFont.Bold))
                 p.setPen(QColor("#FFFFFF"))
-                p.drawText(QPointF(cx + 8, cy - 4), f"D{idx}")
+                p.drawText(QPointF(cx + 8, cy - 4), tag)
 
             if not self.positions:
                 p.setPen(QColor(C_MUTED))
@@ -1460,7 +1474,8 @@ class DiffuserCanvas(QWidget):
             p.drawEllipse(QPointF(cx, cy), r, r)
 
         # ── Diffuser dots + coordinate labels ──
-        for idx, (px, py) in enumerate(self.positions, 1):
+        for tag, (px, py) in zip(
+                self._display_tags(), self.positions, strict=True):
             cx = ox + px * scale
             cy = oy + py * scale
             p.setPen(QPen(QColor("#F59E0B"), 2.0))
@@ -1469,7 +1484,7 @@ class DiffuserCanvas(QWidget):
             p.setPen(QColor("#FFFFFF"))
             p.setFont(QFont("Inter", 8, QFont.Bold))
             p.drawText(QPointF(cx + 7, cy - 6),
-                       f"D{idx} ({px:.1f}, {py:.1f})")
+                       f"{tag} ({px:.1f}, {py:.1f})")
 
         p.end()
 
@@ -1523,8 +1538,9 @@ def _diffuser_selection_matches_inputs(app, item):
         "height_m": geometry.height_m,
     }
     sensible_load = float(item.get("sensible_btu", 0) or 0)
+    from airflow_utils import design_airflow_cfm
     expected_signature = selection_input_signature(
-        float(item.get("cfm", 0) or 0),
+        design_airflow_cfm(item),
         sensible_load if sensible_load > 0 else None,
         geometry_signature,
         selection.get("type_label", ""),
@@ -1713,6 +1729,13 @@ def _build_diffuser_page(app):
     app.diff_model_name.setStyleSheet(
         "font-size:18px;font-weight:700;color:white;background:transparent;")
     rv.addWidget(app.diff_model_name)
+
+    app.diff_airflow_lbl = QLabel("")
+    app.diff_airflow_lbl.setWordWrap(True)
+    app.diff_airflow_lbl.setStyleSheet(
+        f"background:{C_CARD};border:1px solid {C_BORDER};"
+        f"border-radius:6px;padding:8px;color:{C_TEXT};")
+    rv.addWidget(app.diff_airflow_lbl)
 
     app.diff_metrics_lbl = QLabel("")
     app.diff_metrics_lbl.setTextFormat(Qt.RichText)

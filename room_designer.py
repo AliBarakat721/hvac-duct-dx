@@ -10,7 +10,9 @@ Features:
 import logging
 import math
 import os
+import re
 import sys
+import uuid
 from collections.abc import Callable
 from dataclasses import dataclass, field
 
@@ -114,6 +116,7 @@ class DiffuserPlacement:
     x_m: float
     y_m: float
     throw_t50_m: float = 2.4
+    id: str = field(default_factory=lambda: uuid.uuid4().hex)
 
 
 @dataclass
@@ -124,6 +127,8 @@ class Room:
     walls: list = field(default_factory=list)
     openings: list = field(default_factory=list)
     diffusers: list = field(default_factory=list)
+    origin: tuple[float, float] = (0.0, 0.0)
+    next_diffuser_tag_number: int = 1
     layout_stale: bool = False
     layout_validation_errors: list[str] = field(default_factory=list)
     _geometry_cache: RoomGeometry | None = field(
@@ -138,11 +143,17 @@ class Room:
 
     @property
     def geometry(self) -> RoomGeometry:
-        signature = (self.height, tuple(
+        signature = (self.height, self.origin, tuple(
             (wall.length, wall.angle) for wall in self.walls))
         if (self._geometry_cache is None
                 or signature != self._geometry_source_signature):
-            self._geometry_cache = RoomGeometry.from_walls(self.walls, self.height)
+            local_geometry = RoomGeometry.from_walls(self.walls, self.height)
+            ox, oy = self.origin
+            self._geometry_cache = RoomGeometry(
+                tuple((x + ox, y + oy)
+                      for x, y in local_geometry.vertices),
+                local_geometry.height_m, local_geometry.closed,
+                local_geometry.closure_gap_m, local_geometry.input_errors)
             self._geometry_source_signature = signature
         return self._geometry_cache
 
@@ -186,11 +197,45 @@ class Room:
                 "Select a closing point.")
         return errors
 
+    def validate_openings(self):
+        errors = []
+        for index, opening in enumerate(self.openings):
+            label = f"Opening {index + 1}"
+            if not 0 <= opening.wall_index < len(self.geometry.walls):
+                errors.append(f"{label} references a missing wall.")
+                continue
+            wall_length = self.geometry.walls[opening.wall_index].length_m
+            values = (opening.offset, opening.width, opening.height,
+                      opening.sill_height)
+            if not all(math.isfinite(value) for value in values):
+                errors.append(f"{label} has non-finite dimensions.")
+                continue
+            if (opening.offset < 0 or opening.width <= 0
+                    or opening.offset + opening.width > wall_length + 1e-9):
+                errors.append(f"{label} does not fit on wall {opening.wall_index + 1}.")
+            if (opening.height <= 0 or opening.sill_height < 0
+                    or opening.sill_height + opening.height > self.height + 1e-9):
+                errors.append(f"{label} exceeds the room height.")
+        return errors
+
+    def next_diffuser_tag(self):
+        used_numbers = [
+            int(match.group(1))
+            for diffuser in self.diffusers
+            if (match := re.fullmatch(r"D(\d+)", diffuser.tag))
+        ]
+        number = max(self.next_diffuser_tag_number,
+                     max(used_numbers, default=0) + 1)
+        self.next_diffuser_tag_number = number + 1
+        return f"D{number}"
+
     def to_dict(self):
         data = {
             "name": self.name,
             "height": self.height,
             "wall_thickness": self.wall_thickness,
+            "origin": list(self.origin),
+            "next_diffuser_tag_number": self.next_diffuser_tag_number,
             "walls": [{"length": w.length, "angle": w.angle} for w in self.walls],
             "openings": [
                 {
@@ -204,7 +249,8 @@ class Room:
                 for o in self.openings
             ],
             "diffusers": [
-                {"tag": d.tag, "x_m": d.x_m, "y_m": d.y_m, "throw_t50_m": d.throw_t50_m}
+                {"id": d.id, "tag": d.tag, "x_m": d.x_m, "y_m": d.y_m,
+                 "throw_t50_m": d.throw_t50_m}
                 for d in self.diffusers
             ],
             "layout_stale": self.layout_stale,
@@ -219,6 +265,7 @@ class Room:
             height=float(d.get("height", 2.80)),
             wall_thickness=float(d.get("wall_thickness", 0.20)),
             walls=[Wall(float(w["length"]), float(w["angle"])) for w in d.get("walls", [])],
+            origin=tuple(float(value) for value in d.get("origin", (0.0, 0.0))),
             layout_stale=bool(d.get("layout_stale", False)),
             layout_validation_errors=list(
                 d.get("layout_validation_errors", [])),
@@ -236,13 +283,22 @@ class Room:
         ]
         r.diffusers = [
             DiffuserPlacement(
-                tag=df["tag"],
+                tag=df.get("tag", f"D{index + 1}"),
                 x_m=float(df["x_m"]),
                 y_m=float(df["y_m"]),
-                throw_t50_m=float(df.get("throw_t50_m", 2.4))
+                throw_t50_m=float(df.get("throw_t50_m", 2.4)),
+                id=str(df.get("id") or uuid.uuid4().hex),
             )
-            for df in d.get("diffusers", [])
+            for index, df in enumerate(d.get("diffusers", []))
         ]
+        existing_tag_numbers = [
+            int(match.group(1))
+            for diffuser in r.diffusers
+            if (match := re.fullmatch(r"D(\d+)", diffuser.tag))
+        ]
+        r.next_diffuser_tag_number = max(
+            int(d.get("next_diffuser_tag_number", 1)),
+            max(existing_tag_numbers, default=0) + 1)
         return r
 
 
@@ -355,9 +411,9 @@ class PlanView(QWidget):
             targets.append(((p1[0] + p2[0]) / 2.0, (p1[1] + p2[1]) / 2.0, "MID", i))
         return targets
 
-    def apply_snapping(self, raw_wx, raw_wy, ref_pt=None):
+    def apply_snapping(self, raw_wx, raw_wy, ref_pt=None, *, use_osnap=True):
         self.active_osnap_target = None
-        if self.osnap_active:
+        if self.osnap_active and use_osnap:
             for tx, ty, kind, idx in self.get_osnap_points():
                 if math.hypot(raw_wx - tx, raw_wy - ty) < (18 / self.zoom):
                     self.active_osnap_target = (tx, ty, kind, idx)
@@ -396,10 +452,7 @@ class PlanView(QWidget):
                     and 0 <= self._drag_diffuser_idx < len(self.room.diffusers)):
                 diffuser = self.room.diffusers[self._drag_diffuser_idx]
                 original = self._drag_diffuser_original_position
-                changed = (diffuser.x_m, diffuser.y_m) != original
                 diffuser.x_m, diffuser.y_m = original
-                if changed and self.on_change:
-                    self.on_change()
             self._drag_diffuser_idx = None
             self._drag_diffuser_changed = False
             self._drag_invalid_reason = None
@@ -497,10 +550,16 @@ class PlanView(QWidget):
         proposed.append(candidate)
         result = self.validate_diffuser_positions(proposed)
         if result.valid:
-            tag = f"D{len(self.room.diffusers) + 1}"
+            tag = self.room.next_diffuser_tag()
             self.room.diffusers.append(
                 DiffuserPlacement(tag, *candidate, self.active_throw_m))
         return result
+
+    def delete_diffuser(self, index: int) -> bool:
+        if not 0 <= index < len(self.room.diffusers):
+            return False
+        del self.room.diffusers[index]
+        return True
 
     def move_diffuser_to(self, index: int, x_m: float,
                          y_m: float) -> LayoutValidationResult:
@@ -551,9 +610,7 @@ class PlanView(QWidget):
                 for i, d in enumerate(self.room.diffusers):
                     sd = self.to_screen((d.x_m, d.y_m))
                     if math.hypot(pos.x() - sd.x(), pos.y() - sd.y()) < 16:
-                        del self.room.diffusers[i]
-                        for idx_t, df_t in enumerate(self.room.diffusers):
-                            df_t.tag = f"D{idx_t + 1}"
+                        self.delete_diffuser(i)
                         if self.on_change:
                             self.on_change()
                         self.update()
@@ -695,7 +752,9 @@ class PlanView(QWidget):
             pts = self.room.points()
             ref = pts[self._drag_vertex_idx - 1] if self._drag_vertex_idx > 0 else pts[-1]
 
-        self.cursor_world = self.apply_snapping(raw_wx, raw_wy, ref)
+        self.cursor_world = self.apply_snapping(
+            raw_wx, raw_wy, ref,
+            use_osnap=self._drag_diffuser_idx is None)
 
         cur_len, cur_ang = 0.0, 0.0
         if self.mode == "DRAW" and self.drawing_points:
@@ -718,8 +777,6 @@ class PlanView(QWidget):
                     if changed:
                         self._drag_diffuser_changed = True
                         self._drag_invalid_reason = None
-                        if self.on_change:
-                            self.on_change()
                 else:
                     self._drag_invalid_reason = validation.reason
                 self.update()
@@ -727,26 +784,44 @@ class PlanView(QWidget):
 
         # 3. Edit polygon vertices.
         if self._drag_vertex_idx is not None and event.buttons() & Qt.LeftButton:
-            idx = self._drag_vertex_idx
-            pts = self.room.polygon()
-            if idx < len(pts):
-                pts[idx] = self.cursor_world
-                ox, oy = pts[0]
-                n_pts = [(x - ox, y - oy) for x, y in pts]
-                walls = []
-                for i in range(len(n_pts)):
-                    x1, y1 = n_pts[i]
-                    x2, y2 = n_pts[(i + 1) % len(n_pts)]
-                    l = math.hypot(x2 - x1, y2 - y1)
-                    a = math.degrees(math.atan2(y2 - y1, x2 - x1)) % 360.0
-                    walls.append(Wall(round(l, 3), round(a, 1)))
-                self.room.walls = walls
+            if self.move_vertex_to(self._drag_vertex_idx, self.cursor_world):
                 if self.on_change:
                     self.on_change()
                 self.update()
             return
 
         self.update()
+
+    def move_vertex_to(self, index: int, point: tuple[float, float]) -> bool:
+        vertices = list(self.room.geometry.vertices)
+        if not vertices:
+            return False
+        index %= len(vertices)
+        vertices[index] = (float(point[0]), float(point[1]))
+        ox, oy = vertices[0]
+        local_points = [(x - ox, y - oy) for x, y in vertices]
+        walls = []
+        for start, end in itertools.pairwise(local_points + local_points[:1]):
+            dx, dy = end[0] - start[0], end[1] - start[1]
+            length = math.hypot(dx, dy)
+            angle = math.degrees(math.atan2(dy, dx)) % 360.0
+            walls.append(Wall(length, angle))
+        self.room.origin = (ox, oy)
+        self.room.walls = walls
+        self._revalidate_room_layout()
+        return True
+
+    def _revalidate_room_layout(self):
+        errors = []
+        if self.room.diffusers:
+            validation = self.validate_diffuser_positions(
+                [(diffuser.x_m, diffuser.y_m)
+                 for diffuser in self.room.diffusers])
+            if not validation.valid:
+                errors.append(validation.reason)
+        errors.extend(self.room.validate_openings())
+        self.room.layout_validation_errors = list(dict.fromkeys(errors))
+        self.room.layout_stale = bool(errors)
 
     def mouseReleaseEvent(self, event):
         self._last_mouse_pos = None
@@ -1240,9 +1315,10 @@ class RoomDesignerDialog(QDialog):
     def _invalidate_layout_if_geometry_changed(self):
         signature = self._geometry_signature()
         if signature != self._last_geometry_signature:
-            self.room.diffusers = []
-            self.layout_stale = True
-            self.layout_validation_errors = []
+            self.plan._revalidate_room_layout()
+            self.layout_stale = self.room.layout_stale
+            self.layout_validation_errors = list(
+                self.room.layout_validation_errors)
             self._last_geometry_signature = signature
 
     def build_ui(self):
@@ -1551,6 +1627,7 @@ class RoomDesignerDialog(QDialog):
             a = math.degrees(math.atan2(y2 - y1, x2 - x1)) % 360.0
             walls.append(Wall(round(l, 3), round(a, 1)))
 
+        self.room.origin = (ox, oy)
         self.room.walls = walls
         self.set_select_mode()
         self.update_ui_from_room()
@@ -1672,6 +1749,7 @@ class RoomDesignerDialog(QDialog):
             "layout_validation_errors": list(self.layout_validation_errors),
             "diffusers": [
                 {
+                    "id": d.id,
                     "tag": d.tag,
                     "x_m": d.x_m,
                     "y_m": d.y_m,
