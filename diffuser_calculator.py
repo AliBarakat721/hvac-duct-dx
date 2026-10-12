@@ -181,9 +181,10 @@ def selection_input_signature(
         total_cfm: float, sensible_load_btuh: float | None,
         geometry_signature: dict[str, object], type_label: str,
         application: str, max_nc: float | None,
-        max_dp_inwg: float) -> dict[str, object]:
+        max_dp_inwg: float,
+        selected_option_index: int | None = None) -> dict[str, object]:
     """Stable inputs required to safely reuse a cached diffuser selection."""
-    return {
+    signature = {
         "cfm": float(total_cfm),
         "sensible_load_btuh": (
             float(sensible_load_btuh) if sensible_load_btuh is not None else None),
@@ -193,6 +194,9 @@ def selection_input_signature(
         "max_nc": float(max_nc) if max_nc is not None else None,
         "max_dp_inwg": float(max_dp_inwg),
     }
+    if selected_option_index is not None:
+        signature["selected_option_index"] = int(selected_option_index)
+    return signature
 
 
 def selection_signatures_match(saved: object, current: dict[str, object]) -> bool:
@@ -2018,7 +2022,8 @@ def select_layout_for_geometry(
         min_wall_clearance_m: float = 0.30,
         min_spacing_m: float = 0.60,
         total_load_btuh: float | None = None,
-        sensible_load_btuh: float | None = None) -> DiffuserLayoutResult:
+        sensible_load_btuh: float | None = None,
+        selected_option_index: int | None = None) -> DiffuserLayoutResult:
     """Select, place, and evaluate one complete layout for actual geometry."""
     errors = geometry.validate()
     if errors:
@@ -2070,6 +2075,13 @@ def select_layout_for_geometry(
             False, geometry, 0, required_cfm=total_cfm,
             failure_kind="airflow_infeasible",
             errors=["No diffuser catalog option satisfies the airflow constraints."])
+
+    if selected_option_index is not None:
+        selected_option_index = max(0, min(int(selected_option_index), len(options) - 1))
+        ranked = options[selected_option_index: selected_option_index + 1]
+        remaining = [candidate for idx, candidate in enumerate(options)
+                     if idx != selected_option_index]
+        options = ranked + remaining
 
     recommended_quantity = options[0].qty
     feasible_layouts = []
