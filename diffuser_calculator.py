@@ -872,6 +872,7 @@ _RULE_PREFIXES = (
     ("Neck velocity", "R-CATALOG-RANGE"), ("ΔP ", "R-DP"),
     ("Noise NC", "R-NC"), ("Supply ΔT", "R-TABLE4"),
     ("T50/L", "R-TL-BAND"), ("Only ", "R-MIN-QTY"),
+    ("Potential jet interaction", "R-JET-COLLISION"),
 )
 
 
@@ -886,6 +887,42 @@ def violated_rule_ids(warnings: Sequence[str]) -> list[str]:
         if rid and rid not in ids:
             ids.append(rid)
     return ids
+
+
+def jet_collision_warnings(
+        positions_ft: Sequence[tuple[float, float]],
+        throw_t50_ft: Sequence[float],
+        ) -> list[str]:
+    """Screen possible jet-envelope overlap; this is not an air-velocity check.
+
+    The supplied catalog has no verified directional-jet model for this path.
+    Therefore the screen only flags pairs whose radial T50 proxy envelopes
+    overlap (center distance < sum of the two T50 values).  It deliberately
+    does not infer jet direction, occupied-zone velocity, or comfort compliance.
+    """
+    if len(positions_ft) != len(throw_t50_ft):
+        raise ValueError("positions_ft and throw_t50_ft must have equal lengths")
+    if any(
+            len(point) != 2
+            or not all(math.isfinite(float(value)) for value in point)
+            for point in positions_ft):
+        raise ValueError("positions_ft must contain finite 2D points")
+    if any(not math.isfinite(float(throw)) or float(throw) < 0
+           for throw in throw_t50_ft):
+        raise ValueError("throw_t50_ft must contain finite non-negative values")
+
+    warnings: list[str] = []
+    for i in range(len(positions_ft)):
+        for j in range(i + 1, len(positions_ft)):
+            distance = math.dist(positions_ft[i], positions_ft[j])
+            envelope = float(throw_t50_ft[i]) + float(throw_t50_ft[j])
+            if distance < envelope:
+                warnings.append(
+                    "Potential jet interaction between diffusers "
+                    f"{i + 1} and {j + 1}: center distance {distance:.2f} ft "
+                    f"is less than the T50 envelope sum {envelope:.2f} ft; "
+                    "direction and occupied-zone velocity are not verified.")
+    return warnings
 
 
 def adpi_check(throw_t50_ft: float, characteristic_L_ft: float,
@@ -1602,6 +1639,9 @@ def evaluate_layout(total_cfm: float,
             lo, hi = band
             sel.warnings.append(
                 f"T50/L screening {r_lo:.2f}–{r_hi:.2f} outside band {lo}-{hi}")
+        sel.warnings.extend(
+            jet_collision_warnings(
+                positions_ft, [p.t50] * len(positions_ft)))
         sel.warnings.extend(extra)
         sel.delta_t_f = delta_t_f
         sel.delta_t_limit_f = float(dt_max)
@@ -1684,6 +1724,9 @@ def _selection_rationale(sel: DiffuserSelection) -> dict[str, object]:
     table4_ok = not any(
         "CFM/diffuser exceeds Table 4" in warning for warning in sel.warnings)
     pressure_ok = sel.pressure_ok
+    jet_collision_flagged = any(
+        warning.startswith("Potential jet interaction")
+        for warning in sel.warnings)
     rule_statuses = {
         rule_id: str(rule.get("status", "unclassified"))
         for rule_id, rule in _cd.DIFFUSER_RULES.items()
@@ -1706,6 +1749,10 @@ def _selection_rationale(sel: DiffuserSelection) -> dict[str, object]:
             else "Acoustic screening"),
         "pressure_ok": pressure_ok,
         "pressure_basis": "catalog total-pressure loss; system losses not included",
+        "jet_collision_screening": (
+            "Potential overlap flagged; direction and occupied-zone velocity not verified"
+            if jet_collision_flagged
+            else "No geometric T50-envelope overlap flagged; collision not verified"),
         "t50_l_screening_pass": sel.adpi_ok,
         "table4_airflow_compliant": table4_ok,
         "verification_status": "ASHRAE-aligned screening; ADPI not verified",

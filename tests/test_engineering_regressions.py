@@ -7,6 +7,7 @@ from diffuser_calculator import (
     _t50_l_ratios,
     calculate_supply_delta_t,
     evaluate_layout,
+    jet_collision_warnings,
     performance,
     rules_load_w_m2,
     rules_tl_band,
@@ -147,6 +148,44 @@ def test_selection_checks_catalog_nc_limit_without_claiming_room_acoustic_compli
     assert selected.rationale["acoustic_verification_status"].startswith(
         "Acoustic screening"
     )
+
+
+def test_jet_collision_screen_flags_envelope_overlap_only():
+    warnings = jet_collision_warnings([(0, 0), (9, 0)], [5, 5])
+    assert len(warnings) == 1
+    assert warnings[0].startswith("Potential jet interaction between diffusers 1 and 2")
+    assert "occupied-zone velocity are not verified" in warnings[0]
+
+
+def test_jet_collision_screen_does_not_warn_when_envelopes_do_not_overlap():
+    assert jet_collision_warnings([(0, 0), (10, 0)], [5, 5]) == []
+
+
+def test_jet_collision_screen_rejects_mismatched_or_invalid_inputs():
+    with pytest.raises(ValueError, match="equal lengths"):
+        jet_collision_warnings([(0, 0)], [1, 1])
+    with pytest.raises(ValueError, match="finite 2D"):
+        jet_collision_warnings([(0, math.nan)], [1])
+    with pytest.raises(ValueError, match="non-negative"):
+        jet_collision_warnings([(0, 0)], [-1])
+
+
+def test_evaluate_layout_surfaces_jet_collision_as_noncompliance_warning_only():
+    room = RoomLayout(20, 10, room_h_ft=10)
+    selected, _ = evaluate_layout(
+        500,
+        positions_ft=[(5, 5), (9, 5)],
+        room=room,
+    )
+    assert any(
+        warning.startswith("Potential jet interaction")
+        for warning in selected.warnings
+    )
+    assert selected.rationale["jet_collision_screening"].startswith(
+        "Potential overlap flagged"
+    )
+    assert "R-JET-COLLISION" in selected.rationale["violated_rules"]
+    assert "occupied-zone velocity" not in selected.rationale["summary"]
 
 
 def test_missing_sensible_load_does_not_invent_supply_delta_t():

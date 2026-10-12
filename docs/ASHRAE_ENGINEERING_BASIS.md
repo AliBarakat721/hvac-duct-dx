@@ -93,7 +93,7 @@ The check does not include duct, collar, plenum, damper, approach, or branch los
 | Rule / topic | Current status | Reason |
 |---|---|---|
 | Actual ADPI | Not verified | Requires effective draft temperature and velocity at occupied-zone points; T50/L alone is insufficient |
-| Jet-to-jet collision | Not implemented | Chapter 57 gives the comfort constraint but not a universal product-independent collision equation |
+| Jet-to-jet collision | Warning-only geometric screen | The code flags overlapping radial T50 proxy envelopes; direction, actual jet collision, and occupied-zone velocity are not verified |
 | Jet-to-wall mapping at all directions | Partial / engineering review | Product-specific directional throw and drop data are incomplete |
 | Overhead heating | Not implemented | Requires separate buoyancy and occupied-zone checks; cooling T0.25/L bands must not be reused |
 | VAV minimum and maximum flow | Not implemented | Chapter 57 requires both operating points; product data and operating-case inputs are not yet complete |

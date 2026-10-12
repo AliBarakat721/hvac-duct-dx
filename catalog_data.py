@@ -442,9 +442,14 @@ DIFFUSER_RULES = {'R-TL-BAND': {'status': 'supported',
                   'min_spacing_m': 3.0,
                   'add_db': 3.0},
  'R-JET-COLLISION': {'status': 'not_implemented',
+                     'screening_status': 'warning_only',
                      'source': 'ASHRAE Applications p.57.5',
                      'rule': 'Jets must not collide and project air down above 0.25 m/s in the '
-                             'occupied zone'},
+                             'occupied zone',
+                     'implemented_screen': 'Radial T50 envelope overlap only',
+                     'screen_limit': 'center distance < sum of the two catalog T50 proxies',
+                     'screening_note': 'Direction, jet collision, and occupied-zone velocity are '
+                                       'not verified'},
  'R-HEATING-OVERHEAD': {'status': 'not_implemented',
                         'source': 'ASHRAE Applications p.57.5',
                         'rule': 'Overhead heating: delta-T below 8.5 K and jet velocity >= 0.75 '
