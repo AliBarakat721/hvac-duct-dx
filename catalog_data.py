@@ -416,7 +416,7 @@ DIFFUSER_RULES = {'R-TL-BAND': {'status': 'supported',
             'min_ft2_per_diffuser': 60},
  'R-TABLE4': {'status': 'supported',
               'source': 'Al-Andalosia diffuser.pdf Table 4 p.5',
-              'note': 'kept in diffuser_calculator.CEILING_TABLE',
+              'note': 'Table rows are linearly interpolated between listed ceiling heights; below 8 ft uses the 8 ft row and above 16 ft remains outside validated coverage',
               'verified_against': 'catalog p.5 table matches CEILING_TABLE exactly (extraction 2)'},
  'R-TERMINAL-VELOCITY': {'status': 'unresolved',
                          'source': 'Al-Andalosia catalog p.3 (definitions) vs p.10 (performance '

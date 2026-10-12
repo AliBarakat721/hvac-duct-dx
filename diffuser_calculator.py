@@ -932,19 +932,34 @@ class DiffuserSelection:
     rationale: dict[str, object] = field(default_factory=dict)
 
 
-def ceiling_limits(height_ft: float) -> tuple[int, int, int, list[str]]:
-    """Return the conservative Table 4 row and any height-coverage warning."""
+def ceiling_limits(height_ft: float) -> tuple[int, float, float, list[str]]:
+    """Interpolate Table 4 limits between validated ceiling-height rows."""
     notes = []
     if height_ft > max(CEILING_TABLE):
         notes.append(
             f"Ceiling height {height_ft:.1f} ft exceeds validated Table 4 "
             f"data (maximum {max(CEILING_TABLE)} ft); manufacturer review "
             "is required.")
-    rows = [h for h in sorted(CEILING_TABLE) if h <= height_ft]
-    h = rows[-1] if rows else 8
-    if not rows:
+    heights = sorted(CEILING_TABLE)
+    if height_ft < heights[0]:
+        h = heights[0]
         notes.append("Ceiling lower than 8 ft – Table 4 row for 8 ft used.")
-    return h, CEILING_TABLE[h][0], CEILING_TABLE[h][1], notes
+        return h, *CEILING_TABLE[h], notes
+
+    lower_heights = [height for height in heights if height <= height_ft]
+    lower = lower_heights[-1]
+    if lower == heights[-1] or height_ft == lower:
+        cfm_cap, delta_t_max = CEILING_TABLE[lower]
+        return lower, cfm_cap, delta_t_max, notes
+
+    upper = next(height for height in heights if height > height_ft)
+    fraction = (height_ft - lower) / (upper - lower)
+    lower_cfm, lower_delta_t = CEILING_TABLE[lower]
+    upper_cfm, upper_delta_t = CEILING_TABLE[upper]
+    cfm_cap = lower_cfm + fraction * (upper_cfm - lower_cfm)
+    delta_t_max = lower_delta_t + fraction * (
+        upper_delta_t - lower_delta_t)
+    return lower, cfm_cap, delta_t_max, notes
 
 
 @dataclass(frozen=True)
