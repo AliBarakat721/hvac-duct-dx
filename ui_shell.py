@@ -133,6 +133,11 @@ def format_fallback_status(selection):
     reason = "; ".join(failed) or "No fully compliant candidate"
     passed_text = "; ".join(passed) or "None"
     status.extend((
+        f"<b>T50/L Screening:</b> {selection.get('adpi_val_min', '—')}–"
+        f"{selection.get('adpi_val', '—')} "
+        f"(band {((selection.get('rationale') or {}).get('tl_band') or ('—', '—'))[0]}–"
+        f"{((selection.get('rationale') or {}).get('tl_band') or ('—', '—'))[1]}; "
+        "ADPI not verified)",
         f"<b>Failure Reason:</b> {escape(reason)}",
         f"<b>Passed Criteria:</b> {escape(passed_text)}",
     ))
@@ -154,10 +159,14 @@ def diffuser_summary_values(name, selection):
     delta_t = selection.get("delta_t_f")
     screening = (
         "Within band" if selection.get("adpi_pass") else "Review")
-    if selection.get("adpi_val") is not None:
-        screening += f" ({selection['adpi_val']:.2f})"
+    ratio_min = selection.get("adpi_val_min")
+    ratio_max = selection.get("adpi_val")
+    if ratio_min is not None and ratio_max is not None:
+        screening += f" ({ratio_min:.2f}–{ratio_max:.2f})"
+    elif ratio_max is not None:
+        screening += f" ({ratio_max:.2f})"
     status = (
-        "Fallback Accepted" if selection.get("fallback_accepted")
+        "Fallback Accepted - Review Required" if selection.get("fallback_accepted")
         else "Fallback - Review Required" if not success
         else "Valid")
     return [

@@ -157,6 +157,14 @@ def _resolve_delta_t(total_cfm: float, delta_t_f: float | None,
     return None
 
 
+def _reject_total_load(total_load_btuh: float | None) -> None:
+    """Prevent total cooling load from being used as sensible heat load."""
+    if total_load_btuh is not None:
+        raise ValueError(
+            "total_load_btuh cannot be used for diffuser ΔT; provide "
+            "sensible_load_btuh or delta_t_f instead")
+
+
 def diffuser_face_half_extent_m(selection: object) -> float:
     """Conservative center-to-face extent for wall-clearance checks."""
     size_label = str(getattr(selection, "size_label", ""))
@@ -1508,12 +1516,8 @@ def evaluate_layout(total_cfm: float,
         raise TypeError("evaluate_layout requires room")
     if not math.isfinite(total_cfm) or total_cfm <= 0:
         raise ValueError("total_cfm must be finite and > 0")
-    if sensible_load_btuh is not None and total_load_btuh is not None:
-        raise ValueError(
-            "Provide sensible_load_btuh or legacy total_load_btuh, not both")
-    sensible_load = (
-        sensible_load_btuh if sensible_load_btuh is not None
-        else total_load_btuh)
+    _reject_total_load(total_load_btuh)
+    sensible_load = sensible_load_btuh
     delta_t_f = _resolve_delta_t(total_cfm, delta_t_f, sensible_load)
     room = _with_load(room, sensible_load)
     if not positions_ft:
@@ -1894,12 +1898,8 @@ def rank_options(total_cfm: float, application: str = "office_priv",
     """
     if not math.isfinite(total_cfm) or total_cfm <= 0:
         raise ValueError("total_cfm must be finite and > 0")
-    if sensible_load_btuh is not None and total_load_btuh is not None:
-        raise ValueError(
-            "Provide sensible_load_btuh or legacy total_load_btuh, not both")
-    sensible_load = (
-        sensible_load_btuh if sensible_load_btuh is not None
-        else total_load_btuh)
+    _reject_total_load(total_load_btuh)
+    sensible_load = sensible_load_btuh
     delta_t_f = _resolve_delta_t(total_cfm, delta_t_f, sensible_load)
     room = _with_load(room, sensible_load)
     if max_nc is None or max_nc <= 0:
@@ -2032,12 +2032,8 @@ def select_layout_for_geometry(
             failure_kind="airflow_infeasible",
             errors=["Required airflow must be finite and greater than zero."])
     try:
-        if sensible_load_btuh is not None and total_load_btuh is not None:
-            raise ValueError(
-                "Provide sensible_load_btuh or legacy total_load_btuh, not both")
-        sensible_load = (
-            sensible_load_btuh if sensible_load_btuh is not None
-            else total_load_btuh)
+        _reject_total_load(total_load_btuh)
+        sensible_load = sensible_load_btuh
         delta_t_f = _resolve_delta_t(total_cfm, delta_t_f, sensible_load)
     except ValueError as exc:
         return DiffuserLayoutResult(
