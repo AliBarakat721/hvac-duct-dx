@@ -2051,7 +2051,7 @@ def _build_reports_page(app):
 
     app.rep_status = _label("", "hint", wrap=True)
     v.addWidget(app.rep_status)
-    v.addWidget(_btn("Generate Report   (Ctrl+S)", "success", lambda: _generate_report(app)), 0, Qt.AlignLeft)
+    v.addWidget(_btn("Generate Report   (Ctrl+E)", "success", lambda: _generate_report(app)), 0, Qt.AlignLeft)
     v.addStretch()
     return page
 
