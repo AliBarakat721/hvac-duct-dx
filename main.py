@@ -3714,6 +3714,7 @@ class App(QMainWindow):
                 else APPLICATION_NC.get(app_key, 35))
             compliant = (
                 evaluated.adpi_ok
+                and evaluated.pressure_ok
                 and evaluated.nc_estimated <= configured_nc
                 and not any(
                     "CFM/diffuser exceeds Table 4" in warning
@@ -3775,6 +3776,7 @@ class App(QMainWindow):
                 table4_ok = not any(
                     "CFM/diffuser exceeds Table 4" in warning or warning.startswith(("Supply ΔT ", "Neck velocity "))
                     for warning in fallback_warnings)
+                pressure_ok = fallback_selection.pressure_ok
                 fallback_data = {
                     "model": fallback_selection.model,
                     "size": fallback_selection.size_label,
@@ -3803,6 +3805,8 @@ class App(QMainWindow):
                         "t50_l_ok": fallback_selection.adpi_ok,
                         "table4_ok": fallback_selection.rationale.get(
                             "table4_airflow_compliant", table4_ok),
+                        "pressure_ok": fallback_selection.rationale.get(
+                            "pressure_ok", pressure_ok),
                         "nc_ok": fallback_selection.rationale.get(
                             "noise_compliant",
                             fallback_selection.nc_estimated <= configured_nc),
@@ -3925,6 +3929,7 @@ class App(QMainWindow):
             "qty": layout.placed_quantity, "cfm_each": sel.cfm_per_unit,
             "v_fpm": sel.neck_velocity_fpm,
             "dp_inwg": sel.pressure_drop_inwg, "nc": sel.nc_estimated,
+            "pressure_ok": sel.pressure_ok,
             "t50_ft": sel.throw_t50_ft, "t100_ft": sel.throw_t100_ft,
             "spacing_max_ft": sel.spacing_max_ft, "ach": room_ach,
             "adpi_pass": adpi_pass, "adpi_val": adpi_val,

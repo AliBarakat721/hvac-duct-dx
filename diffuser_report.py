@@ -169,6 +169,8 @@ def _solve_supply_diffuser(item: dict[str, Any],
         report_status = (
             "Fallback Accepted - Review Required"
             if ds.get("fallback_accepted") else ds.get("status", "Valid"))
+        if not ds.get("pressure_ok", True) and not ds.get("fallback_accepted"):
+            report_status = "Review - catalog pressure limit exceeded"
         if ds.get("fallback_accepted"):
             accepted_note = (
                 "Fallback layout accepted by user; failed screening criteria "
@@ -185,6 +187,7 @@ def _solve_supply_diffuser(item: dict[str, Any],
             "cfm_each":   ds["cfm_each"],
             "v_fpm":      ds["v_fpm"],
             "dp_inwg":    ds["dp_inwg"],
+            "pressure_ok": ds.get("pressure_ok", True),
             "nc":         ds["nc"],
             "t50_ft":     ds["t50_ft"],
             "ach":        ds.get("ach", 0.0),
@@ -238,6 +241,7 @@ def _solve_supply_diffuser(item: dict[str, Any],
             "cfm_each": sel.cfm_per_unit,
             "v_fpm": sel.neck_velocity_fpm,
             "dp_inwg": sel.pressure_drop_inwg,
+            "pressure_ok": sel.pressure_ok,
             "nc": sel.nc_estimated,
             "t50_ft": sel.throw_t50_ft,
             "ach": calc_ach(cfm, room),
@@ -264,15 +268,20 @@ def _solve_supply_diffuser(item: dict[str, Any],
     positions = grid_positions(room, sel.qty, sel.throw_t50_ft)
     ok = getattr(sel, 'adpi_ok', True)
     ratio = getattr(sel, 'adpi_ratio', 1.0)
+    report_status = (
+        "Valid" if sel.pressure_ok
+        else "Review - catalog pressure limit exceeded")
 
     return {
         "system":     name,
+        "status":     report_status,
         "model":      sel.model,
         "size":       sel.size_label,
         "qty":        sel.qty,
         "cfm_each":   sel.cfm_per_unit,
         "v_fpm":      sel.neck_velocity_fpm,
         "dp_inwg":    sel.pressure_drop_inwg,
+        "pressure_ok": sel.pressure_ok,
         "nc":         sel.nc_estimated,
         "t50_ft":     sel.throw_t50_ft,
         "ach":        calc_ach(cfm, room),

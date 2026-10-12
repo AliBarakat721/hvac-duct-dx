@@ -925,6 +925,8 @@ class DiffuserSelection:
     delta_t_f: float | None = None
     delta_t_limit_f: float | None = None
     max_nc_limit: float | None = None
+    pressure_ok: bool = True
+    max_dp_limit_inwg: float | None = None
     rationale: dict[str, object] = field(default_factory=dict)
 
 
@@ -1346,7 +1348,9 @@ def _evaluate(d: DiffuserModel, n: int, total_cfm: float, room: RoomLayout | Non
         adpi_ratio=round(r_hi, 2), adpi_ratio_min=round(r_lo, 2), adpi_ok=ok,
         score=round(score, 2), delta_t_f=delta_t_f,
         delta_t_limit_f=ceiling_limits(room.room_h_ft)[2]
-        if room is not None else None, max_nc_limit=max_nc)
+        if room is not None else None, max_nc_limit=max_nc,
+        pressure_ok=p.pt <= max_dp + 1e-9,
+        max_dp_limit_inwg=max_dp)
 
 
 def _distance_to_segment(x: float, y: float, a: tuple[float, float],
@@ -1660,17 +1664,21 @@ def _selection_rationale(sel: DiffuserSelection) -> dict[str, object]:
         warning.startswith("Noise NC ") for warning in sel.warnings)
     table4_ok = not any(
         "CFM/diffuser exceeds Table 4" in warning for warning in sel.warnings)
+    pressure_ok = sel.pressure_ok
     return {
         "catalog_valid": not any(
             warning.startswith("Neck velocity ") for warning in sel.warnings),
         "noise_compliant": noise_ok,
+        "pressure_ok": pressure_ok,
         "t50_l_screening_pass": sel.adpi_ok,
         "table4_airflow_compliant": table4_ok,
         "quantity": sel.qty,
         "summary": (
             f"Selected {sel.qty} × {sel.size_label} for "
             f"T50/L screening {'pass' if sel.adpi_ok else 'review'}; "
-            f"NC {'meets' if noise_ok else 'exceeds'} the configured limit."
+            f"NC {'meets' if noise_ok else 'exceeds'} the configured limit; "
+            f"catalog total pressure {'meets' if pressure_ok else 'exceeds'} "
+            "the configured limit."
         ),
     }
 
@@ -2135,6 +2143,7 @@ def select_layout_for_geometry(
         else APPLICATION_NC.get(application, 35))
     default_fully_compliant = any(
         candidate[0].adpi_ok
+        and candidate[0].pressure_ok
         and candidate[0].nc_estimated <= configured_nc
         and not any("CFM/diffuser exceeds Table 4" in warning
                     for warning in candidate[0].warnings)
@@ -2178,6 +2187,7 @@ def select_layout_for_geometry(
                     continue
                 fully_compliant_alternative = (
                     alternative.adpi_ok
+                    and alternative.pressure_ok
                     and alternative.nc_estimated <= configured_nc
                     and not any(
                         "CFM/diffuser exceeds Table 4" in warning
@@ -2235,6 +2245,7 @@ def select_layout_for_geometry(
     fully_compliant = [
         candidate for candidate in feasible_layouts
         if candidate[0].adpi_ok
+        and candidate[0].pressure_ok
         and candidate[0].nc_estimated <= configured_nc
         and not any("CFM/diffuser exceeds Table 4" in warning
                     for warning in candidate[0].warnings)
@@ -2250,7 +2261,8 @@ def select_layout_for_geometry(
             f"No candidate meets the configured NC limit of "
             f"{configured_nc:.0f}; no acoustically compliant layout is available."
             if acoustic_failure else
-            "No candidate meets all T50/L, Table 4, and acoustic screening criteria."
+            "No candidate meets all T50/L, Table 4, pressure, and acoustic "
+            "screening criteria."
         )
         status = (
             "no_acoustically_compliant_option"

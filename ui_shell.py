@@ -130,6 +130,10 @@ def format_fallback_status(selection):
         passed.append("NC meets configured limit")
     else:
         failed.append("NC exceeds configured limit")
+    if criteria.get("pressure_ok"):
+        passed.append("Catalog total pressure meets configured limit")
+    else:
+        failed.append("Catalog total pressure exceeds configured limit")
     reason = "; ".join(failed) or "No fully compliant candidate"
     passed_text = "; ".join(passed) or "None"
     status.extend((
