@@ -51,6 +51,7 @@ from PySide6.QtWidgets import (
     QLineEdit,
     QListWidget,
     QListWidgetItem,
+    QMenu,
     QMessageBox,
     QPushButton,
     QRadioButton,
@@ -900,6 +901,8 @@ def build_shell(app):
     app.ceiling_enforce.stateChanged.connect(
         lambda *_: app._mark_project_dirty())
 
+    _install_table_menus(app)
+
     if _avail.width() < 1340:       # narrow screen: start with sidebar hidden
         app.sidebar_frame.setVisible(False)
 
@@ -1020,6 +1023,89 @@ def _build_menus(app):
     _act(app, h, "&Keyboard Shortcuts", lambda: _show_shortcuts(app), "F1")
     _act(app, h, "&About", lambda: QMessageBox.about(
         app, "About", "Duct DX Equipment Selector — HAP Analyzer"))
+
+
+# ── table context menus & copy ────────────────────────────────
+def _selected_rows(table):
+    return sorted({i.row() for i in table.selectedIndexes()})
+
+
+def _row_text(table, row):
+    return "\t".join(
+        (table.item(row, c).text() if table.item(row, c) else "")
+        for c in range(table.columnCount()))
+
+
+def _copy_rows(app, table, with_header=False):
+    rows = _selected_rows(table)
+    if not rows:
+        return
+    lines = []
+    if with_header:
+        lines.append("\t".join(
+            table.horizontalHeaderItem(c).text()
+            if table.horizontalHeaderItem(c) else ""
+            for c in range(table.columnCount())))
+    lines.extend(_row_text(table, r) for r in rows)
+    QApplication.clipboard().setText("\n".join(lines))
+    app.status.setText(f"📋 Copied {len(rows)} row(s) to the clipboard.")
+
+
+def _copy_cell(app, table, index):
+    item = table.item(index.row(), index.column()) if index.isValid() else None
+    if item is not None:
+        QApplication.clipboard().setText(item.text())
+        app.status.setText("📋 Copied cell to the clipboard.")
+
+
+def _build_table_menu(app, table, pos):
+    """Build (not show) the context menu for `table` at viewport `pos`.
+    Right-clicking an unselected row selects it first, like most apps."""
+    index = table.indexAt(pos)
+    if index.isValid() and not table.selectionModel().isRowSelected(
+            index.row(), index.parent()):
+        table.clearSelection()
+        table.selectRow(index.row())
+    has_row = bool(_selected_rows(table))
+    menu = QMenu(table)
+
+    def add(text, slot, enabled=True):
+        act = menu.addAction(text)
+        act.setEnabled(enabled)
+        act.triggered.connect(lambda _c=False: slot())
+        return act
+
+    if table is app.table:
+        add("➕  Add to cart", app._add_to_selection,
+            has_row and app.add_to_cart_btn.isEnabled())
+        add("🔍  Details…", lambda: _show_details(app), has_row)
+        menu.addSeparator()
+    elif table is app.cart_table:
+        add("🗑  Remove from cart", app._remove_from_cart, has_row)
+        menu.addSeparator()
+    elif table is app.systems_table:
+        add("➡  Open Equipment Selection", lambda: go_page(app, P_EQ), has_row)
+        menu.addSeparator()
+
+    add("Copy row", lambda: _copy_rows(app, table), has_row)
+    add("Copy row with headers",
+        lambda: _copy_rows(app, table, with_header=True), has_row)
+    add("Copy cell", lambda: _copy_cell(app, table, index), index.isValid())
+    if table is app.cart_table:
+        menu.addSeparator()
+        add("Clear cart…", app._clear_cart, bool(app.cart))
+    return menu
+
+
+def _install_table_menus(app):
+    for table in (app.table, app.cart_table, app.systems_table):
+        table.setContextMenuPolicy(Qt.CustomContextMenu)
+        table.customContextMenuRequested.connect(
+            lambda pos, t=table: _build_table_menu(app, t, pos).exec(
+                t.viewport().mapToGlobal(pos)))
+        QShortcut(QKeySequence.Copy, table,
+                  activated=lambda t=table: _copy_rows(app, t),
+                  context=Qt.WidgetShortcut)
 
 
 # ── header ────────────────────────────────────────────────────
