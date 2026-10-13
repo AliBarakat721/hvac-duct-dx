@@ -24,7 +24,7 @@ from pathlib import Path
 from hap_parser import parse_all_systems, parse_hap, parse_hap_detailed
 
 try:
-    from PySide6.QtCore import Qt, QThread, Signal
+    from PySide6.QtCore import Qt, QThread, QTimer, Signal
     from PySide6.QtGui import QBrush, QColor
     from PySide6.QtWidgets import (
         QApplication,
@@ -970,6 +970,52 @@ class App(QMainWindow):
         finally:
             self.ceiling_enforce.blockSignals(False)
         self._current_floor_area = inputs["floor_area_ft2"]
+
+    # ── drag & drop: drop a HAP report or a saved project on the window ──
+    HAP_DROP_EXTS = (
+        ".rtf", ".pdf", ".png", ".jpg", ".jpeg", ".bmp", ".tif", ".tiff")
+    PROJECT_DROP_EXTS = (".ductdx", ".json")
+
+    def _dropped_files(self, mime):
+        paths = [u.toLocalFile() for u in mime.urls() if u.isLocalFile()]
+        project = [p for p in paths
+                   if Path(p).suffix.lower() in self.PROJECT_DROP_EXTS]
+        hap = [p for p in paths
+               if Path(p).suffix.lower() in self.HAP_DROP_EXTS]
+        return project, hap
+
+    def dragEnterEvent(self, event):
+        project, hap = self._dropped_files(event.mimeData())
+        if project or hap:
+            event.acceptProposedAction()
+        else:
+            event.ignore()
+
+    def dragMoveEvent(self, event):
+        self.dragEnterEvent(event)
+
+    def dropEvent(self, event):
+        project, hap = self._dropped_files(event.mimeData())
+        if not (project or hap):
+            event.ignore()
+            return
+        event.acceptProposedAction()
+        # Defer so a dialog never blocks the file manager's drag operation.
+        if project:
+            QTimer.singleShot(0, lambda p=project[0]: self.open_project(p))
+        else:
+            QTimer.singleShot(
+                0, lambda p=hap[0], n=len(hap): self._load_dropped_hap(p, n))
+
+    def _load_dropped_hap(self, path, n_dropped=1):
+        if not self.upload.isEnabled():
+            self.status.setText("⏳ Still parsing the previous report — try again in a moment.")
+            return
+        self._start_extraction(path, batch=True)
+        if n_dropped > 1:
+            self.status.setText(
+                f"⟳ Parsing {Path(path).name} (only the first of "
+                f"{n_dropped} dropped files is loaded)...")
 
     def closeEvent(self, event):
         if self._confirm_project_discard():

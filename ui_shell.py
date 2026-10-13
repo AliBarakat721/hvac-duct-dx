@@ -909,6 +909,7 @@ def build_shell(app):
         lambda *_: refresh_stale_banner(app))
 
     _install_table_menus(app)
+    enable_file_drop(app)
 
     if _avail.width() < 1340:       # narrow screen: start with sidebar hidden
         app.sidebar_frame.setVisible(False)
@@ -1128,6 +1129,23 @@ def _build_table_menu(app, table, pos):
         menu.addSeparator()
         add("Clear cart…", app._clear_cart, bool(app.cart))
     return menu
+
+
+def enable_file_drop(app):
+    """Let the whole window take a dropped HAP report / project. Widgets that
+    would swallow a file drop themselves (text boxes, tables) are opted out so
+    the event reaches the window instead of pasting the path as text."""
+    from PySide6.QtWidgets import (
+        QAbstractItemView,
+        QLineEdit,
+        QPlainTextEdit,
+        QTextEdit,
+    )
+    app.setAcceptDrops(True)
+    for w in app.findChildren(QWidget):
+        if isinstance(w, (QTextEdit, QPlainTextEdit, QLineEdit,
+                          QAbstractItemView)):
+            w.setAcceptDrops(False)
 
 
 def _install_table_menus(app):
