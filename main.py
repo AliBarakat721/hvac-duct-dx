@@ -1486,6 +1486,11 @@ class App(QMainWindow):
             """,
                 (mid, fan_to_use, esp - EPS, esp),
             ).fetchone()
+            airflow_point_cfm = (
+                float(flow_row[1])
+                if flow_row and flow_row[1] is not None else None)
+            if airflow_point_cfm is not None and airflow_point_cfm <= 0:
+                airflow_point_cfm = None
             airflow_metadata = {
                 "equipment_model_id": mid,
                 "model": model,
