@@ -55,3 +55,85 @@ def test_open_project_in_fresh_session(qapp, tmp_path):
     assert path.exists()
     opener = main.App()  # nothing loaded yet: _loaded_path must exist
     assert opener.open_project(str(path)) is not False
+
+
+# ── Equipment page features ───────────────────────────────────────────
+def _searched_window(qapp):
+    import main
+    window = main.App()
+    window.show()
+    _load_g01(window)
+    for _ in range(100):
+        if window.table.rowCount():
+            break
+        QTest.qWait(100)
+    assert window.table.rowCount() > 0
+    return window
+
+
+@pytest.mark.skipif(not (ROOT / "G01.RTF").exists(), reason="G01.RTF missing")
+def test_results_sort_by_eer_and_reset(qapp):
+    window = _searched_window(qapp)
+    default = [window.table.item(r, 2).text()
+               for r in range(window.table.rowCount())]
+    window._on_result_header_clicked(7)  # EER, high to low
+    eer = [window.table.item(r, 7).text() for r in range(window.table.rowCount())]
+    values = [float(v) for v in eer if v != "—"]
+    assert values == sorted(values, reverse=True)
+    assert all(v == "—" for v in eer[len(values):])  # missing values last
+    window._on_result_header_clicked(7)
+    window._on_result_header_clicked(7)  # third click restores best-first
+    assert [window.table.item(r, 2).text()
+            for r in range(window.table.rowCount())] == default
+
+
+@pytest.mark.skipif(not (ROOT / "G01.RTF").exists(), reason="G01.RTF missing")
+def test_stale_banner_follows_inputs(qapp):
+    window = _searched_window(qapp)
+    assert window.stale_banner.isHidden()
+    original = window.btu.text()
+    window.btu.setText("99999")
+    assert not window.stale_banner.isHidden()
+    window.btu.setText(original)
+    assert window.stale_banner.isHidden()
+    window.cfm.setText("1234")
+    assert not window.stale_banner.isHidden()
+    window.search()
+    assert window.stale_banner.isHidden()
+
+
+@pytest.mark.skipif(not (ROOT / "G01.RTF").exists(), reason="G01.RTF missing")
+def test_results_context_menu_and_copy(qapp):
+    import ui_shell
+    window = _searched_window(qapp)
+    table = window.table
+    pos = table.visualRect(table.model().index(2, 2)).center()
+    menu = ui_shell._build_table_menu(window, table, pos)
+    labels = [a.text() for a in menu.actions() if not a.isSeparator()]
+    assert any("Add to cart" in t for t in labels)
+    assert window.selected_row == 2  # right-click selected the row
+    next(a for a in menu.actions() if a.text() == "Copy row").trigger()
+    copied = QApplication.clipboard().text()
+    assert table.item(2, 2).text() in copied
+    assert len(copied.split("\t")) == table.columnCount()
+
+
+def test_drop_filters_and_window_accepts_drops(qapp):
+    from PySide6.QtCore import QMimeData, QPoint, Qt, QUrl
+    from PySide6.QtGui import QDragEnterEvent
+    import main
+    window = main.App()
+    assert window.acceptDrops()
+    assert not window.debug.acceptDrops()  # text box must not swallow drops
+
+    def accepted(path):
+        mime = QMimeData()
+        mime.setUrls([QUrl.fromLocalFile(str(path))])
+        event = QDragEnterEvent(
+            QPoint(5, 5), Qt.CopyAction, mime, Qt.LeftButton, Qt.NoModifier)
+        window.dragEnterEvent(event)
+        return event.isAccepted()
+
+    assert accepted(ROOT / "G01.RTF")
+    assert accepted(ROOT / "project.ductdx")
+    assert not accepted(ROOT / "requirements.txt")
