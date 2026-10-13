@@ -1372,6 +1372,13 @@ def _build_equipment_page(app):
     app.table.setWordWrap(False)
     app.table.itemSelectionChanged.connect(app._on_row_selected)
     app.table.itemDoubleClicked.connect(lambda *_: _show_details(app))
+    _hh = app.table.horizontalHeader()
+    _hh.setSectionsClickable(True)
+    _hh.setSortIndicatorShown(False)
+    _hh.setToolTip(
+        "Click a column header to sort · click again to reverse · "
+        "a third click restores the best-match order")
+    _hh.sectionClicked.connect(app._on_result_header_clicked)
     rv.addWidget(app.table, 1)
 
     app.selected_label = QLabel("Click a row to select a model — Ctrl+click several rows to combine units — double-click for details")

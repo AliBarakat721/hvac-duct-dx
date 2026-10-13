@@ -1206,6 +1206,7 @@ class App(QMainWindow):
             return
 
         if b <= 0 and c <= 0:
+            self._last_render = None
             self.table.clearContents()
             self.table.setRowCount(0)
             self.export.setEnabled(False)
@@ -1640,7 +1641,71 @@ class App(QMainWindow):
 
         return rows
 
+    # Results-table sorting: column -> (index in the result row tuple, kind).
+    # Sorting is done on the row data (not the cell text) so "1,234" sorts
+    # numerically and the row index <-> data mapping used elsewhere is kept.
+    RESULT_SORT_COLS = {
+        1: (15, "text"), 2: (2, "text"), 3: (3, "num"), 4: (4, "num"),
+        5: (5, "num"), 6: (13, "num"), 7: (16, "num"), 8: (6, "num"),
+        9: (11, "num"),
+    }
+    RESULT_SORT_FIRST_DESC = {7}  # EER: best (highest) first
+
+    def _sorted_for_display(self, rows):
+        col, desc = getattr(self, "_result_sort", (-1, False))
+        spec = self.RESULT_SORT_COLS.get(col)
+        if spec is None:
+            return rows
+        idx, kind = spec
+        if kind == "num":
+            present = [r for r in rows if r[idx]]
+            missing = [r for r in rows if not r[idx]]
+            present.sort(key=lambda r: float(r[idx]), reverse=desc)
+        else:
+            present = [r for r in rows if r[idx]]
+            missing = [r for r in rows if not r[idx]]
+            present.sort(key=lambda r: str(r[idx]).lower(), reverse=desc)
+        return present + missing  # missing values ("—") always last
+
+    def _on_result_header_clicked(self, col):
+        """Click: default direction, click again: reverse, third click: reset."""
+        if col not in self.RESULT_SORT_COLS:
+            return
+        cur, desc = getattr(self, "_result_sort", (-1, False))
+        if cur != col:
+            new = (col, col in self.RESULT_SORT_FIRST_DESC)
+        elif desc == (col in self.RESULT_SORT_FIRST_DESC):
+            new = (col, not desc)
+        else:
+            new = (-1, False)
+        self._result_sort = new
+        last = getattr(self, "_last_render", None)
+        if not last:
+            self._update_sort_indicator()
+            return
+        keep = None
+        if 0 <= getattr(self, "selected_row", -1) < self.table.rowCount():
+            m, c = self.table.item(self.selected_row, 2), self.table.item(
+                self.selected_row, 1)
+            keep = (m.text(), c.text()) if m and c else None
+        self.render(*last)
+        if keep:
+            for r in range(self.table.rowCount()):
+                m, c = self.table.item(r, 2), self.table.item(r, 1)
+                if m and c and (m.text(), c.text()) == keep:
+                    self.table.selectRow(r)
+                    break
+
+    def _update_sort_indicator(self):
+        col, desc = getattr(self, "_result_sort", (-1, False))
+        header = self.table.horizontalHeader()
+        header.setSortIndicatorShown(col >= 0)
+        header.setSortIndicator(
+            col, Qt.DescendingOrder if desc else Qt.AscendingOrder)
+
     def render(self, rows, reqb, reqs, reqc, esp, fan_pref, outdoor, best_only=False):
+        self._last_render = (
+            rows, reqb, reqs, reqc, esp, fan_pref, outdoor, best_only)
         headers = [
             "Status",
             "Catalog",
@@ -1671,10 +1736,12 @@ class App(QMainWindow):
         display_rows = rows
         if best_only:
             display_rows = [rows[0]] if best_model_name else []
+        display_rows = self._sorted_for_display(display_rows)
 
         self.table.setRowCount(len(display_rows))
         self.table.setColumnCount(len(headers))
         self.table.setHorizontalHeaderLabels(headers)
+        self._update_sort_indicator()
 
         for i, row in enumerate(display_rows):
             (
