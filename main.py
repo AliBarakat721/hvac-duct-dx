@@ -642,6 +642,7 @@ class App(QMainWindow):
         self._auto_system_n = 0
         self._updating_cart = False
         self._project_path = None
+        self._loaded_path = None
         self._project_dirty = False
         self._project_loading = False
         # ── [NEW] Batch systems state ──
