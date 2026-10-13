@@ -2,7 +2,7 @@ name: HVAC Duct DX checks
 
 on:
   push:
-    branches: [main]
+    branches: [main, "chore/**"]
   pull_request:
     branches: [main]
 
@@ -12,7 +12,10 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      QT_QPA_PLATFORM: offscreen
     strategy:
+      fail-fast: false
       matrix:
         python-version: ["3.11", "3.12"]
 
@@ -26,11 +29,13 @@ jobs:
           python-version: ${{ matrix.python-version }}
           cache: pip
 
-      - name: Install test dependencies
-        run: python -m pip install --upgrade pip pytest
+      - name: Install GUI and regression-test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pytest PySide6 numpy pandas openpyxl python-docx Pillow PyMuPDF pytesseract
 
       - name: Compile Python files
         run: python -m compileall -q .
 
       - name: Run regression tests
-        run: python -m pytest -q
+        run: python -m pytest -q -rs
