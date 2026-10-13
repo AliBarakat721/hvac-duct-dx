@@ -2,6 +2,8 @@
 # Install with: python -m pip install -r requirements.txt
 # Runtime tested with Python 3.12.8.
 # Use Python 3.12.8 for the same environment as the project.
+# Ubuntu/Debian system packages (install separately):
+# sudo apt-get install libxcb-cursor0 tesseract-ocr
 
 # Core GUI and numerical/data processing
 PySide6>=6.6
