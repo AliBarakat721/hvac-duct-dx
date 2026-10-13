@@ -1207,6 +1207,8 @@ class App(QMainWindow):
 
         if b <= 0 and c <= 0:
             self._last_render = None
+            self._results_signature = None
+            ui_shell.refresh_stale_banner(self)
             self.table.clearContents()
             self.table.setRowCount(0)
             self.export.setEnabled(False)
@@ -1835,6 +1837,8 @@ class App(QMainWindow):
             f"{reqc:,.0f} CFM | ESP: {esp:.3f} in.wg | "
             f"Outdoor: {outdoor}°C | Fan: {fan_pref}{mode_note}"
         )
+        self._results_signature = ui_shell.input_signature(self)
+        ui_shell.refresh_stale_banner(self)
         self._refresh_shell()
 
     def _on_row_selected(self):

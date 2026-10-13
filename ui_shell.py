@@ -280,6 +280,8 @@ QStatusBar {{ background:{C_BG}; border-top:1px solid {C_BORDER}; color:{C_MUTED
 QStatusBar QLabel {{ background:transparent; }}
 QToolButton#collapse {{ background:transparent; color:#93C5FD; border:0; font-weight:700; }}
 QSplitter::handle {{ background:{C_BORDER}; }}
+QFrame#staleBanner {{ background:#3A2F12; border:1px solid {C_WARN}; border-radius:6px; }}
+QFrame#staleBanner QLabel {{ color:{C_WARN}; font-weight:600; background:transparent; }}
 QLineEdit[invalid="true"] {{ border:1px solid {C_DANGER}; background:#2A1A1F; }}
 QScrollArea {{ background:transparent; border:0; }}
 QScrollBar:vertical {{ background:{C_BG}; width:12px; margin:0; }}
@@ -893,13 +895,18 @@ def build_shell(app):
             app.ceiling_void, app.ceiling_clear, app.drain_run):
         _watch_numeric(w)
         w.textChanged.connect(lambda *_: app._mark_project_dirty())
+        w.textChanged.connect(lambda *_: refresh_stale_banner(app))
     for w in (
             app.catalog_family, app.phase, app.outdoor_temp, app.fan_speed):
         w.currentTextChanged.connect(lambda *_: app._mark_project_dirty())
+        w.currentTextChanged.connect(lambda *_: refresh_stale_banner(app))
     for w in (app.capm, app.afm, app.safm):
         w.valueChanged.connect(lambda *_: app._mark_project_dirty())
+        w.valueChanged.connect(lambda *_: refresh_stale_banner(app))
     app.ceiling_enforce.stateChanged.connect(
         lambda *_: app._mark_project_dirty())
+    app.ceiling_enforce.stateChanged.connect(
+        lambda *_: refresh_stale_banner(app))
 
     _install_table_menus(app)
 
@@ -956,6 +963,32 @@ def _step_system(app, delta):
 
 def _toggle_sidebar(app):
     app.sidebar_frame.setVisible(not app.sidebar_frame.isVisible())
+
+
+def input_signature(app):
+    """Everything the equipment search reads; used to tell whether the
+    results on screen still match the inputs."""
+    return (
+        tuple(w.text().strip() for w in (
+            app.btu, app.sens, app.cfm, app.heat, app.esp, app.max_sound,
+            app.ceiling_void, app.ceiling_clear, app.drain_run)),
+        tuple(w.currentText() for w in (
+            app.catalog_family, app.phase, app.outdoor_temp, app.fan_speed)),
+        tuple(w.value() for w in (app.capm, app.afm, app.safm)),
+        app.ceiling_enforce.isChecked(),
+    )
+
+
+def refresh_stale_banner(app):
+    """Show the 'Inputs changed' banner while the visible results were
+    computed from different inputs than the ones now in the form."""
+    banner = getattr(app, "stale_banner", None)
+    if banner is None:
+        return
+    sig = getattr(app, "_results_signature", None)
+    stale = (sig is not None and app.table.rowCount() > 0
+             and input_signature(app) != sig)
+    banner.setVisible(stale)
 
 
 def _search_now(app):
@@ -1444,6 +1477,15 @@ def _build_equipment_page(app):
     right.setObjectName("plain")
     rv = QVBoxLayout(right)
     rv.setContentsMargins(8, 0, 0, 0)
+
+    app.stale_banner = QFrame()
+    app.stale_banner.setObjectName("staleBanner")
+    _sb = QHBoxLayout(app.stale_banner)
+    _sb.setContentsMargins(10, 6, 10, 6)
+    _sb.addWidget(QLabel("⚠  Inputs changed — the results below are out of date."), 1)
+    _sb.addWidget(_btn("Search again (F5)", None, lambda: _search_now(app)))
+    app.stale_banner.setVisible(False)
+    rv.addWidget(app.stale_banner)
 
     app.best_card = BestMatchCard(app._add_best_match)
     rv.addWidget(app.best_card)
