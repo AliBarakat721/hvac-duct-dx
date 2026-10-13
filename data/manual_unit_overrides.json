@@ -1,0 +1,22 @@
+[
+  {
+    "system_model": "53QDMT30-708",
+    "indoor_model": "42QDMT30-708",
+    "outdoor_model": "38QDMT30-708",
+    "nominal_class_kbtu": 30.0,
+    "rated_cooling_btuh": 26540.0,
+    "power_supply": "220/1/50",
+    "max_esp_inwg": 0.16,
+    "pipe_gas_inch": "3/4",
+    "pipe_liquid_inch": "3/8",
+    "airflow_points": [
+      {
+        "fan_speed": "High",
+        "esp_inwg": 0.16,
+        "airflow_cfm": 790.0,
+        "source": "User-provided unit data"
+      }
+    ],
+    "provenance": "Manual override from user-provided specification; no unprovided cooling, sound, heating, or fan-curve values were inferred."
+  }
+]

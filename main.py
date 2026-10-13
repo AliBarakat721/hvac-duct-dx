@@ -1438,11 +1438,6 @@ class App(QMainWindow):
                 t_air, t_cool, mid, fan_pref
             )
             if fan_to_use is None:
-                airflow_point_cfm = (
-                    float(flow_row[1])
-                    if flow_row and flow_row[1] is not None else None)
-                if airflow_point_cfm is not None and airflow_point_cfm <= 0:
-                    airflow_point_cfm = None
                 airflow_metadata = {
                     "equipment_model_id": mid,
                     "model": model,
@@ -2287,6 +2282,7 @@ class App(QMainWindow):
 
     def _add_combo_to_selection(self, units, tot, covers):
         import math
+
         from airflow_utils import combine_selected_unit_airflow
 
         def _num(widget):
@@ -3620,15 +3616,15 @@ class App(QMainWindow):
         from diffuser_calculator import (
             ADPI_BANDS,
             APPLICATION_NC,
+            DiffuserLayoutResult,
             ach,
             diffuser_face_half_extent_m,
+            evaluate_layout,
             ft_to_m,
             get_catalog,
             m_to_ft,
             rank_options,
             room_layout_from_geometry,
-            DiffuserLayoutResult,
-            evaluate_layout,
             select_layout_for_geometry,
             select_return_diffusers,
             selection_input_signature,
@@ -3756,8 +3752,8 @@ class App(QMainWindow):
                 detected_layout_errors = []
                 if not geometry.is_valid:
                     detected_layout_errors.append(
-                        ("Saved diffuser layout cannot be verified because "
-                         "room geometry is invalid.")
+                        "Saved diffuser layout cannot be verified because "
+                         "room geometry is invalid."
                     )
                 else:
                     from placement_engine import (

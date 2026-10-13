@@ -27,3 +27,12 @@ python3 -m compileall -q .
 ```
 
 The repository intentionally reports unresolved or unimplemented engineering topics instead of presenting them as verified results.
+
+## Manual equipment overrides
+
+The requested `53QDMT30-708` unit is included in `hvac_equipment.sqlite` as a
+manual override. Its source record is documented in
+`data/manual_unit_overrides.json` and contains only the user-provided values:
+26,540 Btu/h, 220/1/50, 3/4 in gas × 3/8 in liquid piping, and 790 CFM at
+High speed and 0.16 in.wg. Unprovided cooling, heating, sound, and fan-curve
+values are intentionally not inferred.
