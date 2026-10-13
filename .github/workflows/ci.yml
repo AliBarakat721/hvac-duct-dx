@@ -34,6 +34,11 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install pytest PySide6 numpy pandas openpyxl python-docx Pillow PyMuPDF pytesseract
 
+      - name: Verify GUI test prerequisites
+        run: |
+          python -c "import PySide6; print('PySide6', PySide6.__version__)"
+          test -f G01.RTF
+
       - name: Compile Python files
         run: python -m compileall -q .
 
