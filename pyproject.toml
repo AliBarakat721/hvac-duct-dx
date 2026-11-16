@@ -49,5 +49,5 @@ py-modules = [
   "placement_engine_adapter", "project_persistence", "report_builder",
   "rooftop_loader", "room_designer", "room_geometry", "ui_shell",
 ]
-packages = ["hap"]
+packages = ["hap", "duct_design"]
 package-data = {hap = ["resources/hvac_equipment.sqlite"]}
