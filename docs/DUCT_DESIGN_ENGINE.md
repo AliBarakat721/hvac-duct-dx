@@ -157,12 +157,14 @@ integration, segment loss preservation, diagnostics, and terminal upstream
 paths. The Qt page remains the existing preliminary independent-segment
 workflow; no network editor has been added.
 
-Not implemented: full critical-path pressure analysis, branch balancing,
+Not implemented in this connected-network foundation: branch balancing,
 automatic fitting geometry selection, fitting-specific K calculation (unless
-validated K data is actually supplied), Fan External Static Pressure selection,
-Static Regain sizing, or complete SMACNA construction compliance. This
-foundation does not claim complete HVAC system design or construction
-compliance.
+validated K data is actually supplied), Static Regain sizing, or complete
+SMACNA construction compliance. Critical-path analysis is documented above.
+The separate `duct_design.fan` package provides a traceable preliminary fan
+pressure budget when explicit system paths and component losses are supplied;
+it does not claim complete Fan External Static Pressure selection or complete
+HVAC system design.
 
 Automated coverage for simple paths, two- and multi-level branching, flow
 conservation, input ordering, source and segment airflow mismatches, invalid
