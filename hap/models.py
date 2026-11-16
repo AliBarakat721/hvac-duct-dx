@@ -51,6 +51,35 @@ class VentilationData:
 
 
 @dataclass
+class LoadData:
+    total: SourceValue | None = None
+    sensible: SourceValue | None = None
+    airflow: SourceValue | None = None
+
+
+@dataclass
+class Space:
+    space_id: str
+    space_name: str
+    zone_id: str
+    multiplier: SourceValue | None = None
+    area: SourceValue | None = None
+    cooling_load: LoadData = field(default_factory=LoadData)
+    heating_load: LoadData = field(default_factory=LoadData)
+    ventilation: VentilationData = field(default_factory=VentilationData)
+
+
+@dataclass
+class Zone:
+    zone_id: str
+    zone_name: str
+    space_ids: list[str] = field(default_factory=list)
+    area: SourceValue | None = None
+    cooling_load: LoadData = field(default_factory=LoadData)
+    heating_load: LoadData = field(default_factory=LoadData)
+
+
+@dataclass
 class AirSystem:
     system_id: str
     system_name: str
@@ -61,6 +90,7 @@ class AirSystem:
     heating: HeatingData = field(default_factory=HeatingData)
     fan: FanData = field(default_factory=FanData)
     ventilation: VentilationData = field(default_factory=VentilationData)
+    zone_ids: list[str] = field(default_factory=list)
 
 
 @dataclass
@@ -68,6 +98,8 @@ class HAPProject:
     project_name: str | None = None
     location: str | None = None
     systems: list[AirSystem] = field(default_factory=list)
+    zones: list[Zone] = field(default_factory=list)
+    spaces: list[Space] = field(default_factory=list)
 
 
 @dataclass
