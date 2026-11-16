@@ -47,11 +47,19 @@ def return_as_supply_network(network: DuctNetwork) -> tuple[DuctNetwork, str]:
 
 def is_explicit_return(network: DuctNetwork) -> bool:
     """Return whether the model requests physical return-flow semantics."""
-    if NetworkType(network.network_type) is not NetworkType.RETURN:
+    try:
+        network_type = NetworkType(network.network_type)
+    except (TypeError, ValueError):
+        return False
+    if network_type is not NetworkType.RETURN:
         return False
     if network.sink_node_id:
         return True
-    return any(
-        node.node_id == network.source_node_id and NodeType(node.node_type) is NodeType.END
-        for node in network.nodes
-    )
+    for node in network.nodes:
+        try:
+            node_type = NodeType(node.node_type)
+        except (TypeError, ValueError):
+            continue
+        if node.node_id == network.source_node_id and node_type is NodeType.END:
+            return True
+    return False
