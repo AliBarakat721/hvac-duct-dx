@@ -1419,7 +1419,7 @@ class App(QMainWindow):
         models = self.conn.execute(f"""
             SELECT id, system_model, nominal_class_kbtu, rated_cooling_btuh,
                    max_esp_inwg, power_supply, indoor_model, outdoor_model,
-                   indoor_dimensions_mm, eer_btu_wh
+                   indoor_dimensions_mm, outdoor_dimensions_mm, eer_btu_wh
             FROM {t_eq} ORDER BY nominal_class_kbtu
         """).fetchall()
 
@@ -1432,7 +1432,8 @@ class App(QMainWindow):
             power,
             indoor,
             outdoor_model,
-            dims,
+            indoor_dims,
+            outdoor_dims,
             eer,
         ) in models:
             if phase_filter != "Any":
@@ -1470,7 +1471,8 @@ class App(QMainWindow):
                         power,
                         indoor,
                         outdoor_model,
-                        dims,
+                        indoor_dims,
+                        outdoor_dims,
                         0,
                         "—",
                         0,
@@ -1628,7 +1630,7 @@ class App(QMainWindow):
                 reasons.append(f"heating short {reqh - heat_cap:,.0f}")
 
             # Ceiling void: always warns; only disqualifies when the box is ticked
-            ceil_h = (report_builder.parse_dims(dims) or (0, 0, 0))[1]
+            ceil_h = (report_builder.parse_dims(indoor_dims) or (0, 0, 0))[1]
             _cp = self._ceiling_params()
             ceil_ck = report_builder.check_ceiling_void(
                 ceil_h, _cp["void"], _cp["clearance"], _cp["drain_run"]
@@ -1678,7 +1680,8 @@ class App(QMainWindow):
                     power,
                     indoor,
                     outdoor_model,
-                    dims,
+                    indoor_dims,
+                    outdoor_dims,
                     sound,
                     fan_to_use,
                     heat_cap,
@@ -1695,9 +1698,9 @@ class App(QMainWindow):
     # Sorting is done on the row data (not the cell text) so "1,234" sorts
     # numerically and the row index <-> data mapping used elsewhere is kept.
     RESULT_SORT_COLS = {
-        1: (15, "text"), 2: (2, "text"), 3: (3, "num"), 4: (4, "num"),
-        5: (5, "num"), 6: (13, "num"), 7: (16, "num"), 8: (6, "num"),
-        9: (11, "num"),
+        1: (16, "text"), 2: (2, "text"), 3: (3, "num"), 4: (4, "num"),
+        5: (5, "num"), 6: (14, "num"), 7: (17, "num"), 8: (6, "num"),
+        9: (12, "num"),
     }
     RESULT_SORT_FIRST_DESC = {7}  # EER: best (highest) first
 
@@ -1771,6 +1774,7 @@ class App(QMainWindow):
             "Indoor Unit",
             "Outdoor Unit",
             "Indoor Dims",
+            "Outdoor Dims",
             "Fan Speed",
             "Decision Reason",
         ] + report_builder.SPEC_HEADERS
@@ -1805,15 +1809,16 @@ class App(QMainWindow):
                 power,
                 indoor,
                 outdoor_model,
-                dims,
+                indoor_dims,
+                outdoor_dims,
                 sound,
                 fan,
                 heat_cap,
                 reason,
                 catalog_label,
                 eer,
-            ) = row[:17]
-            airflow_metadata = row[17] if len(row) > 17 else None
+            ) = row[:18]
+            airflow_metadata = row[18] if len(row) > 18 else None
 
             is_best = ok and (model == best_model_name)
             status_text = (
@@ -1834,7 +1839,8 @@ class App(QMainWindow):
                 power,
                 indoor,
                 outdoor_model,
-                dims,
+                indoor_dims,
+                outdoor_dims,
                 fan,
                 reason,
             ]
@@ -2095,8 +2101,8 @@ class App(QMainWindow):
         # Column indexes match the updated results table:
         # 0 Status | 1 Catalog | 2 Model | 3 Class | 4 Cooling | 5 Sens
         # 6 Heating | 7 EER | 8 Airflow | 9 Sound | 10 Power Supply
-        # 11 Indoor Unit | 12 Outdoor Unit | 13 Indoor Dims | 14 Fan
-        # 15 Decision Reason
+        # 11 Indoor Unit | 12 Outdoor Unit | 13 Indoor Dims | 14 Outdoor Dims
+        # 15 Fan | 16 Decision Reason
         model_name = _cell(2)
         catalog_label = _cell(1)
         status = _cell(0)
@@ -2104,8 +2110,9 @@ class App(QMainWindow):
         indoor_model = _cell(11)
         outdoor_model = _cell(12)
         indoor_dims = _cell(13)
+        outdoor_dims = _cell(14)
         power_supply = _cell(10)
-        reason = _cell(15)
+        reason = _cell(16)
 
         try:
             rated_cap = float(_cell(4).replace(",", "") or 0)
@@ -2180,6 +2187,7 @@ class App(QMainWindow):
             "indoor_model": indoor_model,
             "outdoor_model": outdoor_model,
             "indoor_dims": indoor_dims,
+            "outdoor_dims": outdoor_dims,
             "power_supply": power_supply,
             "heating_btu": heating_cap,
             "sound_dba": sound_dba,
@@ -2262,6 +2270,7 @@ class App(QMainWindow):
             "indoor": cell(11),
             "outdoor_unit": cell(12),
             "dims": cell(13),
+            "outdoor_dims": cell(14),
             "table_prefix": next((p for lbl, p in self.CATALOGS if lbl == catalog), "")
             or "",
             **airflow_metadata,
@@ -2340,6 +2349,7 @@ class App(QMainWindow):
             "indoor_model": label("indoor"),
             "outdoor_model": label("outdoor_unit"),
             "indoor_dims": " | ".join(uniq(u["dims"] for u in units)),
+            "outdoor_dims": " | ".join(uniq(u["outdoor_dims"] for u in units)),
             "power_supply": " / ".join(uniq(u["power"] for u in units)),
             "heating_btu": sum(u["qty"] * u["heat"] for u in units),
             "sound_dba": sound,
@@ -2449,6 +2459,8 @@ class App(QMainWindow):
             "Rated (kBTU)",
             "Indoor Unit",
             "Outdoor Unit",
+            "Indoor Dims",
+            "Outdoor Dims",
             "Required Total (Btu/hr)",
             "Required Sensible (Btu/hr)",
             "Required CFM",
@@ -2479,6 +2491,8 @@ class App(QMainWindow):
                     f"{item['class_kbtu']:g}",
                     item.get("indoor_model", "") or "—",
                     item.get("outdoor_model", "") or "—",
+                    item.get("indoor_dims", "") or "—",
+                    item.get("outdoor_dims", "") or "—",
                     f"{item['total_btu']:,.0f}",
                     f"{item['sensible_btu']:,.0f}",
                     f"{item['cfm']:,.0f}",
@@ -2627,6 +2641,8 @@ class App(QMainWindow):
             "Rated (kBTU)",
             "Indoor Unit",
             "Outdoor Unit",
+            "Indoor Dims",
+            "Outdoor Dims",
             "Rated Capacity (Btu/hr)",
             "EER",
             "Power (kW)",
@@ -2671,6 +2687,8 @@ class App(QMainWindow):
                     int(item["class_kbtu"]) if item["class_kbtu"] else 0,
                     item.get("indoor_model", "") or "—",
                     item.get("outdoor_model", "") or "—",
+                    item.get("indoor_dims", "") or "—",
+                    item.get("outdoor_dims", "") or "—",
                     int(item.get("rated_capacity", 0) or 0),
                     round(item.get("eer", 0) or 0, 2),
                     round(power_kw, 2),

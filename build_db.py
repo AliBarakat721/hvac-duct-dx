@@ -18,8 +18,10 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import json
 import logging
 import os
+import re
 import sqlite3
 import tempfile
 import zipfile
@@ -50,6 +52,59 @@ DEFAULT_MIRACO_XLSX = (
     DEFAULT_DATA_DIR / "Carrier_Miraco_HVAC_Selection_Database_v3.xlsx"
 )
 DEFAULT_DB_PATH = DEFAULT_BASE_DIR / "hvac_equipment.sqlite"
+DEFAULT_MANUAL_OVERRIDES = DEFAULT_DATA_DIR / "manual_unit_overrides.json"
+
+EXPECTED_QDMT_DIMENSIONS = {
+    "53QDMT12-718": {
+        "indoor_model": "42QDMT12-718",
+        "outdoor_model": "38QDMT12-718",
+        "indoor_dimensions_mm": "700 x 210 x 635 mm",
+        "outdoor_dimensions_mm": "780 x 540 x 250 mm",
+    },
+    "53QDMT18-718": {
+        "indoor_model": "42QDMT18-718",
+        "outdoor_model": "38QDMT18-718",
+        "indoor_dimensions_mm": "920 x 210 x 635 mm",
+        "outdoor_dimensions_mm": "760 x 590 x 285 mm",
+    },
+    "53QDMT24-718": {
+        "indoor_model": "42QDMT24-718",
+        "outdoor_model": "38QDMT24-718",
+        "indoor_dimensions_mm": "920 x 270 x 635 mm",
+        "outdoor_dimensions_mm": "860 x 570 x 350 mm",
+    },
+    "53QDMT30-718": {
+        "indoor_model": "42QDMT30-718",
+        "outdoor_model": "38QDMT30-718",
+        "indoor_dimensions_mm": "1140 x 270 x 775 mm",
+        "outdoor_dimensions_mm": "860 x 570 x 350 mm",
+    },
+    "53QDMT36-718": {
+        "indoor_model": "42QDMT36-718",
+        "outdoor_model": "38QDMT36-718",
+        "indoor_dimensions_mm": "1140 x 270 x 775 mm",
+        "outdoor_dimensions_mm": "860 x 720 x 350 mm",
+    },
+    "53QDMT42-718": {
+        "indoor_model": "42QDMT42-718",
+        "outdoor_model": "38QDMT42-718",
+        "indoor_dimensions_mm": "1200 x 300 x 865 mm",
+        "outdoor_dimensions_mm": "860 x 720 x 350 mm",
+    },
+    "53QDMT48-518": {
+        "indoor_model": "42QDMT48-718",
+        "outdoor_model": "38QDMT48-518",
+        "indoor_dimensions_mm": "1200 x 300 x 865 mm",
+        "outdoor_dimensions_mm": "860 x 1150 x 350 mm",
+    },
+    "53QDMT60-518": {
+        "indoor_model": "42QDMT60-718",
+        "outdoor_model": "38QDMT60-518",
+        "indoor_dimensions_mm": "1200 x 300 x 865 mm",
+        "outdoor_dimensions_mm": "860 x 1150 x 350 mm",
+    },
+}
+DIMENSION_PATTERN = re.compile(r"^\d+(?:\.\d+)? x \d+(?:\.\d+)? x \d+(?:\.\d+)? mm$")
 
 
 class BuildError(RuntimeError):
@@ -612,6 +667,96 @@ def load_qdmt_tables(
     return model_map
 
 
+def load_manual_unit_overrides(
+    connection: sqlite3.Connection,
+    override_path: Path = DEFAULT_MANUAL_OVERRIDES,
+) -> None:
+    """Preserve explicitly maintained manual equipment records and airflow points."""
+    if not override_path.is_file():
+        return
+    with override_path.open(encoding="utf-8") as stream:
+        overrides = json.load(stream)
+    for override in overrides:
+        model = str(override["system_model"])
+        if connection.execute(
+            "SELECT 1 FROM equipment_model WHERE system_model = ?", (model,)
+        ).fetchone():
+            continue
+        columns = [
+            "system_model", "nominal_class_kbtu", "indoor_model", "outdoor_model",
+            "rated_cooling_btuh", "rated_cooling_input_w", "cooling_current_a",
+            "rated_heating_btuh", "eer_btu_wh", "eer_ww", "cop_ww", "max_esp_inwg",
+            "indoor_weight_kg", "indoor_dimensions_mm", "power_supply", "compressor_type",
+            "refrigerant_type", "outdoor_sound_dba", "outdoor_dimensions_mm",
+            "outdoor_weight_kg", "pipe_liquid_inch", "pipe_gas_inch", "max_pipe_length_m",
+            "max_height_diff_m", "drain_hose_mm", "nominal_airflow_cfm",
+            "nominal_airflow_m3h", "indoor_sound_dba", "heating_input_w", "heating_current_a",
+        ]
+        values = [override.get(column) for column in columns]
+        next_id = connection.execute(
+            "SELECT COALESCE(MAX(id), 0) + 1 FROM equipment_model"
+        ).fetchone()[0]
+        placeholders = ", ".join("?" for _ in columns)
+        connection.execute(
+            f"INSERT INTO equipment_model (id, {', '.join(columns)}) "
+            f"VALUES (?, {placeholders})",
+            [next_id, *values],
+        )
+        for point in override.get("airflow_points", []):
+            connection.execute(
+                "INSERT INTO airflow_point "
+                "(equipment_model_id, fan_speed, esp_inwg, esp_pa, airflow_cfm, airflow_m3h) "
+                "VALUES (?, ?, ?, ?, ?, ?)",
+                (
+                    next_id,
+                    point["fan_speed"],
+                    point["esp_inwg"],
+                    point.get("esp_pa"),
+                    point["airflow_cfm"],
+                    point.get("airflow_m3h"),
+                ),
+            )
+        LOGGER.info("Loaded manual equipment override: %s", model)
+
+
+def validate_qdmt_dimensions(connection: sqlite3.Connection) -> None:
+    """Validate the eight verified QDMT model and dimension records."""
+    rows = connection.execute(
+        "SELECT system_model, indoor_model, outdoor_model, "
+        "indoor_dimensions_mm, outdoor_dimensions_mm "
+        "FROM equipment_model WHERE system_model IN ("
+        + ",".join("?" for _ in EXPECTED_QDMT_DIMENSIONS)
+        + ")",
+        tuple(EXPECTED_QDMT_DIMENSIONS),
+    ).fetchall()
+    actual = {row[0]: dict(zip(
+        ("indoor_model", "outdoor_model", "indoor_dimensions_mm", "outdoor_dimensions_mm"),
+        row[1:],
+        strict=True,
+    )) for row in rows}
+    missing = sorted(set(EXPECTED_QDMT_DIMENSIONS) - set(actual))
+    unexpected = sorted(set(actual) - set(EXPECTED_QDMT_DIMENSIONS))
+    if missing or unexpected:
+        raise BuildError(
+            "QDMT validation failed; model mismatch: "
+            f"missing={missing}, unexpected={unexpected}"
+        )
+    for model, expected in EXPECTED_QDMT_DIMENSIONS.items():
+        observed = actual[model]
+        if observed != expected:
+            raise BuildError(
+                f"QDMT validation failed for {model}: "
+                f"expected={expected}, observed={observed}"
+            )
+        for field in ("indoor_dimensions_mm", "outdoor_dimensions_mm"):
+            if not DIMENSION_PATTERN.fullmatch(observed[field]):
+                raise BuildError(
+                    f"QDMT validation failed for {model}: invalid {field} "
+                    f"format {observed[field]!r}"
+                )
+    LOGGER.info("QDMT dimension validation passed: %d models", len(actual))
+
+
 # ---------------------------------------------------------------------------
 # Miraco loading, indexes, and validation
 # ---------------------------------------------------------------------------
@@ -817,6 +962,8 @@ def validate_database(
     if expect_miraco:
         validate_miraco_tables(connection)
 
+    validate_qdmt_dimensions(connection)
+
     LOGGER.info(
         "Validation passed: %d models, %d airflow, %d cooling, %d heating, %d sound rows",
         model_count,
@@ -951,6 +1098,7 @@ def build_database(
     miraco_loaded = False
     try:
         load_qdmt_tables(connection, qdmt_xlsx)
+        load_manual_unit_overrides(connection)
 
         if load_miraco:
             miraco_loaded = load_miraco_tables(
