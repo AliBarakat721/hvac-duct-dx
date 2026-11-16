@@ -50,6 +50,8 @@ class CadEntity:
     text: str | None = None
     block_name: str | None = None
     source_units: str = "unitless"
+    bulges: tuple[float, ...] = ()
+    closed: bool = False
 
 
 @dataclass(frozen=True)
@@ -60,6 +62,13 @@ class CadImport:
     scale_to_target: float
     entities: tuple[CadEntity, ...]
     layers: tuple[str, ...]
+    diagnostics: tuple[CadDiagnostic, ...] = ()
+    target_units: str = "inches"
+
+
+@dataclass(frozen=True)
+class CadExportResult:
+    path: str
     diagnostics: tuple[CadDiagnostic, ...] = ()
 
 

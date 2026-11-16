@@ -49,7 +49,7 @@ A legacy source-rooted `RETURN` object remains accepted for compatibility with t
 
 `duct_design/cad/` implements a DXF-only pipeline: file extension/size validation, `ezdxf` parsing, unit normalization, stable source handles, layer/entity inspection, supported LINE/LWPOLYLINE/POLYLINE/ARC/CIRCLE/INSERT/TEXT/MTEXT extraction, unsupported-entity diagnostics, duplicate/zero-length checks, conservative layer suggestions, explicit manual layer mapping, CAD-to-network conversion, and DXF export to a separate file. Geometry is not silently converted into engineering objects: only user-confirmed duct layers and explicit terminal mappings are accepted. Segment direction is not inferred from proximity; it must be authored in the mapping (source-to-terminal for supply and grille-to-sink for return).
 
-The optional `CadIntegrationPage` provides import, layer listing, and validation summary using the pure-Python pipeline. The existing application has legacy room-design and schedule-export CAD-related screens; a full navigation-level replacement or drawing canvas was not performed because that would create an unrelated GUI subsystem and risk unrelated workflows. Native DWG parsing is not claimed. Use a reviewed DWG-to-DXF conversion workflow when needed.
+The `CadIntegrationPage` is registered as the `CAD Import` page in the existing `ui_shell.py` nine-page navigation. It provides import, layer listing, and validation summary using the pure-Python pipeline. The existing application legacy room-designer and schedule-export screens are preserved; no duplicate drawing editor was introduced. Native DWG parsing is not claimed. Use a reviewed DWG-to-DXF conversion workflow when needed.
 
 ## Units and validation boundaries
 

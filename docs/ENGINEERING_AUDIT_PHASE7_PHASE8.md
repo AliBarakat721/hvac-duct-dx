@@ -60,7 +60,7 @@ The generated engineering objects use the existing `DuctNetwork`, `DuctNetworkSe
 
 ### Export and GUI
 
-`export_dxf` writes a separate DXF working representation with geometry and mapped layers; it does not overwrite the source file. `duct_design/cad/qt_page.py:CadIntegrationPage` provides a reusable PySide6 import button, layer list, entity count, and validation summary. The page is not yet registered as a replacement navigation tab in `main.py` or `ui_shell.py`; this is reported as remaining integration work rather than claimed complete.
+`export_dxf` writes a separate DXF working representation with geometry and mapped layers; it does not overwrite the source file. `duct_design/cad/qt_page.py:CadIntegrationPage` provides a reusable PySide6 import button, layer list, entity count, and validation summary. The page is registered as the `CAD Import` navigation page by `ui_shell.py`; the existing screens remain intact and the new offscreen navigation test verifies the real stack.
 
 ### Tests
 
@@ -77,13 +77,13 @@ The generated engineering objects use the existing `DuctNetwork`, `DuctNetworkSe
 | 5. Fitting/dynamic loss | Partial | Aggregate user-entered K is supported; geometry-specific coefficient selection is not verified | Separate branch tests exist, not integrated here | Integrate fitting objects, coefficient provenance, reference velocity, and double-counting rules |
 | 6. Fan static pressure | Partial | Separate fan budget implementation exists on another branch; complete system boundary/equipment basis is not integrated into final branch | Separate branch tests exist, not final workflow | Integrate supply/return critical paths, filters/coils/equipment, and explicit FESP boundary planes |
 | 7. Supply/return network | Complete | Supply aggregation and explicit return sink-directed aggregation verified numerically; pressure dependency remains separate | 46 network tests passed in focused run; full suite passed | Integrate critical-path pressure and balancing when dependencies are merged |
-| 8. CAD integration | Partial | DXF parsing, units, handles, mapping, conversion, and round-trip export verified; DWG and full app navigation are not | 3 CAD tests passed; full suite passed | Register page in main navigation, add visual canvas/editing, and add combined supply+return drawing fixture |
+| 8. CAD integration | Partial | DXF parsing, units, handles, mapping, conversion, round-trip export, and navigation registration verified; DWG and interactive mapping editor remain incomplete | 10 CAD/GUI tests passed; full suite passed | Add interactive mapping editor and combined supply+return drawing fixture |
 
 ## F. Critical and high findings
 
 1. **HIGH — Complete system pressure/FESP workflow is not integrated.** Evidence: `duct_design/network/models.py:DuctNetworkResult` defaults `network_pressure_status` to `NOT_CALCULATED`; `duct_design/network/network_engine.py:calculate_duct_network` returns no network critical pressure. The pressure and fan modules inspected under `feature/critical-path-pressure-analysis` and `feature/fan-static-pressure-engine` are separate branches, not the final Phase 8 base. Impact: results must not be used as complete fan static pressure. Recommended correction: merge and adapt those modules to explicit return paths, then add an end-to-end supply+return pressure-budget fixture.
 
-2. **HIGH — CAD page is reusable but not application-wired.** Evidence: `duct_design/cad/qt_page.py:CadIntegrationPage` exists, while repository GUI entry points remain `main.py` and `ui_shell.py`; no final navigation registration was added. Impact: a user cannot necessarily reach the new workflow through the shipped application without host integration. Recommended correction: add a small navigation entry and offscreen smoke test using the existing Qt architecture, without duplicating engineering logic.
+2. **RESOLVED — CAD page navigation integration.** `ui_shell.py` now registers `CadIntegrationPage` as `CAD Import`, and `tests/test_cad_gui_integration.py` verifies the real application stack in offscreen Qt.
 
 3. **MEDIUM — Complete cross-phase E2E coverage is not yet demonstrated.** Evidence: `tests/test_phase7_phase8.py` verifies CAD-to-return-network-to-sizing and DXF round-trip, but does not run one drawing containing both supply and return networks through pressure analysis and export. Recommended correction: add a fixture with both networks, multiple branches, different flows/sizes, and a verified numerical expected-result ledger after the pressure dependency is integrated.
 
@@ -93,13 +93,13 @@ The generated engineering objects use the existing `DuctNetwork`, `DuctNetworkSe
 
 Executed on `feature/cad-integration` after both commits:
 
-- `python -m pytest -q`: **138 passed**, **0 failed**, **3 warnings** (PySide6 deprecation warnings in the pre-existing drag/drop smoke test).
+- `python -m pytest -q`: **145 passed**, **0 failed**, **3 warnings** (PySide6 deprecation warnings in the pre-existing drag/drop smoke test).
 - Focused Phase 7 run: **46 passed** (`tests/test_duct_network.py` plus `tests/test_supply_return_network.py`).
-- New CAD tests: **3 passed** (`tests/test_phase7_phase8.py`).
+- New CAD/GUI tests: **10 passed** (`tests/test_phase7_phase8.py`, `tests/test_cad_geometry_corrections.py`, and `tests/test_cad_gui_integration.py`).
 - `ruff check .`: **clean**.
 - `python -m compileall -q duct_design`: **clean**.
 - `git diff --check`: **clean**.
-- GUI/offscreen tests: included in the full 138-test run and passed; the new CAD page itself has no dedicated navigation smoke test.
+- GUI/offscreen tests: included in the full 145-test run and passed; the CAD page is covered by a dedicated real-navigation smoke test.
 - End-to-end: CAD-to-return-network-to-sizing was executed; a complete CAD→supply+return→pressure→FESP→export workflow was **not claimed** because the pressure/FESP dependency is not integrated on this branch.
 
 ## H. Engineering readiness assessment
@@ -108,14 +108,26 @@ Executed on `feature/cad-integration` after both commits:
 - **Network calculation reliability:** reliable for validated directed rooted trees, including explicit return trees; unsupported for general multi-inlet meshes and balancing.
 - **Supply/return reliability:** good for the tested tree semantics when return sink direction is explicit; legacy source-rooted return objects require migration.
 - **Pressure analysis reliability:** not complete on the final branch; do not use as FESP.
-- **CAD integration reliability:** suitable for validated DXF inspection and explicit mapping workflows; not native DWG or a full interactive drawing editor.
-- **End-to-end workflow reliability:** partial; the tested mapping/calculation path works, but combined pressure/FESP and full GUI navigation are pending.
+- **CAD integration reliability:** suitable for validated DXF inspection, explicit mapping workflows, and navigation-level import review; not native DWG or a full interactive mapping editor.
+- **End-to-end workflow reliability:** partial; the tested mapping/calculation path works, but combined pressure/FESP and a single dual-network drawing fixture are pending.
 
 ## I. Remaining roadmap, ranked
 
 1. **Highest engineering risk:** integrate and verify critical-path pressure, fitting losses, and fan pressure budgets on explicit supply and return paths; add independent numerical fixtures and prevent FESP double counting.
-2. **Highest user impact:** register `CadIntegrationPage` in the existing Qt navigation and add a GUI smoke test for import, layer review, validation errors, and export.
+2. **Highest user impact:** extend the registered CAD page from import/layer review into an interactive mapping editor while keeping calculations in the pure-Python API.
 3. **High dependency:** add a combined representative supply+return CAD fixture and a full cross-phase test only after pressure analysis is integrated.
 4. **Medium:** replace legacy source-rooted RETURN fixtures with explicit sink-directed models and keep a migration diagnostic for old serialized projects.
 5. **Medium:** extend CAD geometry mapping for confirmed fittings, blocks, rectangular outlines, and dimension metadata without inferring uncertain engineering properties.
 6. **Lower priority:** add a documented DWG conversion adapter if the product can rely on a verified external converter; otherwise keep DXF as the supported interchange boundary.
+
+## J. Corrective-review addendum
+
+The follow-up review reproduced and corrected these defects:
+
+- **Polyline engineering length:** `mapping.py` previously used only the first-to-last endpoint distance. `io.py:polyline_length` now sums every segment and computes bulge-defined circular arc length using `theta = 4 atan(b)` and `R = c(1+b²)/(4|b|)`. Closed polylines include the closing edge; 3D straight geometry uses 3D chord length.
+- **Endpoint clustering:** rounded coordinate bins could split points within tolerance at bin boundaries. `_cluster_endpoints` now uses deterministic union-find clustering with exact Euclidean tolerance checks and explicit root/terminal ambiguity diagnostics.
+- **CAD mapping validation:** duplicate handles/IDs, invalid tolerances, incompatible supply/return layers, invalid terminal entities/categories, missing roots, and failed engineering topology validation now return structured diagnostics and no network object. CAD lengths are converted into the network model's required feet.
+- **DXF preservation:** imported bulges, closed state, target units, 3D coordinates where supported, entity handles, and block-reference identity are preserved or explicitly diagnosed. `export_dxf_report` reports omitted or approximate data; block references are not falsely claimed to include original block geometry.
+- **GUI integration:** the page is now reachable through the actual nine-page application navigation, with an offscreen test.
+
+New corrective tests: `tests/test_cad_geometry_corrections.py` (6 tests) and `tests/test_cad_gui_integration.py` (1 test). Final verification after these corrections: **145 passed, 3 warnings**, Ruff clean, compileall clean, and git diff check clean.
