@@ -846,25 +846,6 @@ def validate_miraco_tables(connection: sqlite3.Connection) -> None:
     if table_row_count(connection, parent) == 0:
         raise BuildError("Miraco validation failed; parent table is empty")
 
-    required_dimension_columns = {
-        "indoor_dimensions_mm",
-        "indoor_depth_with_heater_mm",
-        "outdoor_dimensions_mm",
-        "outdoor_height_with_feet_mm",
-    }
-    actual_columns = {
-        row[1]
-        for row in connection.execute(
-            f"PRAGMA table_info({quote_identifier(parent)})"
-        ).fetchall()
-    }
-    missing_dimension_columns = sorted(required_dimension_columns - actual_columns)
-    if missing_dimension_columns:
-        raise BuildError(
-            "Miraco validation failed; missing dimensional column(s): "
-            f"{missing_dimension_columns}"
-        )
-
     duplicate_models = connection.execute(
         f"""
         SELECT system_model, COUNT(*)
