@@ -32,10 +32,7 @@ Engineering assumptions
    left NULL so main.py can treat it as "no rating on record".
 6. Indoor (evaporator) sound → miraco_sound_level. Outdoor (condenser)
    sound → miraco_equipment_model.outdoor_sound_dba.
-7. The dimensional fields are loaded directly from the Physical_Condensing
-   and Physical_Evaporator sheets, including the catalog's clearance-aware
-   dimensions (height with feet / depth with heater).
-8. Anomalous source cells (Carrier v3 README §C) are flagged via
+7. Anomalous source cells (Carrier v3 README §C) are flagged via
    is_anomaly. Only anomaly cells whose (WB, DB) matches the loaded
    design point are actually representable in miraco_cooling_performance.
    For Carrier v3, none of the eight anomalies fall on WB=19/DB=27, so
@@ -133,27 +130,6 @@ def _read_wide_sheet(
         if size is not None:
             sizes[col] = size
     return df, sizes
-
-
-def _dimension_value(series: pd.Series, parameter: str, model_column: str) -> float:
-    """Read one required dimensional value from a physical-data column."""
-    try:
-        value = series.loc[parameter]
-    except KeyError as exc:
-        raise ValueError(
-            f"Missing required physical-dimension row {parameter!r} "
-            f"for {model_column}"
-        ) from exc
-    if pd.isna(value):
-        raise ValueError(
-            f"Physical-dimension row {parameter!r} is blank for {model_column}"
-        )
-    try:
-        return float(value)
-    except (TypeError, ValueError) as exc:
-        raise ValueError(
-            f"Physical-dimension row {parameter!r} is not numeric for {model_column}: {value!r}"
-        ) from exc
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -323,9 +299,6 @@ def build_miraco_tables(conn, xlsx_path) -> int:
                     f"{int(evap_phys['Height (mm)'])}x"
                     f"{int(evap_phys['Depth (mm)'])}"
                 ),
-                "indoor_depth_with_heater_mm": _dimension_value(
-                    evap_phys, "Depth with Heater (mm)", evap_col
-                ),
                 "power_supply": "380-400/3/50",
                 "compressor_type": cond_phys["Compressor Type"],
                 "refrigerant_type": tech["refrigerant"],
@@ -334,9 +307,6 @@ def build_miraco_tables(conn, xlsx_path) -> int:
                     f"{int(cond_phys['Width (mm)'])}x"
                     f"{int(cond_phys['Height (mm)'])}x"
                     f"{int(cond_phys['Depth (mm)'])}"
-                ),
-                "outdoor_height_with_feet_mm": _dimension_value(
-                    cond_phys, "Height with Feet (mm)", cond_col
                 ),
                 "outdoor_weight_kg": float(cond_phys["Net Weight (kg)"]),
                 "pipe_liquid_inch": tech["liquid_line"],
