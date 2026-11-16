@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import math
+from dataclasses import replace
 
 from ..engine import (
     DuctDesignCalculationError,
@@ -29,6 +30,7 @@ from .models import (
 )
 from .topology import build_network_topology
 from .validation import DuctNetworkCalculationError
+from .return_flow import is_explicit_return, return_as_supply_network
 
 
 def _validate_policy(policy: NetworkValidationPolicy) -> None:
@@ -110,6 +112,36 @@ def _size_segment(
     return result
 
 
+def _calculate_explicit_return_network(
+    network: DuctNetwork,
+    options: DuctDesignOptions,
+    validation_policy: NetworkValidationPolicy,
+) -> DuctNetworkResult:
+    """Calculate a physically directed return graph and restore its orientation."""
+    normalized, sink_id = return_as_supply_network(network)
+    normalized_result = calculate_duct_network(normalized, options, validation_policy)
+    original_segments = {segment.segment_id: segment for segment in network.segments}
+    segment_results = tuple(
+        replace(
+            item,
+            start_node_id=original_segments[item.segment_id].start_node_id,
+            end_node_id=original_segments[item.segment_id].end_node_id,
+        )
+        for item in normalized_result.segments
+    )
+    terminal_results = tuple(
+        replace(item, upstream_path_segment_ids=tuple(reversed(item.upstream_path_segment_ids)))
+        for item in normalized_result.terminals
+    )
+    return replace(
+        normalized_result,
+        network_type=NetworkType.RETURN,
+        source_node_id=sink_id,
+        segments=segment_results,
+        terminals=terminal_results,
+    )
+
+
 def calculate_duct_network(
     network: DuctNetwork,
     options: DuctDesignOptions,
@@ -123,6 +155,8 @@ def calculate_duct_network(
     path pressure and fan external static pressure are not calculated.
     """
     _validate_policy(validation_policy)
+    if is_explicit_return(network):
+        return _calculate_explicit_return_network(network, options, validation_policy)
     topology = build_network_topology(network)
     airflow = _solve_topology(topology)
     diagnostics = list(airflow.diagnostics)

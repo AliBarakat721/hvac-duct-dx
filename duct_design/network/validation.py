@@ -54,8 +54,8 @@ def _valid_id(value: object) -> bool:
     return isinstance(value, str) and bool(value.strip())
 
 
-def validate_network(network: DuctNetwork) -> NetworkValidationResult:
-    """Validate identifiers, references, directed-tree structure, and connectivity."""
+def _validate_supply_network(network: DuctNetwork) -> NetworkValidationResult:
+    """Validate a source-rooted directed tree."""
     diagnostics: list[NetworkDiagnostic] = []
 
     def error(code: str, message: str, element_id: str | None = None) -> None:
@@ -265,3 +265,32 @@ def validate_network(network: DuctNetwork) -> NetworkValidationResult:
         is_valid=not any(item.severity is DiagnosticSeverity.ERROR for item in ordered),
         diagnostics=ordered,
     )
+
+
+def validate_network(network: DuctNetwork) -> NetworkValidationResult:
+    """Validate a supply network or an explicitly directed return network.
+
+    A return network is physically directed from terminal grilles to the
+    equipment sink when ``sink_node_id`` is supplied (or when the historical
+    source node is typed as ``END``).  Older source-rooted RETURN objects are
+    retained for compatibility and validated as their declared graph.
+    """
+    from .return_flow import is_explicit_return, return_as_supply_network
+
+    if is_explicit_return(network):
+        normalized, sink_id = return_as_supply_network(network)
+        result = _validate_supply_network(normalized)
+        diagnostics = list(result.diagnostics)
+        if any(node.node_id == sink_id and node.node_type is NodeType.TERMINAL for node in network.nodes):
+            diagnostics.append(NetworkDiagnostic(
+                DiagnosticSeverity.ERROR,
+                "return_sink_terminal",
+                f"Return sink {sink_id} cannot also be a return terminal.",
+                sink_id,
+            ))
+        ordered = tuple(sorted(diagnostics, key=lambda item: (item.code, item.element_id or "", item.message)))
+        return NetworkValidationResult(
+            is_valid=not any(item.severity is DiagnosticSeverity.ERROR for item in ordered),
+            diagnostics=ordered,
+        )
+    return _validate_supply_network(network)
