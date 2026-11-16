@@ -180,3 +180,53 @@ integration, and independent supply/return networks is in
 [1]: https://www.engineeringtoolbox.com/darcy-weisbach-equation-d_646.html "Darcy-Weisbach Equation Flow Resistance and Pressure Loss"
 [2]: https://www.engineeringtoolbox.com/equivalent-diameter-d_205.html "Fluid Flow Equivalent Diameter"
 [3]: https://en.wikipedia.org/wiki/Darcy%E2%80%93Weisbach_equation "Darcy-Weisbach Equation and Colebrook-White Relation"
+
+## Critical Path Pressure Analysis
+
+`analyze_critical_path(network, network_result)` is the next-stage analysis for a
+validated directed **SUPPLY** network. It consumes the sizing results already
+produced by `calculate_duct_network()`; it does not recalculate friction, fitting
+K, airflow, or duct dimensions.
+
+For terminal `i`, the engine traces the ordered source-to-terminal segment IDs
+from the validated topology and calculates:
+
+```text
+ΔP_path,i = Σ ΔP_segment,j
+ΔP_critical = max(ΔP_path,i)
+```
+
+Each segment contributes its existing `total_modeled_loss_inwg` exactly once.
+The result also reports the component sums from
+`straight_friction_loss_inwg` and `fitting_loss_inwg`. The engine validates
+`total ≈ straight + fittings` with a relative and absolute tolerance of `1e-9`;
+it never adds the component fields to the total a second time. Pressure units
+are explicitly `in.w.g.` and other unit labels are rejected.
+
+Shared upstream segments appear once in every downstream terminal path, but are
+never duplicated within one path. Parallel branches are analyzed as separate
+paths and are never summed together. Results are deterministic for any input
+ordering. If terminal paths tie, the lexicographically smallest terminal ID is
+selected as the critical terminal. For every terminal,
+`difference_from_critical_inwg` is the critical path loss minus that terminal's
+path loss.
+
+A missing sizing result, missing/non-finite/negative pressure value, inconsistent
+component total, or path accumulation overflow produces an invalid analysis
+diagnostic; no missing value is silently treated as zero. `NetworkType.RETURN`
+is explicitly unsupported because the current network solver does not implement
+the reverse `TERMINALS → RETURN MAIN → FAN` flow direction.
+
+### Worked example
+
+If a shared main has `0.04 in.w.g.`, terminal A's branch has `0.03`, and
+terminal B's branch has `0.08`, then:
+
+- A path = `0.04 + 0.03 = 0.07 in.w.g.`
+- B path = `0.04 + 0.08 = 0.12 in.w.g.`
+- B is critical and the difference for A is `0.05 in.w.g.`
+
+This is modeled duct-segment path loss, not fan external static pressure (FESP).
+FESP may additionally require filters, coils, equipment internals, dampers,
+louvers, attenuators, terminal losses, and defined fan/system boundaries. Those
+components are outside this phase.

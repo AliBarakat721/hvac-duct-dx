@@ -21,6 +21,13 @@ from .models import (
     ValidationStatus,
 )
 from .network_engine import calculate_duct_network
+from .pressure_analysis import (
+    CriticalPathAnalysisResult,
+    PressureAnalysisStatus,
+    PressureSegmentResult,
+    PressureTerminalPath,
+    analyze_critical_path,
+)
 from .topology import NetworkTopology, build_network_topology
 from .validation import (
     DuctNetworkCalculationError,
@@ -49,7 +56,12 @@ __all__ = [
     "NetworkValidationPolicy",
     "NetworkValidationResult",
     "NodeType",
+    "CriticalPathAnalysisResult",
+    "PressureAnalysisStatus",
+    "PressureSegmentResult",
+    "PressureTerminalPath",
     "ValidationStatus",
+    "analyze_critical_path",
     "build_network_topology",
     "calculate_duct_network",
     "solve_network_airflow",
