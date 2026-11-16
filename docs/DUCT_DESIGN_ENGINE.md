@@ -46,6 +46,130 @@ This is a preliminary segment-sizing tool, not a complete HVAC system designer a
 
 Before using results for construction or equipment selection, an HVAC engineer must verify the project criteria, segment network, duct construction class, fitting coefficients, pressure reference and locally adopted standards. Compare sizing against the project's licensed SMACNA/ASHRAE tables and design procedures.
 
+## Connected duct-network foundation
+
+The pure-Python `duct_design.network` package adds a directed network model while
+keeping the independent-section engine above unchanged. Supply and return are
+separate `DuctNetwork` instances. A network contains uniquely identified
+`DuctNode` objects, directed `DuctNetworkSegment` edges, `DuctTerminal` demands,
+and one configured source node. Node types are `SOURCE`, `JUNCTION`, `TERMINAL`,
+and `END`; terminal demands are attached to a `TERMINAL` node. A network-level
+`source_airflow_cfm` is optional and, when provided, is checked against the
+calculated demand.
+
+Segment airflow and lengths use CFM and feet. Optional rectangular dimensions
+use inches, `fitting_k` is unitless, and pressure-loss outputs from the existing
+sizer remain inches water gauge. The network layer does not alter or duplicate
+the existing sizing equations.
+
+### Supported topology and validation
+
+The initial supported structure is one directed, rooted tree: flow travels from
+the source through each segment to terminal or end nodes. Multiple levels of
+branching are supported; nodes cannot have multiple upstream segments, loops
+are rejected, and every node, segment, and terminal must be connected to the
+configured source. Duplicate IDs, unknown references, invalid node roles,
+isolated or unreachable elements, invalid dimensions, and non-finite or
+negative flow/K values are reported with element IDs. Zero terminal demand is
+valid. A segment with zero calculated demand is not sized, so invalid zero-flow
+velocity or pressure results are never produced.
+
+The current solver propagates flow outward from the configured root, so
+junctions split flow; it does not model converging multi-inlet junctions.
+`NetworkType.RETURN` classifies an independent network but does not reverse the
+directed edges or provide a terminal-to-fan return-flow solver. Do not interpret
+the current tree solver as a complete return-duct topology model.
+
+`validate_network()` returns structured diagnostics. Calculation entry points
+raise `DuctNetworkValidationError` for invalid topology rather than silently
+ignoring disconnected portions. Airflow mismatch severity is configurable
+through `NetworkValidationPolicy` (absolute tolerance in CFM, relative
+tolerance, and WARNING or ERROR severity). A mismatch is never labeled PASS.
+An explicitly entered segment flow is retained and validated; downstream
+terminal demand remains the airflow used for segment sizing.
+
+### Airflow algorithm and sizing integration
+
+`solve_network_airflow()` constructs a deterministic topological ordering and
+processes it in reverse. For each node it sums its local terminal demand and
+all downstream demands; each incoming segment therefore carries the total
+demand below it:
+
+```text
+Q(segment to node) = terminal demand at node + sum(Q of downstream segments)
+Q(source) = sum(Q of source's downstream segments)
+```
+
+The solver verifies conservation at every node. Its results do not depend on
+the order in which input nodes, segments, or terminals were supplied.
+
+`calculate_duct_network(network, options, validation_policy=...)` connects
+these airflow results to the existing `DuctSegmentInput` and sizing functions.
+Unspecified dimensions use `run_design()`; explicitly supplied width and height
+use the existing `evaluate_rectangular_duct()` evaluation and are checked
+against the configured size range, aspect ratio, velocity, and friction
+criteria, including alignment with the configured size increment. Dimensions
+outside the configured range/aspect criteria are rejected before sizing. Each
+section keeps its original segment ID, calculated and specified airflow,
+sizing output, validation state, and terminal path association. A section-level
+sizing error or non-finite result is included as an actionable diagnostic; it
+does not erase the other segment results.
+
+The result reports the existing sizer's per-segment straight friction, entered
+aggregate-K loss, and total modeled section loss. It explicitly marks network
+pressure as `NOT_CALCULATED`; it does not sum parallel section losses or label
+any single-segment loss as network critical-path pressure.
+
+### Example
+
+```python
+from duct_design import (
+    DuctDesignOptions, DuctNetwork, DuctNetworkSegment, DuctNode,
+    DuctTerminal, NetworkType, NodeType, calculate_duct_network,
+)
+
+network = DuctNetwork(
+    network_id="SUPPLY-1",
+    network_type=NetworkType.SUPPLY,
+    nodes=(
+        DuctNode("SRC", NodeType.SOURCE),
+        DuctNode("T1", NodeType.TERMINAL),
+    ),
+    segments=(DuctNetworkSegment("S1", "SRC", "T1", length_ft=30),),
+    terminals=(DuctTerminal("DIFFUSER-1", "T1", required_airflow_cfm=1000),),
+    source_node_id="SRC",
+)
+result = calculate_duct_network(network, DuctDesignOptions())
+assert result.calculated_airflow_cfm == 1000
+assert result.segments[0].calculated_airflow_cfm == 1000
+```
+
+For example, the same source with an added segment ending at an unreferenced
+node is invalid: the segment's endpoint must be declared, and the node/segment
+must be reachable from the source. A directed loop likewise fails validation;
+the implementation does not attempt loop-flow balancing.
+
+### Implemented scope and remaining engineering work
+
+Implemented: network data models, deterministic rooted-tree validation, terminal
+demand aggregation, source and explicit-segment airflow checks, segment sizing
+integration, segment loss preservation, diagnostics, and terminal upstream
+paths. The Qt page remains the existing preliminary independent-segment
+workflow; no network editor has been added.
+
+Not implemented: full critical-path pressure analysis, branch balancing,
+automatic fitting geometry selection, fitting-specific K calculation (unless
+validated K data is actually supplied), Fan External Static Pressure selection,
+Static Regain sizing, or complete SMACNA construction compliance. This
+foundation does not claim complete HVAC system design or construction
+compliance.
+
+Automated coverage for simple paths, two- and multi-level branching, flow
+conservation, input ordering, source and segment airflow mismatches, invalid
+references, duplicates, disconnections, cycles, zero flow, section sizing
+integration, and independent supply/return networks is in
+`tests/test_duct_network.py`.
+
 ## References
 
 - Darcy–Weisbach friction pressure loss and hydraulic-diameter definitions: [1].
