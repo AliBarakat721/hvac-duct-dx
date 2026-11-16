@@ -1,4 +1,4 @@
-"""Experimental duct-design safety helpers; not a complete sizing engine."""
+"""Preliminary duct sizing engine and UI-safe workflow helpers."""
 
 from .duct_design_page_fixed import (
     DuctDesignInputError,
@@ -11,15 +11,41 @@ from .duct_design_page_fixed import (
     safe_export,
     validate_height_limits,
 )
+from .engine import (
+    DuctDesignCalculationError,
+    DuctDesignOptions,
+    DuctSegmentInput,
+    DuctSizingResult,
+    air_properties,
+    colebrook_darcy_factor,
+    evaluate_rectangular_duct,
+    rectangular_equivalent_diameter_m,
+    rectangular_hydraulic_diameter_m,
+    run_design,
+    size_rect,
+    validate_design_inputs,
+)
 
 __all__ = [
+    "DuctDesignCalculationError",
     "DuctDesignInputError",
+    "DuctDesignOptions",
     "DuctDesignPageFixed",
+    "DuctSegmentInput",
+    "DuctSizingResult",
     "ExportResult",
+    "air_properties",
     "append_note_once",
+    "colebrook_darcy_factor",
     "edge_label_position",
     "edge_length",
+    "evaluate_rectangular_duct",
     "output_path",
+    "rectangular_equivalent_diameter_m",
+    "rectangular_hydraulic_diameter_m",
+    "run_design",
     "safe_export",
+    "size_rect",
+    "validate_design_inputs",
     "validate_height_limits",
 ]

@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "hvac-duct-dx"
 version = "1.0.0"
-description = "HAP parsing, DX equipment selection, and diffuser layout screening tools"
+description = "HAP parsing, DX equipment selection, diffuser screening, and preliminary rectangular duct sizing"
 readme = "README.md"
 requires-python = ">=3.11,<3.13"
 license = {file = "LICENSE"}
