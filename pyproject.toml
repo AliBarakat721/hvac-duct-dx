@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "hvac-duct-dx"
-version = "0.1.0"
+version = "1.0.0"
 description = "HAP parsing, DX equipment selection, and diffuser layout screening tools"
 readme = "README.md"
 requires-python = ">=3.11,<3.13"
@@ -43,10 +43,11 @@ select = ["F", "E9"]
 
 [tool.setuptools]
 py-modules = [
-  "airflow_utils", "app_meta", "build_db", "catalog_data", "diffuser_calculator",
+  "airflow_utils", "app_meta", "build_db", "catalog_data", "diffuser_catalog_records", "diffuser_calculator",
   "diffuser_cli", "diffuser_report", "exporters", "extractors", "hap_parser",
   "main", "manual_input", "miraco_loader", "placement_engine",
   "placement_engine_adapter", "project_persistence", "report_builder",
   "rooftop_loader", "room_designer", "room_geometry", "ui_shell",
 ]
 packages = ["hap"]
+package-data = {hap = ["resources/hvac_equipment.sqlite"]}

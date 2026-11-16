@@ -1,8 +1,12 @@
 """Al-Andalosia catalog tables from diffuser.pdf.
-Circular performance is on printed p.6, 4SCD on p.12, and 3SCD on p.15.
+Circular supply/return performance is on printed pp.6-7, 4SCD on p.11,
+and 3SCD on p.14. The calculator arrays remain a legacy representation;
+see diffuser_catalog_records.py for source-traceable normalized records.
 Square diffusers: band 0=<=20, 1=<=30, 2=<=40, 3=>40 NC (catalog colour code, 8 dB room attenuation).
 The printed 18x18 square AK differs from the stored metadata value; AK is not
 used in diffuser calculations, which use geometric face area."""
+CEILING_TABLE = {8: (800, 20), 10: (2000, 26), 12: (3000, 30),
+                 14: (5000, 30), 16: (6400, 30)}
 VEL8=[200, 300, 400, 500, 600, 700, 800, 900]
 PT8=[0.019, 0.039, 0.067, 0.1, 0.14, 0.19, 0.24, 0.3]
 VC=[300, 400, 500, 600, 700, 800, 1000, 1200, 1400, 1600]

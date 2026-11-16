@@ -4,9 +4,10 @@ from __future__ import annotations
 import os
 import sys
 from pathlib import Path
+from importlib.resources import files
 
 APP_NAME = "HVAC Duct DX"
-__version__ = "0.1.0"
+__version__ = "1.0.0"
 VERSION = __version__
 
 
@@ -23,7 +24,12 @@ def database_path() -> Path:
     override = os.environ.get("HVAC_DX_DATABASE")
     if override:
         return Path(override).expanduser().resolve()
-    return application_root() / "hvac_equipment.sqlite"
+    source_database = application_root() / "hvac_equipment.sqlite"
+    if source_database.is_file():
+        return source_database
+    # Wheels include this runtime resource under hap/resources; the source-tree
+    # path remains preferred so developers can replace the checked-in database.
+    return Path(str(files("hap").joinpath("resources", "hvac_equipment.sqlite")))
 
 
 def version_label() -> str:

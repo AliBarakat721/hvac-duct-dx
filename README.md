@@ -1,10 +1,12 @@
 # HVAC Duct DX
 
+[![CI](https://github.com/AliBarakat721/hvac-duct-dx/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/AliBarakat721/hvac-duct-dx/actions/workflows/ci.yml)
+
 HVAC Duct DX is a Python toolkit and desktop application for Carrier HAP report
 import, DX equipment selection, catalog-based diffuser screening, and
 geometry-aware diffuser layout evaluation.
 
-Current application version: **0.1.0**. Reports and the GUI expose this version
+Current application version: **1.0.0**. Reports and the GUI expose this version
 so an engineering output can be traced to a software release.
 
 ## Scope and engineering status
@@ -19,6 +21,11 @@ validated inputs and are not silently inferred.
 Catalog pressure is catalog total-pressure loss; it is not complete branch or
 external static pressure. The current rule registry also marks unresolved NC
 basis and terminal-velocity definitions explicitly.
+
+Despite the repository name, this release does **not** size supply ducts from
+friction rate or implement Darcy-Weisbach/Colebrook-White, duct-material
+roughness selection, or commercial duct-size rounding. It is not a substitute
+for a duct-sizing tool or final engineering design verification.
 
 ## Installation
 

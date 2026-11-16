@@ -1,5 +1,6 @@
 import json
 import sqlite3
+import zipfile
 from pathlib import Path
 
 from app_meta import __version__, database_path, version_label
@@ -32,9 +33,52 @@ def _settings():
 
 
 def test_release_metadata_is_available():
-    assert __version__ == "0.1.0"
+    assert __version__ == "1.0.0"
     assert __version__ in version_label()
     assert database_path().name == "hvac_equipment.sqlite"
+
+
+def test_database_is_available_as_a_packaged_runtime_resource():
+    packaged_database = (
+        Path(__file__).resolve().parents[1]
+        / "hap" / "resources" / "hvac_equipment.sqlite"
+    )
+    assert packaged_database.is_file()
+    with sqlite3.connect(packaged_database) as connection:
+        assert connection.execute("PRAGMA integrity_check").fetchone() == ("ok",)
+
+
+def test_database_path_falls_back_to_packaged_resource(monkeypatch, tmp_path):
+    import app_meta
+
+    monkeypatch.delenv("HVAC_DX_DATABASE", raising=False)
+    monkeypatch.setattr(app_meta, "application_root", lambda: tmp_path)
+    expected = Path(app_meta.files("hap").joinpath("resources", "hvac_equipment.sqlite"))
+    assert app_meta.database_path() == expected
+    assert expected.is_file()
+
+
+def test_built_wheel_includes_the_equipment_database(tmp_path):
+    import subprocess
+    import sys
+
+    root = Path(__file__).resolve().parents[1]
+    result = subprocess.run(
+        [
+            sys.executable, "-m", "pip", "wheel", "--no-deps",
+            "--no-build-isolation", "--wheel-dir", str(tmp_path), str(root),
+        ],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 0, result.stdout + result.stderr
+    wheels = list(tmp_path.glob("*.whl"))
+    assert len(wheels) == 1
+    with zipfile.ZipFile(wheels[0]) as wheel:
+        resource = "hap/resources/hvac_equipment.sqlite"
+        assert resource in wheel.namelist()
+        assert wheel.getinfo(resource).file_size > 0
 
 
 def test_project_round_trip_preserves_schema_and_runtime_state(tmp_path):

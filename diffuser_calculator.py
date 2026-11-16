@@ -91,8 +91,7 @@ def rules_min_throw_prefilter_enabled() -> bool:
 #  Catalog rules (Table 4, p.5)  /  design rules
 # ─────────────────────────────────────────────────────────────
 # ceiling height (ft) -> (max CFM per diffuser, max supply ΔT °F)
-CEILING_TABLE = {8: (800, 20), 10: (2000, 26), 12: (3000, 30),
-                 14: (5000, 30), 16: (6400, 30)}
+CEILING_TABLE = _cd.CEILING_TABLE
 CEILING_MAX_CFM = {h: v[0] for h, v in CEILING_TABLE.items()}   # compat
 
 # T50/L screening bands inspired by ADPI guidance. This geometric proxy is
@@ -733,6 +732,7 @@ class Perf:
     nc: float
     nc_label: str
     in_range: bool
+    warning: str | None = None
 
 
 def performance(d: DiffuserModel, q_each: float) -> Perf:
@@ -752,7 +752,12 @@ def performance(d: DiffuserModel, q_each: float) -> Perf:
         b = max(d.band[i], d.band[i + 1]) if v > d.v[0] else d.band[0]
         nc_out, label = BAND_NC[b], BAND_LABEL[b]
     ok = d.v[0] <= v <= d.v[-1]
-    return Perf(v, pt, t100, t50, t50b, nc_out, label, ok)
+    warning = None if ok else (
+        f"Neck velocity {v:.0f} FPM outside catalog table "
+        f"({d.v[0]:.0f}-{d.v[-1]:.0f}); endpoint values are clamped, "
+        "not extrapolated."
+    )
+    return Perf(v, pt, t100, t50, t50b, nc_out, label, ok, warning)
 
 
 def calculate_performance(d: DiffuserModel, q_actual: float):
@@ -1342,9 +1347,8 @@ def _evaluate(d: DiffuserModel, n: int, total_cfm: float, room: RoomLayout | Non
     q = total_cfm / n
     p = performance(d, q)
     viol: list[str] = []
-    if not p.in_range:
-        viol.append(f"Neck velocity {p.v_fpm:.0f} FPM outside catalog table "
-                    f"({d.v[0]:.0f}-{d.v[-1]:.0f})")
+    if p.warning:
+        viol.append(p.warning)
     if p.pt > max_dp:
         viol.append(f"ΔP {p.pt:.3f} > limit {max_dp:.2f} in.wg")
     if p.nc > max_nc:
