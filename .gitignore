@@ -31,6 +31,10 @@ backups/
 # OS
 .DS_Store
 Thumbs.db
-*.sqlite
+# hvac_equipment.sqlite is intentionally committed as the ready-to-run release
+# database. Ignore only transient SQLite files created by database rebuilds.
+*.tmp.sqlite
+*.sqlite-shm
+*.sqlite-wal
 *.db
 _archive/

@@ -20,6 +20,8 @@ import logging
 from html import escape
 from pathlib import Path
 
+from app_meta import version_label
+
 from PySide6.QtCore import QPointF, QRectF, Qt, QTimer
 from PySide6.QtGui import (
     QAction,
@@ -1056,7 +1058,8 @@ def _build_menus(app):
     h = mb.addMenu("&Help")
     _act(app, h, "&Keyboard Shortcuts", lambda: _show_shortcuts(app), "F1")
     _act(app, h, "&About", lambda: QMessageBox.about(
-        app, "About", "Duct DX Equipment Selector — HAP Analyzer"))
+        app, "About", f"{version_label()} — HAP Analyzer\n\n"
+        "ASHRAE-aligned screening; ADPI not verified."))
 
 
 # ── table context menus & copy ────────────────────────────────

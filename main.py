@@ -21,6 +21,8 @@ import uuid
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from app_meta import database_path, version_label
+
 from hap_parser import parse_all_systems, parse_hap, parse_hap_detailed
 
 try:
@@ -131,7 +133,7 @@ def _cad_diffuser_records(cad_room, positions_m, throw_t50_m):
 #                         DATABASE SETUP
 # ═══════════════════════════════════════════════════════════════
 
-DB = Path(__file__).with_name("hvac_equipment.sqlite")
+DB = database_path()
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -607,7 +609,7 @@ QCheckBox{color:#e5e7eb}
 class App(QMainWindow):
     # Display label -> table-name prefix. '' = the original QDMT tables
     # (equipment_model, cooling_performance, ...) built by build_db.py from
-    # hvac_catalog.xlsx. 'miraco_' = the miraco_* tables built by
+    # the QDMT workbook. 'miraco_' = the miraco_* tables built by
     # miraco_loader.py from Carrier_Miraco_HVAC_Selection_Database_v3.xlsx.
     CATALOGS = (
         ("All Catalogs", None),
@@ -618,20 +620,25 @@ class App(QMainWindow):
 
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Duct DX Equipment Selector - HAP Analyzer")
+        self.setWindowTitle(f"{version_label()} - HAP Analyzer")
         self.resize(1500, 900)
         self.setStyleSheet(ui_shell.THEME)
 
         if not DB.exists():
-            print(f"❌ DB not found: {DB}")
-            print("Run: python build_db.py")
-            sys.exit(1)
+            message = (
+                f"Equipment database was not found:\n\n{DB}\n\n"
+                "Build it with `python build_db.py` or set the "
+                "HVAC_DX_DATABASE environment variable to a valid database."
+            )
+            QMessageBox.critical(self, "Database unavailable", message)
+            raise RuntimeError(message)
 
         try:
             self.conn = sqlite3.connect(DB)
         except sqlite3.Error as e:
-            print(f"❌ DB error: {e}")
-            sys.exit(1)
+            message = f"Could not open the equipment database:\n\n{e}"
+            QMessageBox.critical(self, "Database error", message)
+            raise RuntimeError(message) from e
 
         self.ocr = None
         self.raw = ""
@@ -4658,8 +4665,13 @@ class App(QMainWindow):
         )
 
 
-if __name__ == "__main__":
+def main() -> int:
+    """Launch the desktop application."""
     app = QApplication(sys.argv)
     win = App()
     win.show()
-    sys.exit(app.exec())
+    return app.exec()
+
+
+if __name__ == "__main__":
+    sys.exit(main())

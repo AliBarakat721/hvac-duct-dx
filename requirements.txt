@@ -1,7 +1,6 @@
 # HVAC Duct DX - Python dependencies
 # Install with: python -m pip install -r requirements.txt
-# Runtime tested with Python 3.12.8.
-# Use Python 3.12.8 for the same environment as the project.
+# Python 3.11 or 3.12 is supported; Python 3.12 is recommended.
 # Ubuntu/Debian system packages (install separately):
 # sudo apt-get install libxcb-cursor0 tesseract-ocr
 
@@ -18,13 +17,10 @@ PyMuPDF>=1.23
 
 # OCR extractors
 pytesseract>=0.3.10
-easyocr>=1.7
 
-# Optional 3D Room Designer support
-# The application can start without these packages, but the 3D view is disabled.
-pyvista>=0.43
-pyvistaqt>=0.11
-vtk>=9.2
+# Optional extras (install only when needed):
+# python -m pip install -e ".[ocr]"       # EasyOCR / torch
+# python -m pip install -e ".[room3d]"    # PyVista / VTK
 
 # Development and regression testing
 pytest>=8.0

@@ -1,0 +1,52 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hvac-duct-dx"
+version = "0.1.0"
+description = "HAP parsing, DX equipment selection, and diffuser layout screening tools"
+readme = "README.md"
+requires-python = ">=3.11,<3.13"
+license = {file = "LICENSE"}
+authors = [{name = "Ali Barakat721"}]
+dependencies = [
+  "PySide6>=6.6",
+  "numpy>=1.24",
+  "pandas>=2.0",
+  "openpyxl>=3.1",
+  "python-docx>=1.1",
+  "Pillow>=10.0",
+  "PyMuPDF>=1.23",
+  "pytesseract>=0.3.10",
+]
+
+[project.optional-dependencies]
+ocr = ["easyocr>=1.7"]
+room3d = ["pyvista>=0.43", "pyvistaqt>=0.11", "vtk>=9.2"]
+dev = ["pytest>=8.0", "ruff>=0.6"]
+all = ["easyocr>=1.7", "pyvista>=0.43", "pyvistaqt>=0.11", "vtk>=9.2"]
+
+[project.scripts]
+hvac-duct-dx = "main:main"
+hvac-duct-dx-diffuser = "diffuser_cli:main"
+hvac-duct-dx-build-db = "build_db:main"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+exclude = [".archive", ".backup_*", "build", "dist"]
+select = ["F", "E9"]
+
+[tool.setuptools]
+py-modules = [
+  "airflow_utils", "app_meta", "build_db", "catalog_data", "diffuser_calculator",
+  "diffuser_cli", "diffuser_report", "exporters", "extractors", "hap_parser",
+  "main", "manual_input", "miraco_loader", "placement_engine",
+  "placement_engine_adapter", "project_persistence", "report_builder",
+  "rooftop_loader", "room_designer", "room_geometry", "ui_shell",
+]
+packages = ["hap"]

@@ -29,18 +29,21 @@ jobs:
           python-version: ${{ matrix.python-version }}
           cache: pip
 
-      - name: Install GUI and regression-test dependencies
+      - name: Install project dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install pytest PySide6 numpy pandas openpyxl python-docx Pillow PyMuPDF pytesseract
+          python -m pip install -r requirements.txt
 
       - name: Verify GUI test prerequisites
         run: |
           python -c "import PySide6; print('PySide6', PySide6.__version__)"
-          test -f G01.RTF
+          test -f tests/hap/fixtures/G01.RTF
 
       - name: Compile Python files
         run: python -m compileall -q .
 
       - name: Run regression tests
         run: python -m pytest -q -rs
+
+      - name: Run lint
+        run: ruff check .

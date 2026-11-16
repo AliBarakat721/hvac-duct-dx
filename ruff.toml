@@ -1,4 +1,9 @@
 extend-exclude = [
     ".archive/**",
     ".backup_*/**",
+    "build/**",
+    "dist/**",
 ]
+line-length = 100
+[lint]
+select = ["F", "E9"]

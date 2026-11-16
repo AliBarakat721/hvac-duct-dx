@@ -1,4 +1,4 @@
-"""GUI smoke tests. Skipped automatically when PySide6 is unavailable (CI)."""
+"""GUI smoke tests; skipped locally when optional PySide6 is unavailable."""
 import os
 import sys
 from pathlib import Path
@@ -12,6 +12,7 @@ from PySide6.QtTest import QTest  # noqa: E402
 from PySide6.QtWidgets import QApplication, QMessageBox  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
+HAP_FIXTURE = ROOT / "tests" / "hap" / "fixtures" / "G01.RTF"
 sys.path.insert(0, str(ROOT))
 
 
@@ -30,14 +31,14 @@ def no_modal_dialogs(monkeypatch):
 
 
 def _load_g01(window):
-    window._start_extraction(str(ROOT / "G01.RTF"), True)
+    window._start_extraction(str(HAP_FIXTURE), True)
     for _ in range(300):
         QTest.qWait(100)
         if getattr(window, "systems", None):
             break
 
 
-@pytest.mark.skipif(not (ROOT / "G01.RTF").exists(), reason="G01.RTF missing")
+@pytest.mark.skipif(not HAP_FIXTURE.exists(), reason="G01.RTF fixture missing")
 def test_g01_loads_and_search_does_not_raise(qapp):
     import main
     window = main.App()
@@ -71,7 +72,7 @@ def _searched_window(qapp):
     return window
 
 
-@pytest.mark.skipif(not (ROOT / "G01.RTF").exists(), reason="G01.RTF missing")
+@pytest.mark.skipif(not HAP_FIXTURE.exists(), reason="G01.RTF fixture missing")
 def test_results_sort_by_eer_and_reset(qapp):
     window = _searched_window(qapp)
     default = [window.table.item(r, 2).text()
@@ -87,7 +88,7 @@ def test_results_sort_by_eer_and_reset(qapp):
             for r in range(window.table.rowCount())] == default
 
 
-@pytest.mark.skipif(not (ROOT / "G01.RTF").exists(), reason="G01.RTF missing")
+@pytest.mark.skipif(not HAP_FIXTURE.exists(), reason="G01.RTF fixture missing")
 def test_stale_banner_follows_inputs(qapp):
     window = _searched_window(qapp)
     assert window.stale_banner.isHidden()
@@ -102,7 +103,7 @@ def test_stale_banner_follows_inputs(qapp):
     assert window.stale_banner.isHidden()
 
 
-@pytest.mark.skipif(not (ROOT / "G01.RTF").exists(), reason="G01.RTF missing")
+@pytest.mark.skipif(not HAP_FIXTURE.exists(), reason="G01.RTF fixture missing")
 def test_results_context_menu_and_copy(qapp):
     import ui_shell
     window = _searched_window(qapp)
@@ -134,6 +135,6 @@ def test_drop_filters_and_window_accepts_drops(qapp):
         window.dragEnterEvent(event)
         return event.isAccepted()
 
-    assert accepted(ROOT / "G01.RTF")
+    assert accepted(HAP_FIXTURE)
     assert accepted(ROOT / "project.ductdx")
     assert not accepted(ROOT / "requirements.txt")

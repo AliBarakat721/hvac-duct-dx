@@ -3,7 +3,7 @@
 Build the unified HVAC SQLite database.
 
 Sources:
-    data/hvac_catalog.xlsx
+    data/Ceiling Concealed Ducted Split Systems.xlsx
         QDMT equipment, airflow, sound, cooling, and heating data.
 
     data/Carrier_Miraco_HVAC_Selection_Database_v3.xlsx
@@ -45,7 +45,7 @@ LOGGER = logging.getLogger("build_db")
 
 DEFAULT_BASE_DIR = Path(__file__).resolve().parent
 DEFAULT_DATA_DIR = DEFAULT_BASE_DIR / "data"
-DEFAULT_QDMT_XLSX = DEFAULT_DATA_DIR / "hvac_catalog.xlsx"
+DEFAULT_QDMT_XLSX = DEFAULT_DATA_DIR / "Ceiling Concealed Ducted Split Systems.xlsx"
 DEFAULT_MIRACO_XLSX = (
     DEFAULT_DATA_DIR / "Carrier_Miraco_HVAC_Selection_Database_v3.xlsx"
 )
@@ -1008,7 +1008,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = parse_args(argv)
     configure_logging(args.verbose)
 
-    qdmt_xlsx = args.qdmt_xlsx or args.data_dir / "hvac_catalog.xlsx"
+    qdmt_xlsx = args.qdmt_xlsx or args.data_dir / "Ceiling Concealed Ducted Split Systems.xlsx"
     miraco_xlsx = args.miraco_xlsx or (
         args.data_dir / "Carrier_Miraco_HVAC_Selection_Database_v3.xlsx"
     )
@@ -1034,7 +1034,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     if not qdmt_xlsx.is_file():
         LOGGER.error(
             "QDMT workbook not found: %s\n"
-            "Make sure --data-dir points to the folder containing hvac_catalog.xlsx.",
+            "Make sure --data-dir points to the folder containing the QDMT workbook.",
             qdmt_xlsx,
         )
         return 2

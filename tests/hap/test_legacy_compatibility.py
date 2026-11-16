@@ -8,7 +8,7 @@ ROOT = Path(__file__).parents[2]
 
 
 def test_legacy_parser_contract_remains_usable():
-    text = RTFNativeText().extract(ROOT / "G01.RTF")
+    text = RTFNativeText().extract(ROOT / "tests" / "hap" / "fixtures" / "G01.RTF")
     total, sensible, cfm, heating, esp = parse_hap(text)
     detailed = parse_hap_detailed(text)
     assert total == 25300.0
@@ -20,7 +20,7 @@ def test_legacy_parser_contract_remains_usable():
 
 
 def test_structured_result_adapts_to_existing_system_dictionary():
-    system = StructuredHAPParser().parse(ROOT / "G01.RTF").project.systems[0]
+    system = StructuredHAPParser().parse(ROOT / "tests" / "hap" / "fixtures" / "G01.RTF").project.systems[0]
     legacy = to_legacy_system(system)
     assert legacy["name"] == "G01"
     assert legacy["total_btu"] == 25300.0
