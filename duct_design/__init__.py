@@ -1,5 +1,22 @@
 """Preliminary duct sizing engine and UI-safe workflow helpers."""
 
+from .fitting import (
+    CoefficientSource,
+    CoefficientValidity,
+    FittingCalculationError,
+    FittingCalculationStatus,
+    FittingCoefficient,
+    FittingGeometry,
+    FittingInput,
+    FittingIntegrationResult,
+    FittingLossResult,
+    FittingType,
+    ReferenceVelocity,
+    calculate_fitting_loss,
+    calculate_fitting_losses,
+    integrate_fitting_losses,
+    validate_coefficient,
+)
 from .duct_design_page_fixed import (
     DuctDesignInputError,
     DuctDesignPageFixed,
@@ -59,7 +76,18 @@ from .network import (
 )
 
 __all__ = [
+    "CoefficientSource",
+    "CoefficientValidity",
     "DuctDesignCalculationError",
+    "FittingCalculationError",
+    "FittingCalculationStatus",
+    "FittingCoefficient",
+    "FittingGeometry",
+    "FittingInput",
+    "FittingIntegrationResult",
+    "FittingLossResult",
+    "FittingType",
+    "ReferenceVelocity",
     "DuctDesignInputError",
     "DuctDesignOptions",
     "DuctNetwork",
@@ -96,9 +124,12 @@ __all__ = [
     "append_note_once",
     "build_network_topology",
     "calculate_duct_network",
+    "calculate_fitting_loss",
+    "calculate_fitting_losses",
     "colebrook_darcy_factor",
     "edge_label_position",
     "edge_length",
+    "integrate_fitting_losses",
     "evaluate_rectangular_duct",
     "output_path",
     "rectangular_equivalent_diameter_m",
@@ -108,6 +139,7 @@ __all__ = [
     "solve_network_airflow",
     "size_rect",
     "validate_design_inputs",
+    "validate_coefficient",
     "validate_network",
     "validate_height_limits",
 ]
