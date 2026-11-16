@@ -230,3 +230,36 @@ This is modeled duct-segment path loss, not fan external static pressure (FESP).
 FESP may additionally require filters, coils, equipment internals, dampers,
 louvers, attenuators, terminal losses, and defined fan/system boundaries. Those
 components are outside this phase.
+
+
+## Fitting & Dynamic Pressure Loss Engine
+
+`duct_design.fitting` provides an opt-in, coefficient-driven fitting API. It
+is intentionally separate from the legacy aggregate `DuctSegmentInput.fitting_k`
+path so existing sizing and critical-path results remain backward compatible.
+The audit and data-source policy are documented in
+[`FITTING_DYNAMIC_LOSS_AUDIT.md`](FITTING_DYNAMIC_LOSS_AUDIT.md).
+
+The API supports typed metadata for elbows, tees, wyes, laterals, takeoffs,
+transitions, expansions, contractions, entrances, exits, dampers, louvers,
+screens, flexible connections, and other fittings. These categories do not
+provide built-in coefficients. Callers must provide a matching
+`FittingCoefficient` with a traceable source reference, source classification,
+validity state, non-negative finite K, and an explicit reference-velocity
+convention. Missing or unsupported data raises `FittingCalculationError`; no
+zero or arbitrary fallback is used.
+
+The calculation is `ΔP = K × ρ × Vref² / 2`. Airflow is CFM, geometry is in
+inches, air density is kg/m³, and results include Pa and in.w.g. A reference
+velocity is either derived from inlet, outlet, branch, or straight-through
+area, or supplied explicitly with `ReferenceVelocity.USER_DEFINED`. Every
+result records the convention and actual FPM value.
+
+`calculate_fitting_losses()` handles multiple fittings and rejects duplicate
+IDs. `integrate_fitting_losses()` aggregates fittings for one segment and can
+compare the aggregate with an existing `fitting_loss_inwg`. When that existing
+value is supplied, the adapter marks it as already included and refuses a
+mismatch, preventing a second addition to `total_modeled_loss_inwg`. This phase
+does not modify the existing sizing or network engines and does not perform
+balancing, airflow redistribution, fan selection, FESP, return-flow solving,
+or automatic geometry generation.
