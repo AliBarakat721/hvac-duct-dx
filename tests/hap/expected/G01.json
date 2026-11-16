@@ -1,0 +1,136 @@
+{
+  "system_name": "G01",
+  "system_type": "SZCAV",
+  "location": "Cairo, Egypt",
+  "floor_area_ft2": {
+    "value": 693.1,
+    "unit": "ft\u00b2",
+    "normalized_value": 693.1,
+    "normalized_unit": "ft\u00b2",
+    "source_section": "air_system_information",
+    "source_line": 17
+  },
+  "cooling": {
+    "total_load": {
+      "value": 25.3,
+      "unit": "MBH",
+      "normalized_value": 25300.0,
+      "normalized_unit": "Btu/hr",
+      "source_section": "cooling_sizing",
+      "source_line": 48
+    },
+    "sensible_load": {
+      "value": 22.8,
+      "unit": "MBH",
+      "normalized_value": 22800.0,
+      "normalized_unit": "Btu/hr",
+      "source_section": "cooling_sizing",
+      "source_line": 50
+    },
+    "total_tons": {
+      "value": 2.1,
+      "unit": "Tons",
+      "normalized_value": 25200.0,
+      "normalized_unit": "Btu/hr",
+      "source_section": "cooling_sizing",
+      "source_line": 46
+    },
+    "airflow": {
+      "value": 995.0,
+      "unit": "CFM",
+      "normalized_value": 995.0,
+      "normalized_unit": "CFM",
+      "source_section": "cooling_sizing",
+      "source_line": 51
+    },
+    "shr": {
+      "value": 0.902,
+      "unit": null,
+      "normalized_value": 0.902,
+      "normalized_unit": "ratio",
+      "source_section": "cooling_sizing",
+      "source_line": 57
+    }
+  },
+  "heating": {
+    "load": {
+      "value": 9.3,
+      "unit": "MBH",
+      "normalized_value": 9300.0,
+      "normalized_unit": "Btu/hr",
+      "source_section": "heating_sizing",
+      "source_line": 91
+    },
+    "airflow": {
+      "value": 995.0,
+      "unit": "CFM",
+      "normalized_value": 995.0,
+      "normalized_unit": "CFM",
+      "source_section": "heating_sizing",
+      "source_line": 93
+    }
+  },
+  "fan": {
+    "airflow": {
+      "value": 995.0,
+      "unit": "CFM",
+      "normalized_value": 995.0,
+      "normalized_unit": "CFM",
+      "source_section": "fan_sizing",
+      "source_line": 117
+    },
+    "standard_airflow": {
+      "value": 986.0,
+      "unit": "CFM",
+      "normalized_value": 986.0,
+      "normalized_unit": "CFM",
+      "source_section": "fan_sizing",
+      "source_line": 119
+    },
+    "esp": {
+      "value": 0.0,
+      "unit": "in wg",
+      "normalized_value": 0.0,
+      "normalized_unit": "in.wg",
+      "source_section": "fan_sizing",
+      "source_line": 126
+    }
+  },
+  "ventilation": {
+    "outdoor_airflow": {
+      "value": 122.0,
+      "unit": "CFM",
+      "normalized_value": 122.0,
+      "normalized_unit": "CFM",
+      "source_section": "ventilation",
+      "source_line": 136
+    },
+    "cfm_per_area": {
+      "value": 0.18,
+      "unit": "CFM/ft\u00b2",
+      "normalized_value": 0.18,
+      "normalized_unit": "CFM/ft\u00b2",
+      "source_section": "ventilation",
+      "source_line": 138
+    },
+    "cfm_per_person": {
+      "value": 7.6,
+      "unit": "CFM/person",
+      "normalized_value": 7.6,
+      "normalized_unit": "CFM/person",
+      "source_section": "ventilation",
+      "source_line": 141
+    }
+  },
+  "sections": [
+    "air_system_information",
+    "cooling_sizing",
+    "heating_sizing",
+    "fan_sizing",
+    "ventilation",
+    "air_system_information#2",
+    "zone_sizing",
+    "space_loads"
+  ],
+  "validation_status": "passed"
+}
