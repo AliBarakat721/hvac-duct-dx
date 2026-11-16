@@ -50,6 +50,6 @@ def test_main_window_registers_duct_design_page(qapp):
 
     window = main.App()
     assert ui_shell.P_DUCT == 6
-    assert window.stack.count() == len(ui_shell.PAGES) == 8
+    assert window.stack.count() == len(ui_shell.PAGES) == 9
     assert window.stack.widget(ui_shell.P_DUCT) is window.duct_design_page
     assert ui_shell.PAGES[ui_shell.P_DUCT] == "Duct Design"

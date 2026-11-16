@@ -19,6 +19,7 @@ dependencies = [
   "Pillow>=10.0",
   "PyMuPDF>=1.23",
   "pytesseract>=0.3.10",
+  "ezdxf>=1.2,<2",
 ]
 
 [project.optional-dependencies]

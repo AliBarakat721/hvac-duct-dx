@@ -17,6 +17,7 @@ PyMuPDF>=1.23
 
 # OCR extractors
 pytesseract>=0.3.10
+ezdxf>=1.2,<2
 
 # Optional extras (install only when needed):
 # python -m pip install -e ".[ocr]"       # EasyOCR / torch
