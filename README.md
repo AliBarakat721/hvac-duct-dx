@@ -22,10 +22,15 @@ Catalog pressure is catalog total-pressure loss; it is not complete branch or
 external static pressure. The current rule registry also marks unresolved NC
 basis and terminal-velocity definitions explicitly.
 
-Despite the repository name, this release does **not** size supply ducts from
-friction rate or implement Darcy-Weisbach/Colebrook-White, duct-material
-roughness selection, or commercial duct-size rounding. It is not a substitute
-for a duct-sizing tool or final engineering design verification.
+The application now includes preliminary sizing for independent rectangular
+duct segments. It uses an equal-friction round equivalent, Darcy-Weisbach and
+Colebrook-White friction, plus user-entered fitting loss coefficients. Results
+are screening estimates, not a complete connected-system pressure calculation
+or SMACNA compliance check. Branch balancing, fitting selection, construction
+gauge/reinforcement, supports, leakage, clearances and fan/system effects still
+require separate engineering design and review. See
+[`docs/DUCT_DESIGN_ENGINE.md`](docs/DUCT_DESIGN_ENGINE.md) for equations,
+assumptions and limitations.
 
 ## Installation
 

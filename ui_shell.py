@@ -21,6 +21,7 @@ from html import escape
 from pathlib import Path
 
 from app_meta import version_label
+from duct_design.qt_page import build_duct_design_page
 
 from PySide6.QtCore import QPointF, QRectF, Qt, QTimer
 from PySide6.QtGui import (
@@ -827,8 +828,8 @@ class Collapsible(QWidget):
 #  BUILD
 # ═══════════════════════════════════════════════════════════════
 PAGES = ["HAP Input", "Systems", "Equipment Selection", "Selection Cart",
-         "Energy & Cost", "Diffuser Selection", "Reports"]
-P_HAP, P_SYS, P_EQ, P_CART, P_ENERGY, P_DIFF, P_REPORT = range(7)
+         "Energy & Cost", "Diffuser Selection", "Duct Design", "Reports"]
+P_HAP, P_SYS, P_EQ, P_CART, P_ENERGY, P_DIFF, P_DUCT, P_REPORT = range(8)
 
 
 def go_page(app, idx):
@@ -865,6 +866,8 @@ def build_shell(app):
     app.stack.addWidget(_build_cart_page(app))
     app.stack.addWidget(_build_energy_page(app))
     app.stack.addWidget(_build_diffuser_page(app))
+    app.duct_design_page = build_duct_design_page()
+    app.stack.addWidget(app.duct_design_page)
     app.stack.addWidget(_build_reports_page(app))
     body.addWidget(app.stack)
     body.setStretchFactor(0, 0)
@@ -929,7 +932,7 @@ SHORTCUT_HELP = (
         ("Ctrl+E", "Generate report"),
         ("Ctrl+Q", "Exit"))),
     ("Navigation", (
-        ("Ctrl+1 … Ctrl+7", "Jump to workflow page"),
+        ("Ctrl+1 … Ctrl+8", "Jump to workflow page"),
         ("Alt+←  /  Alt+→", "Previous / next page"),
         ("Ctrl+PgUp / Ctrl+PgDn", "Previous / next system"),
         ("Ctrl+F", "Focus system filter"),
@@ -2249,7 +2252,7 @@ def refresh_shell(app):
             P_CART: cart_n > 0, P_ENERGY: cart_n > 0,
             P_DIFF: bool(cart_n) and all(
                 it.get("diffuser_selection") for it in app.cart.values()),
-            P_REPORT: False}
+            P_DUCT: False, P_REPORT: False}
     cur = app.stack.currentIndex()
     for i, b in enumerate(app.step_btns):
         st = "done" if done[i] and i != cur else "pending"

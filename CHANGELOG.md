@@ -2,6 +2,14 @@
 
 ## [Unreleased]
 
+### Added
+- Added a preliminary rectangular duct segment engine using an equal-friction round equivalent, Darcy-Weisbach friction, iterative Colebrook-White factors, and user-entered aggregate fitting K values.
+- Added a PySide6 Duct Design page in the main navigation for multiple independent duct sections, configurable sizing limits, and per-section pressure-loss results.
+- Added engineering-basis documentation and tests for unit conversions, equivalent diameter, friction-factor solving, fitting losses, feasibility limits, and UI integration.
+
+### Scope and limitations
+- The duct page sizes independent constant-flow sections only. It does not calculate a connected network, branch balancing, a critical path, fan pressure, or SMACNA construction compliance.
+
 ## [1.0.0] - 2026-11-16
 
 ### Added
