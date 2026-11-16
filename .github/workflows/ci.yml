@@ -2,7 +2,7 @@ name: HVAC Duct DX checks
 
 on:
   push:
-    branches: [main, "chore/**"]
+    branches: [main, "chore/**", "stabilization/**"]
   pull_request:
     branches: [main]
 
