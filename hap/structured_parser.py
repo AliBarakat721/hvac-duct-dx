@@ -17,6 +17,8 @@ from .models import (
     LoadData,
     Space,
     SourceValue,
+    ValidationIssue,
+    ValidationResult,
     Zone,
     VentilationData,
 )
@@ -43,62 +45,129 @@ class StructuredHAPParser:
 
     def parse_text(self, text: str) -> HAPParseResult:
         sections = self.splitter.split(text)
-        info = sections.get("air_system_information")
-        system_name = self._text_value(info, r"Air\s+System\s+Name", r"([A-Za-z0-9][A-Za-z0-9_-]*)") or "Unnamed"
-        system_type = self._text_value(info, r"Air\s+System\s+Type", r"([A-Za-z0-9][A-Za-z0-9_-]*)")
-        location = self._text_value(info, r"Location", r"([A-Za-z][A-Za-z0-9 ,_-]+?)(?=\s{2,}[A-Z][A-Za-z ]+\s|$)")
-        floor_area = self._measurement(info, r"Floor\s+Area", r"ft(?:²|2|\^2)?|m(?:²|2|\^2)?", "area")
-        if floor_area and floor_area.unit and floor_area.unit.lower().startswith("m"):
-            floor_area = self._replace_normalized(floor_area, floor_area.normalized_value * 10.7639, "ft²")
+        grouped = self._group_sections(sections)
+        info_sections = grouped.get("air_system_information", [])
+        distinct_system_names = {
+            self._text_value(section, r"Air\s+System\s+Name", r"([A-Za-z0-9][A-Za-z0-9_-]*)")
+            for section in info_sections
+        } - {None}
+        system_count = max(
+            1,
+            len(distinct_system_names),
+            *(len(grouped.get(name, [])) for name in ("cooling_sizing", "heating_sizing", "fan_sizing")),
+        )
+        systems: list[AirSystem] = []
+        zones: list[Zone] = []
+        spaces: list[Space] = []
+        validations = []
 
-        cooling_section = sections.get("cooling_sizing")
-        heating_section = sections.get("heating_sizing")
-        fan_section = sections.get("fan_sizing")
-        ventilation_section = sections.get("ventilation")
-        cooling = CoolingData(
-            total_load=self._measurement(cooling_section, r"Total\s+coil\s+load", r"MBH|kW|Btu\s*/?\s*h(?:r)?", "load"),
-            sensible_load=self._measurement(cooling_section, r"Sensible\s+coil\s+load", r"MBH|kW|Btu\s*/?\s*h(?:r)?", "load"),
-            total_tons=self._measurement(cooling_section, r"Total\s+coil\s+load", r"Tons?", "tons"),
-            airflow=self._measurement(cooling_section, r"Coil\s+CFM\s+at", r"CFM", "airflow"),
-            shr=self._measurement(cooling_section, r"Sensible\s+heat\s+ratio", r"%", "shr", unit_optional=True),
-        )
-        heating = HeatingData(
-            load=self._measurement(heating_section, r"Max\s+coil\s+load", r"MBH|kW|Btu\s*/?\s*h(?:r)?", "load"),
-            airflow=self._measurement(heating_section, r"Coil\s+CFM\s+at", r"CFM", "airflow"),
-        )
-        fan = FanData(
-            airflow=self._measurement(fan_section, r"Actual\s+max\s+CFM", r"CFM", "airflow"),
-            standard_airflow=self._measurement(fan_section, r"Standard\s+CFM", r"CFM", "airflow"),
-            esp=self._measurement(fan_section, r"Fan\s+static", r"in\s*wg|in\.\s*wg|Pa", "pressure"),
-        )
-        ventilation = VentilationData(
-            outdoor_airflow=self._measurement(ventilation_section, r"Design\s+airflow\s+CFM", r"CFM", "airflow"),
-            cfm_per_area=self._measurement(ventilation_section, r"CFM/ft²|CFM/ft2", r"CFM/ft²|CFM/ft2", "ratio"),
-            cfm_per_person=self._measurement(ventilation_section, r"CFM/person", r"CFM/person", "ratio"),
-        )
-        system = AirSystem(
-            system_id=system_name,
-            system_name=system_name,
-            system_type=system_type,
-            floor_area=floor_area,
-            location=location,
-            cooling=cooling,
-            heating=heating,
-            fan=fan,
-            ventilation=ventilation,
-        )
-        zones = self._parse_zones(sections.get("zone_sizing"), system_name)
-        spaces = self._parse_spaces(sections.get("space_loads"), system_name, zones)
-        system.zone_ids = [zone.zone_id for zone in zones]
-        validation = validate_system(system)
+        for index in range(system_count):
+            info = info_sections[index] if index < len(info_sections) else None
+            if len(info_sections) == 1 and index == 0:
+                info = info_sections[0]
+            system_name = self._text_value(
+                info, r"Air\s+System\s+Name", r"([A-Za-z0-9][A-Za-z0-9_-]*)"
+            ) or f"System {index + 1}"
+            system_id = system_name
+            if any(existing.system_id == system_id for existing in systems):
+                system_id = f"{system_name}#{index + 1}"
+
+            def section_for(base_name: str):
+                items = grouped.get(base_name, [])
+                if len(items) == system_count:
+                    return items[index]
+                if system_count == 1 and len(items) == 1:
+                    return items[0]
+                return None
+
+            cooling_section = section_for("cooling_sizing")
+            heating_section = section_for("heating_sizing")
+            fan_section = section_for("fan_sizing")
+            ventilation_section = section_for("ventilation")
+            floor_area = self._measurement(
+                info, r"Floor\s+Area", r"ft(?:²|2|\^2)?|m(?:²|2|\^2)?", "area"
+            )
+            if floor_area and floor_area.unit and floor_area.unit.lower().startswith("m"):
+                floor_area = self._replace_normalized(
+                    floor_area, floor_area.normalized_value * 10.7639, "ft²"
+                )
+            cooling = CoolingData(
+                total_load=self._measurement(cooling_section, r"Total\s+coil\s+load", r"MBH|kW|Btu\s*/?\s*h(?:r)?", "load"),
+                sensible_load=self._measurement(cooling_section, r"Sensible\s+coil\s+load", r"MBH|kW|Btu\s*/?\s*h(?:r)?", "load"),
+                latent_load=self._measurement(cooling_section, r"Latent\s+coil\s+load", r"MBH|kW|Btu\s*/?\s*h(?:r)?", "load"),
+                total_tons=self._measurement(cooling_section, r"Total\s+coil\s+load", r"Tons?", "tons"),
+                airflow=self._measurement(cooling_section, r"Coil\s+CFM\s+at", r"CFM", "airflow"),
+                shr=self._measurement(cooling_section, r"Sensible\s+heat\s+ratio", r"%", "shr", unit_optional=True),
+            )
+            heating = HeatingData(
+                load=self._measurement(heating_section, r"Max\s+coil\s+load", r"MBH|kW|Btu\s*/?\s*h(?:r)?", "load"),
+                airflow=self._measurement(heating_section, r"Coil\s+CFM\s+at", r"CFM", "airflow"),
+            )
+            fan = FanData(
+                airflow=self._measurement(fan_section, r"Actual\s+max\s+CFM", r"CFM", "airflow"),
+                standard_airflow=self._measurement(fan_section, r"Standard\s+CFM", r"CFM", "airflow"),
+                esp=self._measurement(fan_section, r"Fan\s+static", r"in\s*wg|in\.\s*wg|Pa", "pressure"),
+            )
+            ventilation = VentilationData(
+                outdoor_airflow=self._measurement(ventilation_section, r"Design\s+airflow\s+CFM", r"CFM", "airflow"),
+                cfm_per_area=self._measurement(ventilation_section, r"CFM/ft²|CFM/ft2", r"CFM/ft²|CFM/ft2", "ratio"),
+                cfm_per_person=self._measurement(ventilation_section, r"CFM/person", r"CFM/person", "ratio"),
+            )
+            system = AirSystem(
+                system_id=system_id,
+                system_name=system_name,
+                system_type=self._text_value(info, r"Air\s+System\s+Type", r"([A-Za-z0-9][A-Za-z0-9_-]*)"),
+                floor_area=floor_area,
+                location=self._text_value(info, r"Location", r"([A-Za-z][A-Za-z0-9 ,_-]+?)(?=\s{2,}[A-Z][A-Za-z ]+\s|$)"),
+                cooling=cooling,
+                heating=heating,
+                fan=fan,
+                ventilation=ventilation,
+            )
+
+            zone_section = section_for("zone_sizing")
+            space_section = section_for("space_loads")
+            system_zones = self._parse_zones(zone_section, system_id, system_id)
+            system_spaces = self._parse_spaces(space_section, system_id, system_zones)
+            system.zone_ids = [zone.zone_id for zone in system_zones]
+            systems.append(system)
+            zones.extend(system_zones)
+            spaces.extend(system_spaces)
+            validations.append(validate_system(system))
+
+        issues = [issue for result in validations for issue in result.issues]
+        for base_name in (
+            "cooling_sizing", "heating_sizing", "fan_sizing", "ventilation",
+            "zone_sizing", "space_loads",
+        ):
+            count = len(grouped.get(base_name, []))
+            if system_count > 1 and count and count != system_count:
+                issues.append(ValidationIssue(
+                    "WARNING",
+                    "SYSTEM_SECTION_MAPPING_AMBIGUOUS",
+                    f"{base_name} sections ({count}) cannot be mapped unambiguously to {system_count} air systems.",
+                    [base_name],
+                ))
+        status = "error" if any(issue.severity == "ERROR" for issue in issues) else "warning" if issues else "passed"
+        validation = ValidationResult(status, issues)
         return HAPParseResult(
-            project=HAPProject(project_name=system_name, location=location, systems=[system], zones=zones, spaces=spaces),
+            project=HAPProject(project_name=systems[0].system_name, location=systems[0].location, systems=systems, zones=zones, spaces=spaces),
             sections=sections,
             validation=validation,
         )
 
+    @staticmethod
+    def _group_sections(sections: dict[str, object]) -> dict[str, list[object]]:
+        grouped: dict[str, list[object]] = {}
+        for key, section in sections.items():
+            base = key.split("#", 1)[0]
+            grouped.setdefault(base, []).append(section)
+        for items in grouped.values():
+            items.sort(key=lambda item: item.start_line)
+        return grouped
+
     @classmethod
-    def _parse_zones(cls, section, system_name: str) -> list[Zone]:
+    def _parse_zones(cls, section, system_name: str, system_id: str) -> list[Zone]:
         if section is None:
             return []
         matches = list(re.finditer(r"^\s*Zone\s+([0-9][A-Za-z0-9_-]*)\s*$", section.text, re.I | re.M))
@@ -115,6 +184,7 @@ class StructuredHAPParser:
             zones.append(Zone(
                 zone_id=zone_id,
                 zone_name=zone_name,
+                system_id=system_id,
                 area=cls._source(values[4], "ft²", "ft²", section.name, line + 8),
                 cooling_load=LoadData(
                     total=cls._source(values[0], "MBH", "Btu/hr", section.name, line + 2, factor=1000),
@@ -266,7 +336,7 @@ class StructuredHAPParser:
         if quantity == "area" and unit_lower.startswith("m"):
             return value, "m²"
         if quantity == "shr":
-            return value, "ratio"
+            return (value / 100.0 if "%" in unit_lower else value), "ratio"
         if quantity == "ratio":
             return value, unit or "ratio"
         return value, "CFM" if quantity == "airflow" else (unit or "")

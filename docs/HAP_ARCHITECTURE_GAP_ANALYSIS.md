@@ -29,10 +29,14 @@ selection behavior.
 
 The structured parser covers system information, cooling and heating sizing,
 fan sizing, outdoor ventilation, zone sizing, and space loads for the known HAP
-text layout. It preserves zone/space scope and does not merge space loads into
-system coil loads. The fixture at `tests/hap/fixtures/G01.RTF` is a minimal
-regression fixture, and `tests/hap/expected/G01.json` is its golden structured
-result. Multi-zone behavior is also exercised by `tests/hap/test_multizone.py`.
+text layout. Repeated system sections are grouped by occurrence, with each
+system's zones and spaces associated by `system_id`; a section-count mismatch is
+reported as ambiguous rather than silently reused for every system. It preserves
+zone/space scope and does not merge space loads into system coil loads. The
+fixture at `tests/hap/fixtures/G01.RTF` is a minimal regression fixture, and
+`tests/hap/expected/G01.json` is its golden structured result. Synthetic
+multi-zone and multi-system behavior is exercised by
+`tests/hap/test_multizone.py`.
 
 Missing optional sections become warnings, while missing required cooling values
 are validation errors. The structured result is not an approval gate for
@@ -41,12 +45,16 @@ equipment selection yet.
 ## Remaining gaps
 
 The parser still needs representative, anonymized and legally shareable
-fixtures from multiple HAP export versions, including multi-system reports,
+fixtures from multiple HAP export versions, including real multi-system reports,
 dual-column cooling/heating tables, envelope/design-load tables, and hourly
-tables. The current lineage is source-section/source-line metadata rather than
-a complete report repository or import history. There is no HAP-specific
-persistence schema, approval workflow, HAP-to-CAD mapping, or explicit
-Carrier-selection gate based on structured validation.
+tables. Synthetic repeated-section tests do not establish compatibility with
+all Carrier HAP export layouts. The current lineage is source-section/source-line
+metadata rather than a complete report repository or import history. There is
+no HAP-specific persistence schema, approval workflow, HAP-to-CAD mapping, or
+explicit Carrier-selection gate based on structured validation. The legacy
+adapter now carries validation issues and per-value provenance, but the GUI has
+not yet migrated to the structured parser or enforced its validation result as
+an equipment-selection gate.
 
 The legacy parser remains heuristic for OCR-heavy input. Changes to its public
 contracts require compatibility tests. New engineering rules must document a

@@ -31,11 +31,14 @@ python -m venv .venv
 python -m pip install -r requirements.txt
 ```
 
-On Ubuntu/Debian, Qt may require `libxcb-cursor0`, and Tesseract OCR requires
-`tesseract-ocr`:
+On Ubuntu/Debian, Qt requires system EGL/OpenGL and XCB runtime libraries.
+Tesseract OCR is needed only for OCR workflows:
 
 ```bash
-sudo apt-get install libxcb-cursor0 tesseract-ocr
+sudo apt-get install libegl1 libgl1 libxkbcommon-x11-0 \
+  libxcb-cursor0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 \
+  libxcb-randr0 libxcb-render-util0 libxcb-xinerama0 libxcb-xfixes0 \
+  tesseract-ocr
 ```
 
 Optional features are deliberately not part of the core install because they
@@ -103,7 +106,12 @@ environment when PySide6 is unavailable.
 
 ## Data and licensing
 
-The source code is distributed under the repository's `LICENSE`. Input reports,
+The repository's current custom `LICENSE` grants viewing and evaluation only;
+it does not grant general permission to copy, modify, or redistribute the
+software. Do not treat this repository as open source or publish release assets
+unless the copyright holder authorizes the required rights. The tag-triggered
+release workflow builds artifacts but requires the GitHub Actions repository
+variable `ALLOW_PUBLIC_RELEASE=true` before it publishes them. Input reports,
 manufacturer catalogues, extracted reference text, and spreadsheets may have
 separate copyright or redistribution restrictions. Only use data that you own
 or are licensed to share. Customer HAP reports must be anonymized before being
@@ -114,8 +122,10 @@ manufacturer documentation, or an engineer's final design review.
 ## Known limitations
 
 The current parser has one minimal golden fixture plus synthetic multi-zone
-coverage. More legally shareable HAP layouts are needed before claiming broad
-format coverage. VAV min/max flow, overhead heating, close-outlet NC
+and multi-system coverage. Repeated system sections are kept separate when
+their section ordering is unambiguous; representative, legally shareable real
+multi-system HAP reports are still needed before claiming broad format coverage.
+VAV min/max flow, overhead heating, close-outlet NC
 accumulation, and physically validated jet collision remain documented
 post-v1 work. See `docs/HAP_ARCHITECTURE_GAP_ANALYSIS.md` and
 `docs/ASHRAE_ENGINEERING_BASIS.md`.

@@ -28,6 +28,7 @@ class CoolingData:
     total_tons: SourceValue | None = None
     airflow: SourceValue | None = None
     shr: SourceValue | None = None
+    latent_load: SourceValue | None = None
 
 
 @dataclass
@@ -77,6 +78,7 @@ class Zone:
     area: SourceValue | None = None
     cooling_load: LoadData = field(default_factory=LoadData)
     heating_load: LoadData = field(default_factory=LoadData)
+    system_id: str | None = None
 
 
 @dataclass
@@ -117,6 +119,7 @@ class ValidationIssue:
     code: str
     message: str
     source_sections: list[str] = field(default_factory=list)
+    system_id: str | None = None
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
