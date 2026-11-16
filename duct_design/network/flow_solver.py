@@ -7,6 +7,7 @@ from types import MappingProxyType
 from typing import Mapping
 
 from .models import DiagnosticSeverity, NetworkDiagnostic, DuctNetwork
+from .return_flow import is_explicit_return, return_as_supply_network
 from .topology import NetworkTopology, build_network_topology
 from .validation import DuctNetworkCalculationError
 
@@ -78,4 +79,7 @@ def solve_network_airflow(network: DuctNetwork) -> AirflowSolution:
     Structural validation is performed first; invalid or disconnected networks
     raise :class:`DuctNetworkValidationError` rather than yielding partial flows.
     """
+    if is_explicit_return(network):
+        normalized, _ = return_as_supply_network(network)
+        return _solve_topology(build_network_topology(normalized))
     return _solve_topology(build_network_topology(network))

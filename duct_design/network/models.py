@@ -87,7 +87,13 @@ class DuctTerminal:
 
 @dataclass(frozen=True)
 class DuctNetwork:
-    """One independent, directed supply or return network."""
+    """One independent, directed supply or return network.
+
+    Supply edges run from ``source_node_id`` toward terminals.  Explicit
+    return edges run from return grilles toward ``sink_node_id``.  The
+    historical ``source_node_id`` field is used as the return sink when the
+    explicit field is omitted for backwards compatibility.
+    """
 
     network_id: str
     network_type: NetworkType
@@ -96,6 +102,7 @@ class DuctNetwork:
     terminals: tuple[DuctTerminal, ...]
     source_node_id: str
     source_airflow_cfm: float | None = None
+    sink_node_id: str | None = None
 
 
 @dataclass(frozen=True)
